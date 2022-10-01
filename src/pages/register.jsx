@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import PulseLoader from 'react-spinners/PulseLoader';
-
 import useInput from '../hooks/useInput';
-import bg_image from '../assets/bg_image_0.jpg';
 
-export default function Login() {
+import bg_image from '../assets/bg_image_1.jpg';
+
+export default function Register() {
   const [loading, setLoading] = useState(false);
   const [username, bindUsername, resetUsername] = useInput('');
   const [password, bindPassword, resetPassword] = useInput('');
@@ -35,9 +35,9 @@ export default function Login() {
           <div className='absolute z-[1] w-full h-full bg-black opacity-40 '></div>
 
           <div className='absolute z-[2] w-full h-full flex justify-center items-center'>
-            <Link to='/register'>
+            <Link to='/login'>
               <a className='bg-lime-600 hover:bg-lime-500 py-3 px-8 rounded-sm  text-lg text-white uppercase cursor-pointer '>
-                Create Account
+                Sign in
               </a>
             </Link>
           </div>
@@ -52,7 +52,7 @@ export default function Login() {
         <section className='w-full h-auto flex justify-center pt-20 lg:pt-36'>
           <div className='w-5/6  sm:w-3/6 lg:w-3/6'>
             <span className='block font-light text-2xl text-lime-600 text-center mb-6'>
-              Welcome Back!
+              Create an Account
             </span>
 
             <form onSubmit={handleSubmit} className='space-y-6'>
@@ -83,7 +83,7 @@ export default function Login() {
                   {loading ? (
                     <PulseLoader size={12} color='white' />
                   ) : (
-                    'SIGN IN'
+                    'REGISTER'
                   )}
                 </button>
               </div>
