@@ -16,7 +16,7 @@ export default function Product() {
             Quantity: <span className='text-red-800'>20</span>
           </span>
 
-          <span className='text-slate-800 hover:text-lime-900 cursor-pointer'>
+          <span className='text-slate-800 hover:text-red-900 cursor-pointer transition-all delay-100 ease-out p-1'>
             <FaCartPlus size={24} />
           </span>
         </div>
