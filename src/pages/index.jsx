@@ -1,3 +1,5 @@
+import AdminLayout from '../components/AdminLayout';
+
 export default function Home() {
-  return <div>HomePage</div>;
+  return <AdminLayout />;
 }
