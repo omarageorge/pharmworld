@@ -1,6 +1,12 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function AdminLayout({ children }) {
+  let navigate = useNavigate();
+
+  const logout = () => {
+    navigate('/login');
+  };
+
   return (
     <main className='w-full h-auto'>
       <aside className='fixed w-2/12 h-screen bg-lime-600'>
@@ -21,11 +27,12 @@ export default function AdminLayout({ children }) {
             </a>
           </Link>
 
-          <Link to='#'>
-            <a className='block w-full py-4 bg-red-900 hover:bg-red-800 font-light text-center text-lg text-gray-100 transition-all delay-100 ease-out'>
-              Logout
-            </a>
-          </Link>
+          <a
+            onClick={logout}
+            className='block w-full py-4 bg-red-900 hover:bg-red-800 font-light text-center text-lg text-gray-100 transition-all delay-100 ease-out cursor-pointer'
+          >
+            Logout
+          </a>
         </div>
       </aside>
 
