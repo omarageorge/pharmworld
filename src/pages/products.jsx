@@ -13,7 +13,8 @@ export default function Products() {
         </Link>
       </div>
 
-      <div className='w-full h-auto grid grid-cols-3 gap-6 p-4 mt-4 '>
+      <div className='w-full h-auto grid grid-cols-3 gap-6 px-6 pb-6 mt-8  '>
+        <Product />
         <Product />
         <Product />
         <Product />
