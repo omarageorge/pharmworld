@@ -15,14 +15,20 @@ export default function AdminLayout({ children }) {
         </span>
 
         <div className='mt-4'>
-          <Link to='#'>
+          <Link to='/products'>
             <a className='block w-full py-4 bg-lime-900 hover:bg-lime-800 font-light text-center text-lg text-gray-100 transition-all delay-100 ease-out'>
               Products
             </a>
           </Link>
 
-          <Link to='#'>
+          <Link to='/products/add'>
             <a className='block w-full border-y border-lime-700 py-4 bg-lime-900 hover:bg-lime-800 font-light text-center text-lg text-gray-100 transition-all delay-100 ease-out'>
+              Add Products
+            </a>
+          </Link>
+
+          <Link to='#'>
+            <a className='block w-full border-b border-lime-700 py-4 bg-lime-900 hover:bg-lime-800 font-light text-center text-lg text-gray-100 transition-all delay-100 ease-out'>
               Orders
             </a>
           </Link>
