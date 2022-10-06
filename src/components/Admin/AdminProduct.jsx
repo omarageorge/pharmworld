@@ -9,6 +9,8 @@ export default function AdminProductCard({ details }) {
       <div className='p-4 text-gray-900 grid grid-cols-1'>
         <span className='font-medium'>Hydrocodone Pill</span>
 
+        <span className='font-medium'>Hydrocodone Pill</span>
+
         <div className='flex justify-between items-center'>
           <span className='font-light'>
             Quantity: <span className='text-red-800'>20</span>
