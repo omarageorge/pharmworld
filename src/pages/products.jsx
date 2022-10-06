@@ -13,7 +13,7 @@ export default function Products() {
           </Link>
         </div> */}
 
-      <div className='w-full h-auto grid grid-cols-3 gap-6 px-6 py-6 '>
+      <div className='w-full h-auto grid grid-cols-1 gap-6 px-6 py-6 sm:grid-cols-2 md:grid-cols-3'>
         <Product />
         <Product />
         <Product />
