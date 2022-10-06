@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import AdminLayout from '../components/AdminLayout';
 import Product from '../components/Product';
 
