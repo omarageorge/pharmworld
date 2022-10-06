@@ -47,9 +47,11 @@ export default function Register() {
       </aside>
 
       <main className='w-full bg-white lg:w-9/12 h-full lg:ml-[25%]'>
-        <span className='block text-center font-medium text-2xl text-slate-800 pt-6 lg:pr-8 lg:text-right'>
-          Pharm world
-        </span>
+        <Link to='/'>
+          <span className='block text-center font-medium text-2xl text-slate-800 pt-6 lg:pr-8 lg:text-right'>
+            Pharm world
+          </span>
+        </Link>
 
         <section className='w-full h-auto flex justify-center pt-20 lg:pt-36'>
           <div className='w-5/6  sm:w-3/6 lg:w-3/6'>

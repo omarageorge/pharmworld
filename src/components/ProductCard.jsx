@@ -13,9 +13,9 @@ export default function ProductCard({ details }) {
 
         <div className='flex justify-between items-center'>
           <span className='font-light'>
-            Quantity: <span className='text-red-800'>20</span>
+            Price: <span className='text-red-800'>$20</span>
           </span>
-          <span className='font-light underline cursor-pointer p-1'>Edit</span>
+
           <span className='text-slate-800 hover:text-red-900 cursor-pointer transition-all delay-100 ease-out p-1'>
             <FaCartPlus size={24} />
           </span>
