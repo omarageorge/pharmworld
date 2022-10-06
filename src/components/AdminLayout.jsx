@@ -16,29 +16,29 @@ export default function AdminLayout({ children }) {
 
         <div className='mt-4'>
           <Link to='/products'>
-            <a className='block w-full py-4 bg-lime-900 hover:bg-lime-800 font-light text-center text-lg text-gray-100 transition-all delay-100 ease-out'>
+            <span className='block w-full py-4 bg-lime-900 hover:bg-lime-800 font-light text-center text-lg text-gray-100 transition-all delay-100 ease-out'>
               Products
-            </a>
+            </span>
           </Link>
 
           <Link to='/products/add'>
-            <a className='block w-full border-y border-lime-700 py-4 bg-lime-900 hover:bg-lime-800 font-light text-center text-lg text-gray-100 transition-all delay-100 ease-out'>
+            <span className='block w-full border-y border-lime-700 py-4 bg-lime-900 hover:bg-lime-800 font-light text-center text-lg text-gray-100 transition-all delay-100 ease-out'>
               Add Products
-            </a>
+            </span>
           </Link>
 
           <Link to='#'>
-            <a className='block w-full border-b border-lime-700 py-4 bg-lime-900 hover:bg-lime-800 font-light text-center text-lg text-gray-100 transition-all delay-100 ease-out'>
+            <span className='block w-full border-b border-lime-700 py-4 bg-lime-900 hover:bg-lime-800 font-light text-center text-lg text-gray-100 transition-all delay-100 ease-out'>
               Orders
-            </a>
+            </span>
           </Link>
 
-          <a
+          <span
             onClick={logout}
             className='block w-full py-4 bg-red-900 hover:bg-red-800 font-light text-center text-lg text-gray-100 transition-all delay-100 ease-out cursor-pointer'
           >
             Logout
-          </a>
+          </span>
         </div>
       </aside>
 
