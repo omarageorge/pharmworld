@@ -12,6 +12,7 @@ export default function useInput(initialValue) {
     onChange: (e) => {
       setValue(e.target.value);
     },
+    required: true,
   };
 
   return [value, bind, reset];

@@ -1,6 +1,4 @@
-import { FaCartPlus } from 'react-icons/fa';
-
-export default function Product({ details }) {
+export default function AdminProductCard({ details }) {
   return (
     <div className='block overflow-hidden rounded-md bg-lime-400'>
       <img
@@ -16,10 +14,6 @@ export default function Product({ details }) {
             Quantity: <span className='text-red-800'>20</span>
           </span>
           <span className='font-light underline cursor-pointer p-1'>Edit</span>
-
-          {/*   <span className='text-slate-800 hover:text-red-900 cursor-pointer transition-all delay-100 ease-out p-1'>
-            <FaCartPlus size={24} />
-          </span> */}
         </div>
       </div>
     </div>

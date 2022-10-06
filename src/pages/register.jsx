@@ -9,6 +9,8 @@ export default function Register() {
   const [loading, setLoading] = useState(false);
   const [username, bindUsername, resetUsername] = useInput('');
   const [password, bindPassword, resetPassword] = useInput('');
+  const [confitmPassword, bindConfirmPassword, resetConfirmPassword] =
+    useInput('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -70,6 +72,15 @@ export default function Register() {
                   placeholder='Password'
                   type='password'
                   {...bindPassword}
+                  className='w-full border-b border-gray-400 outline-none focus:border-green-600 pl-1 py-2  font-light text-md'
+                />
+              </div>
+
+              <div className=''>
+                <input
+                  placeholder='Confirm password'
+                  type='password'
+                  {...bindConfirmPassword}
                   className='w-full border-b border-gray-400 outline-none focus:border-green-600 pl-1 py-2  font-light text-md'
                 />
               </div>

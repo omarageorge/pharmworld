@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import PulseLoader from 'react-spinners/PulseLoader';
 
-import AdminLayout from '../components/AdminLayout';
+import AdminLayout from '../../components/Admin/AdminLayout';
 
 export default function AddProduct() {
   const [loading, setLoading] = useState(false);

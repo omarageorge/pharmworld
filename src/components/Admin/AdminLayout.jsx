@@ -27,7 +27,7 @@ export default function AdminLayout({ children }) {
             </span>
           </Link>
 
-          <Link to='#'>
+          <Link to='/orders'>
             <span className='block w-full border-b border-lime-700 py-4 px-1 bg-lime-900 hover:bg-lime-800 font-light text-center text-sm text-gray-100 transition-all delay-100 ease- sm:text-lg'>
               Orders
             </span>
