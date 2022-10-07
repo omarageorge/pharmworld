@@ -49,7 +49,7 @@ export default function Register() {
       <main className='w-full bg-white lg:w-9/12 h-full lg:ml-[25%]'>
         <Link to='/'>
           <span className='block text-center font-medium text-2xl text-slate-800 pt-6 lg:pr-8 lg:text-right'>
-            Pharm world
+            Pharmworld
           </span>
         </Link>
 

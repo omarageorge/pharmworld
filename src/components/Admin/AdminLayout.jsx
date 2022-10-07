@@ -11,7 +11,7 @@ export default function AdminLayout({ children }) {
     <main className='w-full h-auto'>
       <aside className='fixed w-2/12 h-screen bg-lime-600'>
         <span className='block font-medium text-sm text-center text-gray-100 uppercase mt-4'>
-          Pharm world
+          Pharmworld
         </span>
 
         <div className='mt-4'>
