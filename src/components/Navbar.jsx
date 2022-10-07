@@ -5,7 +5,9 @@ export default function Navbar() {
   return (
     <nav className='fixed w-full bg-lime-700 py-5 shadow-2xl'>
       <div className='w-[80%] mx-auto flex justify-between items-center text-gray-100'>
-        <span className='font-bold text-gray-800 text-xl'>Pharmworld</span>
+        <Link to='/'>
+          <span className='font-bold text-gray-800 text-xl'>Pharmworld</span>
+        </Link>
 
         <span className='font-light space-x-6'>
           <Link to='/'>
@@ -22,9 +24,9 @@ export default function Navbar() {
         </span>
 
         <span>
-          <Link to='/'>
+          <Link to='/cart'>
             <span className='flex items-center'>
-              <span>(6)</span>
+              <span>(0)</span>
               <FaShoppingCart />
             </span>
           </Link>

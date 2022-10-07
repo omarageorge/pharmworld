@@ -9,6 +9,7 @@ import Order from './pages/admin/order';
 import Orders from './pages/admin/orders';
 import Products from './pages/admin/products';
 import AddProduct from './pages/admin/add_product';
+import Cart from './pages/cart';
 
 import './index.scss';
 
@@ -17,6 +18,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <BrowserRouter>
       <Routes>
         <Route path='/' index element={<Home />} />
+        <Route path='cart' index element={<Cart />} />
         <Route path='products' element={<Products />} />
         <Route path='products/add' index element={<AddProduct />} />
         <Route path='orders' index element={<Orders />} />
