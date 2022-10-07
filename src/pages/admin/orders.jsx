@@ -1,7 +1,7 @@
 import AdminLayout from '../../components/Admin/AdminLayout';
 import TableRow from '../../components/Admin/TableRow';
 
-export default function Orders() {
+export default function AdminOrders() {
   const orders = [
     {
       order: 1,

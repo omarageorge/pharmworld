@@ -3,7 +3,7 @@ import PulseLoader from 'react-spinners/PulseLoader';
 
 import AdminLayout from '../../components/Admin/AdminLayout';
 
-export default function AddProduct() {
+export default function AdminAddProduct() {
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {

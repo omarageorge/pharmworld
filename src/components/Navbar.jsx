@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { FaShoppingCart } from 'react-icons/fa';
 
 export default function Navbar() {
@@ -10,26 +10,26 @@ export default function Navbar() {
         </Link>
 
         <span className='font-light space-x-6'>
-          <Link to='/'>
+          <NavLink to='/'>
             <span>Products</span>
-          </Link>
+          </NavLink>
 
-          <Link to='/login'>
+          <NavLink to='/login'>
             <span>Login</span>
-          </Link>
+          </NavLink>
 
-          <Link to='/register'>
+          <NavLink to='/register'>
             <span>Register</span>
-          </Link>
+          </NavLink>
         </span>
 
         <span>
-          <Link to='/cart'>
+          <NavLink to='/cart'>
             <span className='flex items-center'>
               <span>(0)</span>
               <FaShoppingCart />
             </span>
-          </Link>
+          </NavLink>
         </span>
       </div>
     </nav>

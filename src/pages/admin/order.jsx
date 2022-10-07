@@ -1,7 +1,10 @@
+import { useParams } from 'react-router-dom';
 import { FaCheckSquare } from 'react-icons/fa';
 import AdminLayout from '../../components/Admin/AdminLayout';
 
-export default function Order() {
+export default function AdminOrder() {
+  const params = useParams();
+
   return (
     <AdminLayout>
       <div className='w-11/12 sm:w-10/12 mx-auto '>
@@ -10,7 +13,7 @@ export default function Order() {
             <tbody>
               <tr>
                 <td className='font-medium text-lg sm:text-right'>Order:</td>
-                <td className='font-light text-lg pl-4'>1</td>
+                <td className='font-light text-lg pl-4'>{params.orderId}</td>
               </tr>
               <tr>
                 <td className='font-medium text-lg sm:text-right'>Client:</td>
