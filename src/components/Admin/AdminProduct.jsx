@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import Image from 'next/image';
 
 export default function AdminProductCard({ details }) {
@@ -21,9 +22,14 @@ export default function AdminProductCard({ details }) {
 
         <div className='flex justify-between items-center'>
           <span className='font-light'>
-            Quantity: <span className='text-red-800'>20</span>
+            Remaining: <span className='text-red-800'>20</span>
           </span>
-          <span className='font-light underline cursor-pointer p-1'>Edit</span>
+
+          <Link href={`/admin/products/1`}>
+            <span className='font-light underline cursor-pointer p-1'>
+              Edit
+            </span>
+          </Link>
         </div>
       </div>
     </div>

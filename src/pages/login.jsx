@@ -3,7 +3,6 @@ import Link from 'next/link';
 import PulseLoader from 'react-spinners/PulseLoader';
 
 import useInput from '../hooks/useInput';
-import bg_image from '../assets/bg_image_0.jpg';
 
 export default function Login() {
   const [loading, setLoading] = useState(false);
@@ -27,7 +26,7 @@ export default function Login() {
         <div
           className=' relative  z-[0] w-full h-full'
           style={{
-            backgroundImage: `url(${bg_image})`,
+            backgroundImage: "url('bg_image_0.jpg')",
             backgroundPosition: 'center',
             backgroundSize: 'cover',
           }}

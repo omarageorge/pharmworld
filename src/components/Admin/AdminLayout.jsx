@@ -16,20 +16,38 @@ export default function AdminLayout({ children }) {
         </span>
 
         <div className='mt-4'>
-          <Link href='/admin'>
-            <span className='block w-full py-4 px-1 bg-lime-900 hover:bg-lime-800 font-light text-center text-sm text-gray-100 transition-all delay-100 ease-out sm:text-lg cursor-pointer'>
+          <Link href='/admin/products'>
+            <span
+              className={`block w-full py-4 px-1 ${
+                router.pathname === '/admin/products'
+                  ? 'bg-lime-700'
+                  : 'bg-lime-900'
+              }  hover:bg-lime-700 font-light text-center text-sm text-gray-100 transition-all delay-100 ease-out sm:text-lg cursor-pointer`}
+            >
               Products
             </span>
           </Link>
 
-          <Link href='add'>
-            <span className='block w-full border-y border-lime-700 py-4 px-1 bg-lime-900 hover:bg-lime-800 font-light text-center text-sm text-gray-100 transition-all delay-100 ease-out sm:text-lg cursor-pointer'>
+          <Link href='/admin/products/add'>
+            <span
+              className={`block w-full border-y border-lime-700 py-4 px-1 ${
+                router.pathname === '/admin/products/add'
+                  ? 'bg-lime-700'
+                  : 'bg-lime-900'
+              }  hover:bg-lime-700 font-light text-center text-sm text-gray-100 transition-all delay-100 ease-out sm:text-lg cursor-pointer`}
+            >
               Add Products
             </span>
           </Link>
 
-          <Link href='orders'>
-            <span className='block w-full border-b border-lime-700 py-4 px-1 bg-lime-900 hover:bg-lime-800 font-light text-center text-sm text-gray-100 transition-all delay-100 ease- sm:text-lg cursor-pointer'>
+          <Link href='/admin/orders'>
+            <span
+              className={`block w-full border-b border-lime-700 py-4 px-1 ${
+                router.pathname === '/admin/orders'
+                  ? 'bg-lime-700'
+                  : 'bg-lime-900'
+              }  hover:bg-lime-700 font-light text-center text-sm text-gray-100 transition-all delay-100 ease- sm:text-lg cursor-pointer`}
+            >
               Orders
             </span>
           </Link>
