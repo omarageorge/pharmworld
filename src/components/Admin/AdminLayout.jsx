@@ -1,12 +1,22 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useEffect, useContext } from 'react';
+
+import { UserContext } from '../../context/userContext';
 
 export default function AdminLayout({ children }) {
   const router = useRouter();
+  const { user } = useContext(UserContext);
 
   const logout = () => {
     router.push('/login');
   };
+
+  useEffect(() => {
+    if (!user) {
+      router.push('/login');
+    }
+  }, [router, user]);
 
   return (
     <main className='w-full h-auto'>
