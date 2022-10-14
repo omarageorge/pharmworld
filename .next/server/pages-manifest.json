@@ -1,0 +1,16 @@
+{
+  "/_app": "pages/_app.js",
+  "/_error": "pages/_error.js",
+  "/404": "pages/404.js",
+  "/admin/orders/[order]": "pages/admin/orders/[order].js",
+  "/admin/orders": "pages/admin/orders.js",
+  "/admin/products/[product]": "pages/admin/products/[product].js",
+  "/admin/products/add": "pages/admin/products/add.js",
+  "/admin/products": "pages/admin/products.js",
+  "/api/hello": "pages/api/hello.js",
+  "/cart": "pages/cart.js",
+  "/": "pages/index.js",
+  "/login": "pages/login.js",
+  "/register": "pages/register.js",
+  "/_document": "pages/_document.js"
+}
