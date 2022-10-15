@@ -9,6 +9,7 @@ import errorHandler from './middleware/errorMiddleware.js';
 
 import userRoutes from './routes/userRoutes.js';
 import productRoutes from './routes/productRoutes.js';
+import orderRoutes from './routes/orderRoutes.js';
 
 config(); // Load env vars
 connectDB(); // Connect to database
@@ -25,6 +26,7 @@ server.use(express.static('backend/public'));
 
 server.use('/api/users', userRoutes);
 server.use('/api/products', productRoutes);
+server.use('/api/orders', orderRoutes);
 
 server.use(errorHandler);
 
