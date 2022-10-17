@@ -1,5 +1,5 @@
 import asyncHandler from 'express-async-handler';
-import Order from '../models/orderModel';
+import Order from '../models/orderModel.js';
 
 export const placeOrder = asyncHandler(async (req, res) => {
   const { orderItems, deliveryAddress, totalPrice } = req.body;
@@ -35,7 +35,7 @@ export const getOrderById = asyncHandler(async (req, res) => {
   }
 });
 
-export const updateOrderToPaid = asyncHandler(async (req, res) => {
+export const markOrderComplete = asyncHandler(async (req, res) => {
   const order = await Order.findById(req.params.id);
 
   if (order) {

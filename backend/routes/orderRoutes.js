@@ -2,7 +2,7 @@ import { Router } from 'express';
 import {
   placeOrder,
   getOrderById,
-  updateOrderToPaid,
+  markOrderComplete,
 } from '../controllers/orderController.js';
 import protect from '../middleware/authMiddleware.js';
 
@@ -24,6 +24,6 @@ router
   // @route   PUT /api/orders/:id
   // @desc    Update order to complete
   // @access  Private/Admin
-  .put(updateOrderToPaid);
+  .put(markOrderComplete);
 
 export default router;
