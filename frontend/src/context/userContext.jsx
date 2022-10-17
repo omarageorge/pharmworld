@@ -2,7 +2,7 @@ import { createContext, useReducer, useEffect } from 'react';
 import { userReducer } from './reducers/userReducer';
 
 const INITIAL_STATE = {
-  user: JSON.parse(window.localStorage.getItem('user')) || null,
+  user: JSON.parse(localStorage.getItem('user')) || null,
   isFetching: false,
   error: false,
 };
@@ -13,7 +13,7 @@ export default function UserProvider({ children }) {
   const [state, dispatch] = useReducer(userReducer, INITIAL_STATE);
 
   useEffect(() => {
-    window.localStorage.setItem('user', JSON.stringify(state.user));
+    localStorage.setItem('user', JSON.stringify(state.user));
   }, [state.user]);
 
   return (

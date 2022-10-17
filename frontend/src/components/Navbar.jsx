@@ -1,8 +1,12 @@
+import { useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-
 import { FaShoppingCart } from 'react-icons/fa';
+import { UserContext } from '../context/userContext';
+import { logout } from '../context/actions/userActions';
 
 export default function Navbar() {
+  const { user, dispatch } = useContext(UserContext);
+
   return (
     <nav className='fixed z-50 w-full bg-lime-700 py-5 shadow-sm'>
       <div className='w-[80%] mx-auto flex justify-between items-center text-gray-100'>
@@ -25,13 +29,26 @@ export default function Navbar() {
             <span className='cursor-pointer'>FAQ</span>
           </NavLink>
 
-          <Link to='/login'>
-            <span className='cursor-pointer'>Login</span>
-          </Link>
+          {user === null && (
+            <Link to='/login'>
+              <span className='cursor-pointer'>Login</span>
+            </Link>
+          )}
 
-          <Link to='/register'>
-            <span className='cursor-pointer'>Register</span>
-          </Link>
+          {user === null && (
+            <Link to='/register'>
+              <span className='cursor-pointer'>Register</span>
+            </Link>
+          )}
+
+          {user && (
+            <span
+              onClick={() => dispatch(logout())}
+              className='cursor-pointer font-medium'
+            >
+              Logout
+            </span>
+          )}
         </span>
 
         <span>

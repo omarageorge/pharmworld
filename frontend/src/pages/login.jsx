@@ -1,22 +1,44 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { useContext, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import PulseLoader from 'react-spinners/PulseLoader';
-
+import { UserContext } from '../context/userContext';
+import {
+  loginStart,
+  loginSuccess,
+  loginFail,
+} from '../context/actions/userActions';
 import useInput from '../hooks/useInput';
 
 export default function Login() {
-  const [loading, setLoading] = useState(false);
-  const [username, bindUsername, resetUsername] = useInput('');
-  const [password, bindPassword, resetPassword] = useInput('');
+  const navigate = useNavigate();
+
+  const [email, bindEmail] = useInput('');
+  const [password, bindPassword] = useInput('');
+
+  const { dispatch, isFetching } = useContext(UserContext);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    setLoading(true);
+    dispatch(loginStart());
 
     try {
+      const { data } = await axios.post(
+        'http://localhost:5000/api/users/login',
+        {
+          email,
+          password,
+        }
+      );
+      dispatch(loginSuccess(data));
+      navigate('/');
     } catch (error) {
-      console.error(error.message);
+      dispatch(loginFail());
+      setErrorMessage(error.response.data.message);
+      setTimeout(() => {
+        setErrorMessage('');
+      }, 5000);
     }
   };
 
@@ -56,12 +78,18 @@ export default function Login() {
               Welcome Back!
             </span>
 
+            {errorMessage !== '' && (
+              <span className='block font-light text-md text-center text-red-600  mb-6'>
+                {errorMessage}
+              </span>
+            )}
+
             <form onSubmit={handleSubmit} className='space-y-6'>
               <div className=''>
                 <input
-                  placeholder='Username'
-                  type='text'
-                  {...bindUsername}
+                  placeholder='Email'
+                  type='email'
+                  {...bindEmail}
                   className='w-full border-b border-gray-400 outline-none focus:border-green-600 pl-1 py-2  font-light text-md'
                 />
               </div>
@@ -79,9 +107,9 @@ export default function Login() {
                 <button
                   type='submit'
                   className='w-full bg-lime-600 hover:bg-lime-500 py-3 rounded-sm text-white font-normal transition-all ease-out delay-300'
-                  disabled={loading && 'true'}
+                  disabled={isFetching && isFetching === true ? true : false}
                 >
-                  {loading ? (
+                  {isFetching ? (
                     <PulseLoader size={12} color='white' />
                   ) : (
                     'SIGN IN'

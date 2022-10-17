@@ -1,24 +1,53 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-
+import axios from 'axios';
+import { useContext, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import PulseLoader from 'react-spinners/PulseLoader';
+import { UserContext } from '../context/userContext';
+import {
+  registerStart,
+  registerSuccess,
+  registerFail,
+} from '../context/actions/userActions';
 import useInput from '../hooks/useInput';
 
 export default function Register() {
-  const [loading, setLoading] = useState(false);
-  const [username, bindUsername, resetUsername] = useInput('');
-  const [password, bindPassword, resetPassword] = useInput('');
-  const [confitmPassword, bindConfirmPassword, resetConfirmPassword] =
-    useInput('');
+  const navigate = useNavigate();
+
+  const [username, bindUsername] = useInput('');
+  const [email, bindEmail] = useInput('');
+  const [password, bindPassword] = useInput('');
+  const [confirmPassword, bindConfirmPassword] = useInput('');
+
+  const { dispatch, isFetching } = useContext(UserContext);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    setLoading(true);
+    if (password !== confirmPassword) {
+      setErrorMessage('Passwords do not match');
+      return;
+    }
+
+    dispatch(registerStart());
 
     try {
-    } catch (error) {
-      console.error(error.message);
+      const { data } = await axios.post(
+        'http://localhost:5000/api/users/register',
+        {
+          name: username,
+          email,
+          password,
+        }
+      );
+      dispatch(registerSuccess(data));
+      navigate('/');
+    } catch (err) {
+      dispatch(registerFail());
+      setErrorMessage(err.response.data.message);
+      setTimeout(() => {
+        setErrorMessage('');
+      }, 5000);
     }
   };
 
@@ -52,14 +81,37 @@ export default function Register() {
           </span>
         </Link>
 
-        <section className='w-full h-auto flex justify-center pt-20 lg:pt-36'>
+        <section className='w-full h-auto flex justify-center pt-20 lg:pt-5'>
           <div className='w-5/6  sm:w-3/6 lg:w-3/6'>
             <span className='block font-light text-2xl text-lime-600 text-center mb-6'>
               Create an Account
             </span>
 
+            <span className='block font-light text-md text-blue-600 text-left mb-6'>
+              <span className='font-bold text-lg text-yellow-500 mr-2'>
+                Caution:
+              </span>
+              Please register using a darknet anonymous email address which you
+              can get from
+              <a
+                className='mx-1 underline underline-offset-4'
+                target='_blank'
+                href='http://dnmxjaitaiafwmss2lx7tbs5bv66l7vjdmb5mtb3yqpxqhk3it5zivad.onion/'
+              >
+                https://dnmx.org.
+              </a>
+              Please note that this email provider can only be accessed through
+              the Tor Browser.
+            </span>
+
+            {errorMessage !== '' && (
+              <span className='block font-light text-md text-center text-red-600  mb-6'>
+                {errorMessage}
+              </span>
+            )}
+
             <form onSubmit={handleSubmit} className='space-y-6'>
-              <div className=''>
+              <div>
                 <input
                   placeholder='Username'
                   type='text'
@@ -68,7 +120,16 @@ export default function Register() {
                 />
               </div>
 
-              <div className=''>
+              <div>
+                <input
+                  placeholder='Email'
+                  type='email'
+                  {...bindEmail}
+                  className='w-full border-b border-gray-400 outline-none focus:border-green-600 pl-1 py-2  font-light text-md'
+                />
+              </div>
+
+              <div>
                 <input
                   placeholder='Password'
                   type='password'
@@ -77,7 +138,7 @@ export default function Register() {
                 />
               </div>
 
-              <div className=''>
+              <div>
                 <input
                   placeholder='Confirm password'
                   type='password'
@@ -86,13 +147,13 @@ export default function Register() {
                 />
               </div>
 
-              <div className=''>
+              <div>
                 <button
                   type='submit'
                   className='w-full bg-lime-600 hover:bg-lime-500 py-3 rounded-sm text-white font-normal transition-all ease-out delay-300'
-                  disabled={loading && 'true'}
+                  disabled={isFetching && isFetching === true ? true : false}
                 >
-                  {loading ? (
+                  {isFetching ? (
                     <PulseLoader size={12} color='white' />
                   ) : (
                     'REGISTER'

@@ -1,4 +1,3 @@
-import axios from 'axios';
 import {
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
@@ -9,78 +8,34 @@ import {
   USER_REGISTER_FAIL,
 } from '../constants/userConstants';
 
-export const login = (username, password) => async (dispatch) => {
-  try {
-    dispatch({ type: USER_LOGIN_REQUEST });
+export const loginStart = () => ({
+  type: USER_LOGIN_REQUEST,
+});
 
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
+export const loginSuccess = (user) => ({
+  type: USER_LOGIN_SUCCESS,
+  payload: user,
+});
 
-    const { data } = await axios.post(
-      '/api/users/login',
-      { email, password },
-      config
-    );
+export const loginFail = (error) => ({
+  type: USER_LOGIN_FAIL,
+  payload: error,
+});
 
-    dispatch({
-      type: USER_LOGIN_SUCCESS,
-      payload: data,
-    });
+export const logout = () => ({
+  type: USER_LOGOUT,
+});
 
-    localStorage.setItem('user', JSON.stringify(data));
-  } catch (error) {
-    dispatch({
-      type: USER_LOGIN_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    });
-  }
-};
+export const registerStart = () => ({
+  type: USER_REGISTER_REQUEST,
+});
 
-export const logout = () => (dispatch) => {
-  localStorage.removeItem('user');
-  dispatch({ type: USER_LOGOUT });
-};
+export const registerSuccess = (user) => ({
+  type: USER_REGISTER_SUCCESS,
+  payload: user,
+});
 
-export const register = (username, password) => async (dispatch) => {
-  try {
-    dispatch({ type: USER_REGISTER_REQUEST });
-
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-
-    const { data } = await axios.post(
-      '/api/users',
-      { username, password },
-      config
-    );
-
-    dispatch({
-      type: USER_REGISTER_SUCCESS,
-      payload: data,
-    });
-
-    dispatch({
-      type: USER_LOGIN_SUCCESS,
-      payload: data,
-    });
-
-    localStorage.setItem('user', JSON.stringify(data));
-  } catch (error) {
-    dispatch({
-      type: USER_REGISTER_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    });
-  }
-};
+export const registerFail = (error) => ({
+  type: USER_REGISTER_FAIL,
+  payload: error,
+});

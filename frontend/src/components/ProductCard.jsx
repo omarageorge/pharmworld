@@ -6,7 +6,12 @@ export default function ProductCard({ name, price, image }) {
 
   return (
     <div className='block overflow-hidden rounded-md bg-lime-400'>
-      <img src={image} className='w-full h-[14.5rem] object-cover' alt='' />
+      <img
+        crossOrigin='anonymous'
+        src={`http://localhost:5000/${image}`}
+        className='w-full h-[14.5rem] object-cover'
+        alt=''
+      />
 
       <div className='p-4 text-gray-900 grid grid-cols-1'>
         <span className='font-medium'>{name}</span>
