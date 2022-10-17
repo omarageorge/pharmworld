@@ -1,33 +1,39 @@
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import TableRow from '../../../components/Admin/TableRow';
+import PageLoading from '../../../components/PageLoading';
 
 export default function AdminOrders() {
-  const orders = [
-    {
-      order: 1,
-      client: 'Philip',
-      date: '4/11/22',
-    },
-    {
-      order: 2,
-      client: 'John',
-      date: '3/11/22',
-    },
-    {
-      order: 3,
-      client: 'Jane',
-      date: '2/11/22',
-    },
-    {
-      order: 4,
-      client: 'Bridget',
-      date: '3/11/22',
-    },
-    {
-      order: 5,
-      client: 'Agnes',
-      date: '1/11/22',
-    },
-  ];
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const { data } = await axios.get('http://localhost:5000/api/orders', {
+          headers: {
+            Authorization: `Bearer ${
+              JSON.parse(localStorage.getItem('user')).token
+            }`,
+          },
+        });
+        setOrders(data);
+      } catch (error) {
+        console.error(error.response.data.message);
+      }
+    };
+    fetchOrders();
+  }, []);
+
+  useEffect(() => {
+    if (orders.length > 0) {
+      setLoading(false);
+    }
+  }, [orders]);
+
+  if (loading) {
+    return <PageLoading />;
+  }
 
   return (
     <div className='px-4'>
@@ -46,10 +52,10 @@ export default function AdminOrders() {
           <tbody className=''>
             {orders.map((order, index) => (
               <TableRow
-                key={index}
-                order={order.order}
-                client={order.client}
-                date={order.date}
+                key={order._id}
+                order={order._id}
+                client={order.user.name}
+                date={order.createdAt}
               />
             ))}
           </tbody>
