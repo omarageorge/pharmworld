@@ -1,7 +1,8 @@
 import { Router } from 'express';
 import {
-  placeOrder,
+  getOrders,
   getOrderById,
+  placeOrder,
   markOrderComplete,
 } from '../controllers/orderController.js';
 import protect from '../middleware/authMiddleware.js';
@@ -10,10 +11,16 @@ const router = Router();
 
 router.use(protect);
 
-// @route   POST /api/orders
-// @desc    Place new order
-// @access  Private/Admin
-router.post('/', placeOrder);
+router
+  .route('/')
+  // GET /api/orders
+  // Get all orders
+  // @access Private/Admin
+  .get(getOrders)
+  // @route   POST /api/orders
+  // @desc    Place new order
+  // @access  Private/Admin
+  .post(placeOrder);
 
 router
   .route('/:id')
