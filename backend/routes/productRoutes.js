@@ -32,7 +32,6 @@ const upload = multer({ storage });
 
 const router = Router();
 
-router.use(protect); // Protect all routes below
 
 router
   .route('/')
@@ -51,14 +50,14 @@ router
   // @route   GET /api/products/:id
   // @desc    Get a product by id
   // @access  Private
-  .get(getProductById)
+  .get(protect, getProductById)
   // @route   PUT /api/products/:id
   // @desc    Update a product
   // @access  Private
-  .put(upload.single('image'), updateProduct)
+  .put(protect, upload.single('image'), updateProduct)
   // @route   DELETE /api/products/:id
   // @desc    Delete a product
   // @access  Private
-  .delete(deleteProduct);
+  .delete(protect, deleteProduct);
 
 export default router;

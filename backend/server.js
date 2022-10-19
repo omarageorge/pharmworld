@@ -7,9 +7,10 @@ import helmet from 'helmet';
 import connectDB from './config/db.js';
 import errorHandler from './middleware/errorMiddleware.js';
 
-import userRoutes from './routes/userRoutes.js';
+import authRoutes from './routes/authRoutes.js';
 import productRoutes from './routes/productRoutes.js';
 import orderRoutes from './routes/orderRoutes.js';
+import cartRoutes from './routes/cartRoutes.js';
 
 config(); // Load env vars
 connectDB(); // Connect to database
@@ -24,9 +25,10 @@ server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 server.use(express.static('backend/public'));
 
-server.use('/api/users', userRoutes);
+server.use('/api/auth', authRoutes);
 server.use('/api/products', productRoutes);
 server.use('/api/orders', orderRoutes);
+server.use('/api/cart', cartRoutes);
 
 server.use(errorHandler);
 

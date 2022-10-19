@@ -2,12 +2,7 @@ import jwt from 'jsonwebtoken';
 import asyncHandler from 'express-async-handler';
 import User from '../models/userModel.js';
 
-export const getUsers = asyncHandler(async (req, res) => {
-  const users = await User.find({}).select('-password');
-  res.json(users);
-});
-
-// @route   POST /api/users
+// @route   POST /api/auth
 // @desc    Register a new user
 // @access  Public
 export const registerUser = asyncHandler(async (req, res) => {
@@ -40,7 +35,7 @@ export const registerUser = asyncHandler(async (req, res) => {
   }
 });
 
-// @route   POST /api/users/login
+// @route   POST /api/auth/login
 // @desc    Auth user & get token
 // @access  Public
 export const loginUser = asyncHandler(async (req, res) => {
@@ -64,6 +59,6 @@ export const loginUser = asyncHandler(async (req, res) => {
 
 function generateToken(id) {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: '1d',
+    expiresIn: '10d',
   });
 }
