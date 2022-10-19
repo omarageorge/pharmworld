@@ -16,7 +16,7 @@ function addProductToCart(product, state) {
   const updatedCart = [...state.products];
 
   const updatedItemIndex = updatedCart.findIndex(
-    (item) => item.id === product.id
+    (item) => item._id === product._id
   );
 
   if (updatedItemIndex < 0) {
@@ -43,7 +43,7 @@ function removeProductFromCart(product, state) {
   const updatedCart = [...state.products];
 
   const updatedItemIndex = updatedCart.findIndex(
-    (item) => item.id === product.id
+    (item) => item._id === product._id
   );
 
   const updatedItem = {

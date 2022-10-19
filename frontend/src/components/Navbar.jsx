@@ -2,10 +2,12 @@ import { useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { FaShoppingCart } from 'react-icons/fa';
 import { UserContext } from '../context/userContext';
+import { CartContext } from '../context/cartContext';
 import { logout } from '../context/actions/userActions';
 
 export default function Navbar() {
   const { user, dispatch } = useContext(UserContext);
+  const { items } = useContext(CartContext);
 
   return (
     <nav className='fixed z-50 w-full bg-lime-700 py-5 shadow-sm'>
@@ -51,14 +53,18 @@ export default function Navbar() {
           )}
         </span>
 
-        <span>
-          <NavLink to='/cart'>
-            <span className='cursor-pointer flex items-center justify-center space-x-1'>
-              <span>(0)</span>
-              <FaShoppingCart />
-            </span>
-          </NavLink>
-        </span>
+        {user && (
+          <span>
+            <NavLink to='/cart'>
+              <span className='cursor-pointer flex items-center justify-center space-x-1'>
+                <span>
+                  (<span className='font-bold mx-1'>{items.length}</span>)
+                </span>
+                <FaShoppingCart />
+              </span>
+            </NavLink>
+          </span>
+        )}
       </div>
     </nav>
   );

@@ -1,35 +1,30 @@
+import { useState, useEffect, useContext } from 'react';
+
+import { CartContext } from '../context/cartContext';
 import CartItem from '../components/CartItem';
 import Layout from '../components/Layout';
+import PageLoading from '../components/PageLoading';
 
 export default function Cart() {
-  const cart = [
-    {
-      id: 1,
-      name: 'Percocet 10mg',
-      price: 15,
-      quantity: 1,
-    },
-    {
-      id: 2,
-      name: 'Hydrocodone 10mg',
-      price: 12,
-      quantity: 1,
-    },
+  const { items, total, dispatch } = useContext(CartContext);
+  const [loading, setLoading] = useState(false);
 
-    {
-      id: 3,
-      name: 'Oxycodone 15mg',
-      price: 20,
-      quantity: 1,
-    },
-  ];
+  useEffect(() => {
+    if (items.length > 0) {
+      setLoading(false);
+    }
+  }, [items]);
+
+  if (loading) {
+    return <PageLoading />;
+  }
 
   return (
     <Layout>
       <main className='py-6 px-8 flex flex-col lg:flex-row space-y-8 lg:space-x-8 lg:space-y-0 '>
         <div className='w-full lg:w-4/6 space-y-6'>
-          {cart.map((item) => (
-            <CartItem key={item.id} {...item} />
+          {items.map((item) => (
+            <CartItem key={item._id} {...item} />
           ))}
         </div>
 
