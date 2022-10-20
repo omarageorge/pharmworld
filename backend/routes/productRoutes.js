@@ -32,7 +32,6 @@ const upload = multer({ storage });
 
 const router = Router();
 
-
 router
   .route('/')
   // @route   GET /api/products
@@ -43,7 +42,7 @@ router
   // @route   POST /api/products
   // @desc    Create a product
   // @access  Private
-  .post(upload.single('image'), createProduct);
+  .post(protect, upload.single('image'), createProduct);
 
 router
   .route('/:id')
