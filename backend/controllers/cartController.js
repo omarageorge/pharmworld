@@ -85,13 +85,7 @@ export const deleteCartItem = asyncHandler(async (req, res) => {
       $pull: { products: { product } },
     },
     { new: true }
-  )
-    .populate('user', 'name email')
-    .populate('products.product', 'name image price')
-    .exec();
+  );
 
-  res.status(200).json({
-    success: true,
-    message: 'Item removed from cart',
-  });
+  res.status(200).json({ message: 'Item removed from cart' });
 });

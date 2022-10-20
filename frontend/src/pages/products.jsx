@@ -13,6 +13,7 @@ export default function Products() {
       try {
         const { data } = await axios.get('/api/products');
         setProducts(data);
+        setLoading(false);
       } catch (error) {
         console.log(error.response.data.message);
       }
@@ -20,12 +21,6 @@ export default function Products() {
 
     getProducts();
   }, []);
-
-  useEffect(() => {
-    if (products.length > 0) {
-      setLoading(false);
-    }
-  }, [products]);
 
   if (loading) {
     return <PageLoading />;
@@ -40,6 +35,8 @@ export default function Products() {
           {products.map((product) => (
             <AboutProduct key={product._id} {...product} />
           ))}
+
+          {products.length <= 0 && <span>No products available</span>}
         </div>
       </div>
     </Layout>

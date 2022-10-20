@@ -34,6 +34,7 @@ const router = Router();
 
 router
   .route('/')
+
   // @route   GET /api/products
   // @desc    Get all products
   // @access  Private
@@ -46,14 +47,17 @@ router
 
 router
   .route('/:id')
+
   // @route   GET /api/products/:id
   // @desc    Get a product by id
   // @access  Private
   .get(protect, getProductById)
+
   // @route   PUT /api/products/:id
   // @desc    Update a product
   // @access  Private
   .put(protect, upload.single('image'), updateProduct)
+
   // @route   DELETE /api/products/:id
   // @desc    Delete a product
   // @access  Private

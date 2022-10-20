@@ -1,21 +1,13 @@
 import axios from 'axios';
-import { useState, useContext } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { FaCartPlus } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-import { CartContext } from '../context/cartContext';
 import { UserContext } from '../context/userContext';
 
 export default function ProductCard({ _id, name, price, image }) {
   const navigate = useNavigate();
-
-  const { items, dispatch } = useContext(CartContext);
   const { user } = useContext(UserContext);
-
   const [isInCart, setIsInCart] = useState(false);
-
-  const isProductInCart = (id) => {
-    return items.some((item) => item._id === id);
-  };
 
   const handleAddToCart = async () => {
     try {
@@ -40,9 +32,48 @@ export default function ProductCard({ _id, name, price, image }) {
     }
   };
 
-  const handleRemoveFromCart = () => {
-    dispatch(removeFromCart(_id));
+  const handleRemoveFromCart = async () => {
+    try {
+      await axios.delete(`/api/cart`, {
+        headers: {
+          Authorization: `Bearer ${
+            JSON.parse(localStorage.getItem('user')).token
+          }`,
+        },
+        data: {
+          product: _id,
+        },
+      });
+
+      navigate(0);
+    } catch (error) {
+      console.log(error.response.data.message);
+    }
   };
+
+  useEffect(() => {
+    const getProductsInCart = async () => {
+      try {
+        const { data } = await axios.get('/api/cart', {
+          headers: {
+            Authorization: `Bearer ${
+              JSON.parse(localStorage.getItem('user')).token
+            }`,
+          },
+        });
+
+        const productInCart = data.products;
+
+        if (productInCart.find((product) => product.product._id === _id)) {
+          setIsInCart(true);
+        }
+      } catch (error) {
+        console.log(error.response.data.message);
+      }
+    };
+
+    getProductsInCart();
+  }, []);
 
   return (
     <div className='block overflow-hidden rounded-md bg-lime-400'>
@@ -55,6 +86,8 @@ export default function ProductCard({ _id, name, price, image }) {
 
       <div className='p-4 text-gray-900 grid grid-cols-1'>
         <span className='font-medium'>{name}</span>
+
+        <span className='font-medium'>{isInCart}</span>
 
         <div className='flex justify-between items-center'>
           <span className='font-light'>
