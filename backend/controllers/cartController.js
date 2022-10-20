@@ -6,92 +6,92 @@ import Cart from '../models/cartModel.js';
 // @access  Private/Protected
 export const getCartItems = asyncHandler(async (req, res) => {
   const cart = await Cart.findOne({ userId: req.user._id })
-    .populate('userId', 'name email')
-    .populate('products.productId', 'name image price')
+    .populate('user', 'name email')
+    .populate('products.product', 'name image price')
     .exec();
 
-  res.status(200).json({
-    success: true,
-    cart,
-  });
+  if (cart) {
+    res.status(200).json(cart);
+  } else {
+    res.status(404);
+    throw new Error('No items in cart');
+  }
 });
 
 // @route   POST /api/cart
 // @desc    Create new cart
 // @access  Private/Protected
 export const addToCart = asyncHandler(async (req, res) => {
-  const { productId, quantity } = req.body;
+  const { product, quantity } = req.body;
 
-  const cart = await Cart.findOne({ userId: req.user._id });
+  const cart = await Cart.findOne({ user: req.user._id });
 
-  const isProductExist = cart.products.some(
-    (item) => item.productId.toString() === productId
-  );
+  if (cart) {
+    const itemIndex = cart.products.findIndex((p) => p.product == product);
 
-  if (isProductExist) {
-    await Cart.findOneAndUpdate(
-      { userId: req.user._id, 'products.productId': productId },
-      {
-        $inc: { 'products.$.quantity': quantity },
-      }
-    );
+    if (itemIndex > -1) {
+      const productItem = cart.products[itemIndex];
+      productItem.quantity = quantity;
+      cart.products[itemIndex] = productItem;
+    } else {
+      cart.products.push({
+        product,
+        quantity,
+      });
+    }
+
+    const updatedCart = await cart.save();
+
+    res.status(201).json(updatedCart);
   } else {
-    const newProduct = { productId, quantity };
-    await Cart.findOneAndUpdate(
-      { userId: req.user._id },
-      {
-        $push: { products: newProduct },
-      }
-    );
-  }
+    const newCart = await Cart.create({
+      user: req.user._id,
+      products: [{ product, quantity }],
+    });
 
-  res.status(201).json({
-    success: true,
-  });
+    res.status(201).json(newCart);
+  }
 });
 
 // @route   PUT /api/cart
 // @desc    Update cart item
 // @access  Private/Protected
 export const updateCartItem = asyncHandler(async (req, res) => {
-  const { productId, quantity } = req.body;
+  const { product, quantity } = req.body;
 
   const cart = await Cart.findOneAndUpdate(
-    { userId: req.user._id, 'products.productId': productId },
+    { user: req.user._id, 'products.product': product },
     {
       $set: { 'products.$.quantity': quantity },
     },
     { new: true }
   )
-    .populate('userId', 'name email')
-    .populate('products.productId', 'name image price')
+    .populate('user', 'name email')
+    .populate('products.product', 'name image price')
     .exec();
 
-  res.status(200).json({
-    success: true,
-    cart,
-  });
+  res.status(200).json(cart);
 });
 
 // @route   DELETE /api/cart
 // @desc    Delete cart item
 // @access  Private/Protected
 export const deleteCartItem = asyncHandler(async (req, res) => {
-  const { productId } = req.body;
+  const { product } = req.body;
 
-  const cart = await Cart.findOneAndUpdate(
-    { userId: req.user._id },
+  await Cart.findOneAndUpdate(
+    { user: req.user._id },
     {
-      $pull: { products: { productId } },
+      $pull: { products: { product } },
     },
     { new: true }
   )
-    .populate('userId', 'name email')
-    .populate('products.productId', 'name image price')
+    .populate('user', 'name email')
+    .populate('products.product', 'name image price')
     .exec();
 
   res.status(200).json({
     success: true,
-    cart,
+    message: 'Item removed from cart',
   });
 });

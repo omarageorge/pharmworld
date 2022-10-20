@@ -4,7 +4,7 @@ import {
   addToCart,
   updateCartItem,
   deleteCartItem,
-} from '../controllers/cartController';
+} from '../controllers/cartController.js';
 import protect from '../middleware/authMiddleware.js';
 
 const router = Router();
@@ -29,7 +29,7 @@ router
   // @access  Private/Protected
   .put(updateCartItem)
 
-  // @route   DELETE /api/cart
+  // @route   DELETE /api/cart/:id
   // @desc    Delete cart item
   // @access  Private/Protected
   .delete(deleteCartItem);
