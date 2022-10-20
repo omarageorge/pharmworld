@@ -1,5 +1,5 @@
 import { Link, useNavigate, Outlet } from 'react-router-dom';
-import { useContext } from 'react';
+import { useEffect, useContext } from 'react';
 
 import { UserContext } from '../../context/userContext';
 
@@ -10,6 +10,12 @@ export default function AdminLayout() {
   const logout = () => {
     navigate('/login');
   };
+
+  useEffect(() => {
+    if (user && user.role !== 'admin') {
+      navigate('/', { replace: true });
+    }
+  }, [user, navigate]);
 
   return (
     <main className='w-full h-auto'>

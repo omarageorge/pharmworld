@@ -1,8 +1,8 @@
+import axios from 'axios';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import UserProvider from './context/userContext';
-import axios from 'axios';
 
 import App from './App';
 import './styles/globals.scss';

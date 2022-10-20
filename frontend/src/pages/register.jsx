@@ -18,7 +18,7 @@ export default function Register() {
   const [password, bindPassword] = useInput('');
   const [confirmPassword, bindConfirmPassword] = useInput('');
 
-  const { dispatch, isFetching } = useContext(UserContext);
+  const { user, dispatch, isFetching } = useContext(UserContext);
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = async (e) => {
@@ -37,8 +37,12 @@ export default function Register() {
         email,
         password,
       });
+
       dispatch(registerSuccess(data));
-      navigate('/');
+
+      user && user.role === 'admin'
+        ? navigate('/admin', { replace: true })
+        : navigate('/', { replace: true });
     } catch (err) {
       dispatch(registerFail());
       setErrorMessage(err.response.data.message);

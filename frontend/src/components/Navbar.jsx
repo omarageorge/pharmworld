@@ -39,11 +39,11 @@ export default function Navbar() {
         </Link>
 
         <span className='font-light space-x-6'>
-          <Link to='/'>
+          <NavLink to='/'>
             <span className='cursor-pointer'>Products</span>
-          </Link>
+          </NavLink>
 
-          <NavLink to='/products'>
+          <NavLink to='/about'>
             <span className='cursor-pointer'>About</span>
           </NavLink>
 

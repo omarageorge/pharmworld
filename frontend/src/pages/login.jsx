@@ -16,7 +16,7 @@ export default function Login() {
   const [email, bindEmail] = useInput('');
   const [password, bindPassword] = useInput('');
 
-  const { dispatch, isFetching } = useContext(UserContext);
+  const { user, dispatch, isFetching } = useContext(UserContext);
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = async (e) => {
@@ -28,8 +28,12 @@ export default function Login() {
         email,
         password,
       });
+
       dispatch(loginSuccess(data));
-      navigate('/');
+
+      user && user.role === 'admin'
+        ? navigate('/admin', { replace: true })
+        : navigate('/', { replace: true });
     } catch (error) {
       dispatch(loginFail());
       setErrorMessage(error.response.data.message);
