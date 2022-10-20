@@ -1,9 +1,10 @@
-import React, { createContext, useReducer, useEffect } from 'react';
+import React, { createContext, useReducer } from 'react';
 import { cartReducer } from './reducers/cartReducer';
 
 const INITIAL_STATE = {
-  products: JSON.parse(window.localStorage.getItem('cart')) || [],
-  total: 0,
+  products: [],
+  isFetching: false,
+  error: false,
 };
 
 export const CartContext = createContext(INITIAL_STATE);
@@ -11,13 +12,9 @@ export const CartContext = createContext(INITIAL_STATE);
 export default function CartProvider({ children }) {
   const [state, dispatch] = useReducer(cartReducer, INITIAL_STATE);
 
-  useEffect(() => {
-    window.localStorage.setItem('cart', JSON.stringify(state.products));
-  }, [state.products]);
-
   return (
     <CartContext.Provider
-      value={{ items: state.products, total: state.total, dispatch }}
+      value={{ items: state.products, isFetching: state.isFetching, dispatch }}
     >
       {children}
     </CartContext.Provider>

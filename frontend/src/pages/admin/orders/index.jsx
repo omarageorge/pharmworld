@@ -10,7 +10,7 @@ export default function AdminOrders() {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const { data } = await axios.get('http://localhost:5000/api/orders', {
+        const { data } = await axios.get('/api/orders', {
           headers: {
             Authorization: `Bearer ${
               JSON.parse(localStorage.getItem('user')).token

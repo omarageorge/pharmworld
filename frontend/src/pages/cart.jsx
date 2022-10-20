@@ -1,19 +1,36 @@
-import { useState, useEffect, useContext } from 'react';
-
-import { CartContext } from '../context/cartContext';
+import axios from 'axios';
+import { useState, useEffect } from 'react';
 import CartItem from '../components/CartItem';
 import Layout from '../components/Layout';
 import PageLoading from '../components/PageLoading';
 
 export default function Cart() {
-  const { items, total, dispatch } = useContext(CartContext);
-  const [loading, setLoading] = useState(false);
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (items.length > 0) {
-      setLoading(false);
-    }
-  }, [items]);
+    const getProductsInCart = async () => {
+      setLoading(true);
+
+      try {
+        const { data } = await axios.get('/api/cart', {
+          headers: {
+            Authorization: `Bearer ${
+              JSON.parse(localStorage.getItem('user')).token
+            }`,
+          },
+        });
+
+        setItems(data.products);
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+        console.log(error.response.data.message);
+      }
+    };
+
+    getProductsInCart();
+  }, []);
 
   if (loading) {
     return <PageLoading />;
@@ -24,7 +41,7 @@ export default function Cart() {
       <main className='py-6 px-8 flex flex-col lg:flex-row space-y-8 lg:space-x-8 lg:space-y-0 '>
         <div className='w-full lg:w-4/6 space-y-6'>
           {items.map((item) => (
-            <CartItem key={item._id} {...item} />
+            <CartItem key={item.product._id} {...item} />
           ))}
         </div>
 

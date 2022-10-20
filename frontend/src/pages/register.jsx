@@ -32,14 +32,11 @@ export default function Register() {
     dispatch(registerStart());
 
     try {
-      const { data } = await axios.post(
-        'http://localhost:5000/api/users/register',
-        {
-          name: username,
-          email,
-          password,
-        }
-      );
+      const { data } = await axios.post('/api/auth/register', {
+        name: username,
+        email,
+        password,
+      });
       dispatch(registerSuccess(data));
       navigate('/');
     } catch (err) {

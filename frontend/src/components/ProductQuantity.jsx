@@ -1,9 +1,6 @@
-import { useState } from 'react';
 import { FaPlus, FaMinus } from 'react-icons/fa';
 
-export default function ProductQuantity() {
-  const [quantity, setQuantity] = useState(1);
-
+export default function ProductQuantity({ quantity, setQuantity }) {
   const increaseQuantity = () => {
     setQuantity(quantity + 1);
   };

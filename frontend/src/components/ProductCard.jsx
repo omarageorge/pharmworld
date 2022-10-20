@@ -1,10 +1,13 @@
+import axios from 'axios';
 import { useState, useContext } from 'react';
 import { FaCartPlus } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 import { CartContext } from '../context/cartContext';
 import { UserContext } from '../context/userContext';
-import { addToCart, removeFromCart } from '../context/actions/cartActions';
 
 export default function ProductCard({ _id, name, price, image }) {
+  const navigate = useNavigate();
+
   const { items, dispatch } = useContext(CartContext);
   const { user } = useContext(UserContext);
 
@@ -14,8 +17,27 @@ export default function ProductCard({ _id, name, price, image }) {
     return items.some((item) => item._id === id);
   };
 
-  const handleAddToCart = () => {
-    dispatch(addToCart({ _id, name, price }));
+  const handleAddToCart = async () => {
+    try {
+      await axios.post(
+        '/api/cart',
+        {
+          product: _id,
+          quantity: 1,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${
+              JSON.parse(localStorage.getItem('user')).token
+            }`,
+          },
+        }
+      );
+
+      navigate('/cart');
+    } catch (error) {
+      console.log(error.response.data.message);
+    }
   };
 
   const handleRemoveFromCart = () => {

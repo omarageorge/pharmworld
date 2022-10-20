@@ -47,18 +47,14 @@ export default function AdminEditProduct() {
       formData.append('description', productData.description);
       formData.append('image', image);
 
-      await axios.put(
-        `http://localhost:5000/api/products/${params.productId}`,
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${
-              JSON.parse(localStorage.getItem('user')).token
-            }`,
-            'Content-Type': 'multipart/form-data',
-          },
-        }
-      );
+      await axios.put(`/api/products/${params.productId}`, formData, {
+        headers: {
+          Authorization: `Bearer ${
+            JSON.parse(localStorage.getItem('user')).token
+          }`,
+          'Content-Type': 'multipart/form-data',
+        },
+      });
 
       setSaveChangesLoading(false);
       navigate('/admin/products');
@@ -70,16 +66,13 @@ export default function AdminEditProduct() {
   const deleteProduct = async () => {
     try {
       setDeleteProductLoading(true);
-      await axios.delete(
-        `http://localhost:5000/api/products/${params.productId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${
-              JSON.parse(localStorage.getItem('user')).token
-            }`,
-          },
-        }
-      );
+      await axios.delete(`/api/products/${params.productId}`, {
+        headers: {
+          Authorization: `Bearer ${
+            JSON.parse(localStorage.getItem('user')).token
+          }`,
+        },
+      });
       setDeleteProductLoading(false);
       navigate('/admin/products');
     } catch (error) {
@@ -91,16 +84,13 @@ export default function AdminEditProduct() {
     const getProduct = async () => {
       setPageLoading(true);
       try {
-        const { data } = await axios.get(
-          `http://localhost:5000/api/products/${params.productId}`,
-          {
-            headers: {
-              Authorization: `Bearer ${
-                JSON.parse(localStorage.getItem('user')).token
-              }`,
-            },
-          }
-        );
+        const { data } = await axios.get(`/api/products/${params.productId}`, {
+          headers: {
+            Authorization: `Bearer ${
+              JSON.parse(localStorage.getItem('user')).token
+            }`,
+          },
+        });
 
         setProductData({
           name: data.name,

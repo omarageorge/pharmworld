@@ -24,13 +24,10 @@ export default function Login() {
     dispatch(loginStart());
 
     try {
-      const { data } = await axios.post(
-        'http://localhost:5000/api/users/login',
-        {
-          email,
-          password,
-        }
-      );
+      const { data } = await axios.post('/api/auth/login', {
+        email,
+        password,
+      });
       dispatch(loginSuccess(data));
       navigate('/');
     } catch (error) {

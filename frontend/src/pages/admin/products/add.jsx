@@ -31,7 +31,7 @@ export default function AdminAddProduct() {
       formData.append('description', description);
       formData.append('image', image);
 
-      await axios.post('http://localhost:5000/api/products', formData, {
+      await axios.post('/api/products', formData, {
         headers: {
           Authorization: `Bearer ${
             JSON.parse(localStorage.getItem('user')).token
