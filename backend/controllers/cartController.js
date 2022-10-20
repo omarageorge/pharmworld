@@ -5,7 +5,7 @@ import Cart from '../models/cartModel.js';
 // @desc    Get cart items
 // @access  Private/Protected
 export const getCartItems = asyncHandler(async (req, res) => {
-  const cart = await Cart.findOne({ userId: req.user._id })
+  const cart = await Cart.findOne({ user: req.user._id })
     .populate('user', 'name email')
     .populate('products.product', 'name image price')
     .exec();

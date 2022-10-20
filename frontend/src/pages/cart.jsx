@@ -3,10 +3,17 @@ import { useState, useEffect } from 'react';
 import CartItem from '../components/CartItem';
 import Layout from '../components/Layout';
 import PageLoading from '../components/PageLoading';
+import useInput from '../hooks/useInput';
 
 export default function Cart() {
+  const [total, setTotal] = useState(0);
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const [email, bindEmail] = useInput(
+    JSON.parse(localStorage.getItem('user')).email
+  );
+  const [deliveryAddress, bindDeliveryAddress] = useInput('');
 
   useEffect(() => {
     const getProductsInCart = async () => {
@@ -32,6 +39,20 @@ export default function Cart() {
     getProductsInCart();
   }, []);
 
+  useEffect(() => {
+    const getTotal = () => {
+      let total = 0;
+
+      items.forEach((item) => {
+        total += item.product.price * item.quantity;
+      });
+
+      setTotal(total);
+    };
+
+    getTotal();
+  }, [items]);
+
   if (loading) {
     return <PageLoading />;
   }
@@ -48,7 +69,7 @@ export default function Cart() {
         <div className='w-full lg:w-2/6 h-auto rounded-md mx-auto bg-lime-900 px-6 p-10 cursor-pointer'>
           <div className='mb-4 text-center'>
             <span className='font-medium text-gray-100 text-2xl'>
-              Subtotal: <span className='text-red-400'>$56</span>
+              Total: <span className='text-red-400'>${total}</span>
             </span>
           </div>
 
@@ -59,6 +80,7 @@ export default function Cart() {
               </label>
               <input
                 type='email'
+                {...bindEmail}
                 placeholder='email@dnmx.org   '
                 className='w-full h-12 focus:outline focus:outline-lime-400 rounded-md p-4 bg-gray-100'
               />
@@ -70,6 +92,7 @@ export default function Cart() {
               </label>
               <textarea
                 type='text'
+                {...bindDeliveryAddress}
                 placeholder='Address to deliver the package'
                 className='w-full h-32 focus:outline focus:outline-lime-400 rounded-md p-4 bg-gray-100'
               ></textarea>

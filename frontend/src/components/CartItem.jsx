@@ -5,7 +5,7 @@ import ProductQuantity from './ProductQuantity';
 export default function CartItem({ product, quantity }) {
   const navigate = useNavigate();
 
-  const { _id, name } = product;
+  const { _id, name, price } = product;
 
   const setQuantity = async (quantity) => {
     try {
@@ -55,7 +55,10 @@ export default function CartItem({ product, quantity }) {
         {name}
       </span>
 
-      <span className='justify-self-center'>
+      <span className='justify-self-center flex items-center space-x-3'>
+        <span className='justify-self-center font-medium text-lg'>
+          ${price}
+        </span>
         <ProductQuantity quantity={quantity} setQuantity={setQuantity} />
       </span>
 
