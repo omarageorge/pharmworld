@@ -44,12 +44,12 @@ export const addToCart = asyncHandler(async (req, res) => {
 
     res.status(201).json(updatedCart);
   } else {
-    const newCart = await Cart.create({
+    await Cart.create({
       user: req.user._id,
       products: [{ product, quantity }],
     });
 
-    res.status(201).json(newCart);
+    res.status(201).json({ message: 'Cart created successfully' });
   }
 });
 

@@ -2,17 +2,14 @@ import { Link, useNavigate, Outlet } from 'react-router-dom';
 import { useEffect, useContext } from 'react';
 
 import { UserContext } from '../../context/userContext';
+import { logout } from '../../context/actions/userActions';
 
 export default function AdminLayout() {
   const navigate = useNavigate();
   const { user } = useContext(UserContext);
 
-  const logout = () => {
-    navigate('/login');
-  };
-
   useEffect(() => {
-    if (user && user.role !== 'admin') {
+    if (user && user.isAdmin !== true) {
       navigate('/', { replace: true });
     }
   }, [user, navigate]);
@@ -50,7 +47,9 @@ export default function AdminLayout() {
           </Link>
 
           <span
-            onClick={logout}
+            onClick={() => {
+              dispatch(logout());
+            }}
             className='block w-full py-4 px-1 bg-red-900 hover:bg-red-800 font-light text-center text-sm text-gray-100 transition-all delay-100 ease-out cursor-pointer sm:text-lg'
           >
             Logout

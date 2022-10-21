@@ -1,5 +1,7 @@
 import asyncHandler from 'express-async-handler';
 import Order from '../models/orderModel.js';
+import Cart from '../models/cartModel.js';
+import Product from '../models/productModel.js';
 
 // @route   GET /api/orders
 // @desc    Get all orders
@@ -10,7 +12,7 @@ export const getOrders = asyncHandler(async (req, res) => {
     .populate('orderItems.product', 'name price image');
 
   if (orders) {
-    res.json(orders);
+    res.status(200).json(orders);
   } else {
     res.status(404);
     throw new Error('No orders found');
@@ -26,7 +28,7 @@ export const getOrderById = asyncHandler(async (req, res) => {
     .populate('orderItems.product', 'name price image');
 
   if (order) {
-    res.json(order);
+    res.status(200).json(order);
   } else {
     res.status(404);
     throw new Error('Order not found');
@@ -50,9 +52,21 @@ export const placeOrder = asyncHandler(async (req, res) => {
       deliveryAddress,
     });
 
-    const createdOrder = await order.save();
+    await order.save();
 
-    res.status(201).json(createdOrder);
+    // reduce quantity of products in stock by the quantity ordered by user in products collection
+    await Promise.all(
+      orderItems.map(async (item) => {
+        const product = await Product.findById(item.product);
+        product.countInStock -= item.quantity;
+        await product.save();
+      })
+    );
+
+    // clear cart after order is placed
+    await Cart.findOneAndDelete({ user: req.user._id });
+
+    res.status(201).json({ message: 'Order placed successfully' });
   }
 });
 
@@ -64,10 +78,9 @@ export const markOrderComplete = asyncHandler(async (req, res) => {
 
   if (order) {
     order.isComplete = true;
+    await order.save();
 
-    const updatedOrder = await order.save();
-
-    res.json(updatedOrder);
+    res.status(201).json({ message: 'Order completed' });
   } else {
     res.status(404);
     throw new Error('Order not found');

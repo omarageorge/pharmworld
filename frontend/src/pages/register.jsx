@@ -40,7 +40,7 @@ export default function Register() {
 
       dispatch(registerSuccess(data));
 
-      user && user.role === 'admin'
+      user && user.isAdmin === true
         ? navigate('/admin', { replace: true })
         : navigate('/', { replace: true });
     } catch (err) {

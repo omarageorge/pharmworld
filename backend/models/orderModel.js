@@ -9,7 +9,7 @@ const orderSchema = mongoose.Schema(
     },
     orderItems: [
       {
-        qty: { type: Number, required: true },
+        quantity: { type: Number, required: true },
         product: {
           type: mongoose.Schema.Types.ObjectId,
           required: true,
@@ -18,17 +18,8 @@ const orderSchema = mongoose.Schema(
       },
     ],
     deliveryAddress: { type: String, required: true },
-
-    totalPrice: {
-      type: Number,
-      required: true,
-      default: 0.0,
-    },
-    isComplete: {
-      type: Boolean,
-      required: true,
-      default: false,
-    },
+    totalPrice: { type: Number, required: true },
+    isComplete: { type: Boolean, required: true, default: false },
   },
   {
     timestamps: true,

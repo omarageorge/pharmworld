@@ -1,19 +1,49 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import CartItem from '../components/CartItem';
 import Layout from '../components/Layout';
 import PageLoading from '../components/PageLoading';
 import useInput from '../hooks/useInput';
 
 export default function Cart() {
+  const navigate = useNavigate();
   const [total, setTotal] = useState(0);
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const [email, bindEmail] = useInput(
-    JSON.parse(localStorage.getItem('user')).email
-  );
   const [deliveryAddress, bindDeliveryAddress] = useInput('');
+
+  const handleSubmission = async (e) => {
+    e.preventDefault();
+
+    const itemList = items.map((item) => {
+      return {
+        product: item.product._id,
+        quantity: item.quantity,
+      };
+    });
+
+    const payload = {
+      orderItems: itemList,
+      totalPrice: total,
+      deliveryAddress,
+    };
+
+    try {
+      await axios.post('/api/orders', payload, {
+        headers: {
+          Authorization: `Bearer ${
+            JSON.parse(localStorage.getItem('user')).token
+          }`,
+        },
+      });
+
+      navigate('/');
+    } catch (error) {
+      console.error(error.response.data.message);
+    }
+  };
 
   useEffect(() => {
     const getProductsInCart = async () => {
@@ -73,8 +103,8 @@ export default function Cart() {
             </span>
           </div>
 
-          <form className='space-y-6'>
-            <div className='flex flex-col space-y-2'>
+          <form onSubmit={handleSubmission} className='space-y-6'>
+            {/*    <div className='flex flex-col space-y-2'>
               <label className='font-light text-gray-100 text-md'>
                 Enter email address
               </label>
@@ -84,7 +114,7 @@ export default function Cart() {
                 placeholder='email@dnmx.org   '
                 className='w-full h-12 focus:outline focus:outline-lime-400 rounded-md p-4 bg-gray-100'
               />
-            </div>
+            </div> */}
 
             <div className='flex flex-col space-y-2'>
               <label className='font-light text-gray-100 text-md'>
