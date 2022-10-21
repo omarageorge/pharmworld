@@ -1,8 +1,12 @@
 import { FaPlus, FaMinus } from 'react-icons/fa';
 
-export default function ProductQuantity({ quantity, setQuantity }) {
+export default function ProductQuantity({ quantity, limit, setQuantity }) {
   const increaseQuantity = () => {
-    setQuantity(quantity + 1);
+    if (quantity < limit) {
+      setQuantity(quantity + 1);
+    } else {
+      alert('Purchase limit reached');
+    }
   };
 
   const decreaseQuantity = () => {
@@ -25,7 +29,6 @@ export default function ProductQuantity({ quantity, setQuantity }) {
       <div className='w-8 h-8 rounded-md bg-white flex justify-center items-center'>
         <span className='font-light text-lg'>{quantity}</span>
       </div>
-
       <div
         className='w-8 h-8 rounded-3xl bg-lime-800 hover:bg-lime-700 flex items-center justify-center text-gray-100 cursor-pointer'
         onClick={increaseQuantity}

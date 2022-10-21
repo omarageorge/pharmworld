@@ -6,7 +6,7 @@ import { logout } from '../../context/actions/userActions';
 
 export default function AdminLayout() {
   const navigate = useNavigate();
-  const { user } = useContext(UserContext);
+  const { user, dispatch } = useContext(UserContext);
 
   useEffect(() => {
     if (user && user.isAdmin !== true) {

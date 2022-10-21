@@ -1,11 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 
-export default function TableRow({ order, client, date }) {
+export default function TableRowCompleted({ order, client, date }) {
   const navigate = useNavigate();
 
   return (
     <tr
-      className='odd:bg-lime-200 even:bg-white hover:bg-lime-300 font-light cursor-pointer transition-all delay-150 ease-out'
+      className='bg-gray-300 hover:bg-gray-400 font-light cursor-pointer transition-all delay-150 ease-out'
       onClick={() => {
         navigate(`/admin/orders/${order}`);
       }}

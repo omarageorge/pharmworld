@@ -17,6 +17,7 @@ export default function AdminEditProduct() {
     name: '',
     price: '',
     countInStock: '',
+    purchaseLimit: '',
     description: '',
   });
 
@@ -44,6 +45,7 @@ export default function AdminEditProduct() {
       formData.append('name', productData.name);
       formData.append('price', productData.price);
       formData.append('countInStock', productData.countInStock);
+      formData.append('purchaseLimit', productData.purchaseLimit);
       formData.append('description', productData.description);
       formData.append('image', image);
 
@@ -97,6 +99,7 @@ export default function AdminEditProduct() {
           price: data.price,
           image: data.image,
           countInStock: data.countInStock,
+          purchaseLimit: data.purchaseLimit,
           description: data.description,
         });
 
@@ -143,8 +146,14 @@ export default function AdminEditProduct() {
           </div>
 
           <div>
+            <label
+              htmlFor='name'
+              className='block font-medium text-lg text-lime-700'
+            >
+              Product name:
+            </label>
+
             <input
-              placeholder='Product name'
               type='text'
               name='name'
               value={productData.name}
@@ -154,9 +163,16 @@ export default function AdminEditProduct() {
           </div>
 
           <div>
+            <label
+              htmlFor='price'
+              className='block font-medium text-lg text-lime-700'
+            >
+              Price in USD:
+            </label>
+
             <input
-              placeholder='Price'
               type='number'
+              min={0}
               name='price'
               value={productData.price}
               onChange={handleChange}
@@ -165,9 +181,16 @@ export default function AdminEditProduct() {
           </div>
 
           <div>
+            <label
+              htmlFor='countInStock'
+              className='block font-medium text-lg text-lime-700'
+            >
+              In stock:
+            </label>
+
             <input
-              placeholder='In stock'
               type='number'
+              min={0}
               name='countInStock'
               value={productData.countInStock}
               onChange={handleChange}
@@ -176,8 +199,32 @@ export default function AdminEditProduct() {
           </div>
 
           <div>
+            <label
+              htmlFor='countInStock'
+              className='block font-medium text-lg text-lime-700'
+            >
+              Purchase limit per order
+            </label>
+
+            <input
+              type='number'
+              min={1}
+              name='purchaseLimit'
+              value={productData.purchaseLimit}
+              onChange={handleChange}
+              className='w-full border-b border-gray-400 outline-none focus:border-green-600 pl-1 py-2  font-light text-md'
+            />
+          </div>
+
+          <div>
+            <label
+              htmlFor='description'
+              className='block font-medium text-lg text-lime-700'
+            >
+              Description:
+            </label>
+
             <textarea
-              placeholder='Description'
               name='description'
               value={productData.description}
               onChange={handleChange}

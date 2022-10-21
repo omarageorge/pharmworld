@@ -97,11 +97,12 @@ export default function AdminOrder() {
       <div className='pt-6'>
         <span className='font-medium text-lg'>Orders</span>
 
-        <table className='w-5/6 border mt-2 text-left'>
+        <table className='w-3/6 border mt-2 text-left'>
           <thead className='bg-lime-600 text-gray-100'>
             <tr>
               <th className='p-2 sm:p-4 text-center border-r-2'>#</th>
               <th className='p-2 sm:p-4 border-r-2'>Item</th>
+              <th className='p-2 sm:p-4 border-r-2 text-center'>Price</th>
               <th className='p-2 sm:p-4 text-center'>Quantity</th>
             </tr>
           </thead>
@@ -110,6 +111,9 @@ export default function AdminOrder() {
               <tr key={index}>
                 <td className='border p-2 sm:p-4 text-center'>{index + 1}</td>
                 <td className='border p-2 sm:p-4'>{item.product.name}</td>
+                <td className='border p-2 sm:p-4 text-center'>
+                  {item.product.price}
+                </td>
                 <td className='border p-2 sm:p-4 text-center'>
                   {item.quantity}
                 </td>

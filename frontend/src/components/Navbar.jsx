@@ -22,7 +22,7 @@ export default function Navbar() {
 
         data.products.length > 0 && setCartItems(data.products.length);
       } catch (error) {
-        console.log(error.response.data.message);
+        setCartItems(0);
       }
     };
 
@@ -39,16 +39,12 @@ export default function Navbar() {
         </Link>
 
         <span className='font-light space-x-6'>
-          <NavLink to='/'>
+          <Link to='/'>
             <span className='cursor-pointer'>Products</span>
-          </NavLink>
+          </Link>
 
           <NavLink to='/about'>
             <span className='cursor-pointer'>About</span>
-          </NavLink>
-
-          <NavLink to='/faq'>
-            <span className='cursor-pointer'>FAQ</span>
           </NavLink>
 
           {user === null && (

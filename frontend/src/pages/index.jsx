@@ -13,18 +13,11 @@ export default function Home() {
       try {
         const { data } = await axios.get('/api/products');
         setProducts(data);
-      } catch (error) {
-        console.error(error.response.data.message);
-      }
+        setLoading(false);
+      } catch (error) {}
     };
     fetchProducts();
   }, []);
-
-  useEffect(() => {
-    if (products.length > 0) {
-      setLoading(false);
-    }
-  }, [products]);
 
   if (loading) {
     return <PageLoading />;
@@ -32,11 +25,19 @@ export default function Home() {
 
   return (
     <Layout>
-      <section className='md:w-[80%] md:mx-auto grid grid-cols-1 gap-6 px-6 sm:grid-cols-2 lg:grid-cols-3  md:gap-8 md:px-0 '>
-        {products.map((product) => (
-          <ProductCard key={product._id} {...product} />
-        ))}
-      </section>
+      {products.length === 0 ? (
+        <span className='block font-light text-xl text-center text-red-600'>
+          No products have been posted.
+        </span>
+      ) : (
+        <section className='md:w-[80%] md:mx-auto grid grid-cols-1 gap-6 px-6 sm:grid-cols-2 lg:grid-cols-3  md:gap-8 md:px-0 '>
+          {products.map((product) => {
+            if (product.countInStock > 0) {
+              return <ProductCard key={product._id} {...product} />;
+            }
+          })}
+        </section>
+      )}
     </Layout>
   );
 }

@@ -7,7 +7,7 @@ import Product from '../models/productModel.js';
 // @desc    Get all orders
 // @access  Private/Admin
 export const getOrders = asyncHandler(async (req, res) => {
-  const orders = await Order.find({})
+  const orders = await Order.find({}).sort({createdAt: -1})
     .populate('user', 'name email')
     .populate('orderItems.product', 'name price image');
 

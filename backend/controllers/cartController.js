@@ -7,7 +7,7 @@ import Cart from '../models/cartModel.js';
 export const getCartItems = asyncHandler(async (req, res) => {
   const cart = await Cart.findOne({ user: req.user._id })
     .populate('user', 'name email')
-    .populate('products.product', 'name image price')
+    .populate('products.product', 'name image price purchaseLimit')
     .exec();
 
   if (cart) {

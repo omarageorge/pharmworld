@@ -5,7 +5,7 @@ import ProductQuantity from './ProductQuantity';
 export default function CartItem({ product, quantity }) {
   const navigate = useNavigate();
 
-  const { _id, name, price } = product;
+  const { _id, name, price, purchaseLimit } = product;
 
   const setQuantity = async (quantity) => {
     try {
@@ -59,7 +59,11 @@ export default function CartItem({ product, quantity }) {
         <span className='justify-self-center font-medium text-lg'>
           ${price}
         </span>
-        <ProductQuantity quantity={quantity} setQuantity={setQuantity} />
+        <ProductQuantity
+          quantity={quantity}
+          limit={purchaseLimit}
+          setQuantity={setQuantity}
+        />
       </span>
 
       <button

@@ -12,6 +12,7 @@ export default function AdminAddProduct() {
   const [price, bindPrice] = useInput('');
   const [countInStock, bindCountInStock] = useInput('');
   const [description, bindDescription] = useInput('');
+  const [limit, bindLimit] = useInput('');
 
   const [image, setImage] = useState('');
 
@@ -29,6 +30,7 @@ export default function AdminAddProduct() {
       formData.append('price', price);
       formData.append('countInStock', countInStock);
       formData.append('description', description);
+      formData.append('purchaseLimit', limit);
       formData.append('image', image);
 
       await axios.post('/api/products', formData, {
@@ -62,8 +64,9 @@ export default function AdminAddProduct() {
 
           <div className=''>
             <input
-              placeholder='Price'
+              placeholder='Price in USD'
               type='number'
+              min={0}
               {...bindPrice}
               className='w-full border-b border-gray-400 outline-none focus:border-green-600 pl-1 py-2  font-light text-md'
             />
@@ -73,7 +76,18 @@ export default function AdminAddProduct() {
             <input
               placeholder='In stock'
               type='number'
+              min={0}
               {...bindCountInStock}
+              className='w-full border-b border-gray-400 outline-none focus:border-green-600 pl-1 py-2  font-light text-md'
+            />
+          </div>
+
+          <div className=''>
+            <input
+              placeholder='Purchase limit per order'
+              type='number'
+              min={1}
+              {...bindLimit}
               className='w-full border-b border-gray-400 outline-none focus:border-green-600 pl-1 py-2  font-light text-md'
             />
           </div>

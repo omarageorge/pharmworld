@@ -91,9 +91,16 @@ export default function Cart() {
     <Layout>
       <main className='py-6 px-8 flex flex-col lg:flex-row space-y-8 lg:space-x-8 lg:space-y-0 '>
         <div className='w-full lg:w-4/6 space-y-6'>
-          {items.map((item) => (
-            <CartItem key={item.product._id} {...item} />
-          ))}
+          {items.length === 0 ? (
+            <div className='w-full h-96 flex flex-col items-center justify-center'>
+              <span className='font-bold text-2xl'>Cart is empty</span>
+              <span className='text-gray-500'>Add some items to your cart</span>
+            </div>
+          ) : (
+            items.map((item) => {
+              return <CartItem key={item.product._id} {...item} />;
+            })
+          )}
         </div>
 
         <div className='w-full lg:w-2/6 h-auto rounded-md mx-auto bg-lime-900 px-6 p-10 cursor-pointer'>
@@ -104,21 +111,10 @@ export default function Cart() {
           </div>
 
           <form onSubmit={handleSubmission} className='space-y-6'>
-            {/*    <div className='flex flex-col space-y-2'>
-              <label className='font-light text-gray-100 text-md'>
-                Enter email address
-              </label>
-              <input
-                type='email'
-                {...bindEmail}
-                placeholder='email@dnmx.org   '
-                className='w-full h-12 focus:outline focus:outline-lime-400 rounded-md p-4 bg-gray-100'
-              />
-            </div> */}
-
             <div className='flex flex-col space-y-2'>
               <label className='font-light text-gray-100 text-md'>
-                Your delivery address
+                Your delivery address (Street Name, Street No, Customer Name,
+                ZIP Code)
               </label>
               <textarea
                 type='text'
