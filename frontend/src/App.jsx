@@ -12,14 +12,13 @@ import AdminOrders from './pages/admin/orders';
 import AdminEditProduct from './pages/admin/products/edit';
 import AdminOrder from './pages/admin/orders/order';
 import About from './pages/About';
-import Faq from './pages/faq';
 
 export default function App() {
   return (
     <Routes>
       <Route path='/' element={<Home />} />
       <Route path='about' element={<About />} />
-      <Route path='faq' element={<Faq />} />
+
       <Route
         path='cart'
         element={
