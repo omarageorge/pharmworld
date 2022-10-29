@@ -16,7 +16,7 @@ export default function AdminProductCard({
       }`}
     >
       <img
-        crossOrigin='anonymous'
+        crossOrigin='use-credentials'
         src={`http://localhost:5000/${image}`}
         className={`w-full h-[13rem] object-cover ${
           countInStock <= 0 && 'grayscale'
