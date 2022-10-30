@@ -79,7 +79,7 @@ export default function ProductCard({ _id, name, price, image }) {
     <div className='block overflow-hidden rounded-md bg-lime-400'>
       <img
         crossOrigin='anonymous'
-        src={`http://localhost:5000/${image}`}
+        src={`/images/${image}`}
         className='w-full h-[14.5rem] object-cover'
         alt=''
       />

@@ -23,7 +23,7 @@ server.use(helmet());
 server.use(morgan('dev'));
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
-server.use(express.static('backend/public'));
+server.use('/images', express.static('backend/public'));
 
 server.use('/api/auth', authRoutes);
 server.use('/api/products', productRoutes);

@@ -4,7 +4,7 @@ export default function AboutProduct({ image, name, description }) {
       <div className='flex-1 w-full h-auto rounded-md overflow-hidden'>
         <img
           crossOrigin='anonymous'
-          src={`http://localhost:5000/${image}`}
+          src={`/images/${image}`}
           className='block w-full h-full max-h-80 object-cover'
           alt=''
         />
