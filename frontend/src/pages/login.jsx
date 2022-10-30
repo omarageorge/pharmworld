@@ -64,14 +64,14 @@ export default function Login() {
         </div>
       </aside>
 
-      <main className='w-full bg-white lg:w-9/12 h-full lg:ml-[25%]'>
+      <main className='w-full h-full bg-white lg:w-9/12 pt-20 lg:pt-0 lg:ml-[25%]'>
         <Link to='/'>
           <span className='block text-center font-medium text-2xl text-slate-800 pt-6 lg:pr-8 lg:text-right cursor-pointer'>
             Pharmworld
           </span>
         </Link>
 
-        <section className='w-full h-auto flex justify-center pt-20 lg:pt-36'>
+        <section className='w-full h-auto flex justify-center pt-3 lg:pt-36'>
           <div className='w-5/6  sm:w-3/6 lg:w-3/6'>
             <span className='block font-light text-2xl text-lime-600 text-center mb-6'>
               Welcome Back!
@@ -84,7 +84,7 @@ export default function Login() {
             )}
 
             <form onSubmit={handleSubmit} className='space-y-6'>
-              <div className=''>
+              <div>
                 <input
                   placeholder='Email'
                   type='email'
@@ -93,7 +93,7 @@ export default function Login() {
                 />
               </div>
 
-              <div className=''>
+              <div>
                 <input
                   placeholder='Password'
                   type='password'
@@ -102,7 +102,7 @@ export default function Login() {
                 />
               </div>
 
-              <div className=''>
+              <div>
                 <button
                   type='submit'
                   className='w-full bg-lime-600 hover:bg-lime-500 py-3 rounded-sm text-white font-normal transition-all ease-out delay-300'
@@ -114,6 +114,17 @@ export default function Login() {
                     'SIGN IN'
                   )}
                 </button>
+              </div>
+
+              <div className='text-center'>
+                <span className='font-light text-lg'>
+                  Create an account:
+                  <Link to='/register'>
+                    <span className='ml-2 text-blue-600 underline'>
+                      Register
+                    </span>
+                  </Link>
+                </span>
               </div>
             </form>
           </div>

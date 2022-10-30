@@ -49,7 +49,7 @@ export default function AdminAddProduct() {
     }
   };
   return (
-    <div className='flex justify-center items-center'>
+    <div className='flex justify-center items-center pb-10'>
       <div className='w-10/12'>
         <span className='block font-light text-xl py-4'>Add new product</span>
         <form onSubmit={handleSubmit} className='space-y-6'>

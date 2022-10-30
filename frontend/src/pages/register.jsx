@@ -80,7 +80,7 @@ export default function Register() {
           </span>
         </Link>
 
-        <section className='w-full h-auto flex justify-center pt-20 lg:pt-5'>
+        <section className='w-full h-auto flex justify-center pt-4 lg:pt-5'>
           <div className='w-5/6  sm:w-3/6 lg:w-3/6'>
             <span className='block font-light text-2xl text-lime-600 text-center mb-6'>
               Create an Account
@@ -158,6 +158,17 @@ export default function Register() {
                     'REGISTER'
                   )}
                 </button>
+              </div>
+
+              <div className='text-center'>
+                <span className='font-light text-lg'>
+                  Already have an account:
+                  <Link to='/login'>
+                    <span className='ml-2 text-blue-600 underline'>
+                      Sign In
+                    </span>
+                  </Link>
+                </span>
               </div>
             </form>
           </div>

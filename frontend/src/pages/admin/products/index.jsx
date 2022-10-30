@@ -37,7 +37,7 @@ export default function AdminProducts() {
           No products have been posted.
         </span>
       ) : (
-        <div className='w-full h-auto grid grid-cols-1 gap-6 px-6 py-6 sm:grid-cols-2 md:grid-cols-3'>
+        <div className='w-full h-auto grid grid-cols-1 gap-8 p-8 lg:gap-6 lg:p-6 sm:grid-cols-2 lg:grid-cols-3'>
           {products.map((product) => (
             <AdminProductCard key={product._id} {...product} />
           ))}

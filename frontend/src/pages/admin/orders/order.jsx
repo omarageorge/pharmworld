@@ -63,7 +63,7 @@ export default function AdminOrder() {
   }
 
   return (
-    <div className='w-11/12 sm:w-10/12 mx-auto '>
+    <div className='w-11/12 sm:w-10/12 mx-auto pb-10 '>
       <div className='flex sm:justify-end pt-8'>
         <table>
           <tbody>
@@ -97,7 +97,7 @@ export default function AdminOrder() {
       <div className='pt-6'>
         <span className='font-medium text-lg'>Orders</span>
 
-        <table className='w-3/6 border mt-2 text-left'>
+        <table className='w-full border mt-2 text-left'>
           <thead className='bg-lime-600 text-gray-100'>
             <tr>
               <th className='p-2 sm:p-4 text-center border-r-2'>#</th>
