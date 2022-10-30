@@ -29,14 +29,16 @@ export default function About() {
   return (
     <Layout>
       <div className='w-[80%] mx-auto  pb-8'>
-        <div className='mb-4'>
-          <span className='font-normal text-md text-blue-600 underline underline-offset-4'>
-            No Medications on this Website are <strong>PRESSED</strong> or{' '}
-            <strong>COUNTERFEIT</strong>, Everything on this website is100%
-            legit. We do not sell <strong>FENTANYL</strong>. Patient's Health
-            and well being is our number 1 priority.
-          </span>
-        </div>
+        {products.length > 0 && (
+          <div className='mb-4'>
+            <span className='font-normal text-md text-blue-600 underline underline-offset-4'>
+              No Medications on this Website are <strong>PRESSED</strong> or{' '}
+              <strong>COUNTERFEIT</strong>, Everything on this website is100%
+              legit. We do not sell <strong>FENTANYL</strong>. Patient's Health
+              and well being is our number 1 priority.
+            </span>
+          </div>
+        )}
 
         {/* Products */}
         <div className='grid grid-cols-1 space-y-6'>
