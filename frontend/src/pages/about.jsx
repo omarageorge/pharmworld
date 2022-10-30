@@ -4,7 +4,7 @@ import Layout from '../components/Layout';
 import AboutProduct from '../components/AboutProduct';
 import PageLoading from '../components/PageLoading';
 
-export default function Products() {
+export default function About() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -29,9 +29,17 @@ export default function Products() {
   return (
     <Layout>
       <div className='w-[80%] mx-auto  pb-8'>
-        <h1 className='text-3xl font-bold'>Products</h1>
+        <div className='mb-4'>
+          <span className='font-normal text-md text-blue-600 underline underline-offset-4'>
+            No Medications on this Website are <strong>PRESSED</strong> or{' '}
+            <strong>COUNTERFEIT</strong>, Everything on this website is100%
+            legit. We do not sell <strong>FENTANYL</strong>. Patient's Health
+            and well being is our number 1 priority.
+          </span>
+        </div>
 
-        <div className='grid grid-cols-1 mt-6 space-y-8'>
+        {/* Products */}
+        <div className='grid grid-cols-1 space-y-6'>
           {products.map((product) => (
             <AboutProduct key={product._id} {...product} />
           ))}

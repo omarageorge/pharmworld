@@ -43,6 +43,10 @@ export default function Navbar() {
             <span className='cursor-pointer'>Products</span>
           </Link>
 
+          <Link to='/faq'>
+            <span className='cursor-pointer'>Faq</span>
+          </Link>
+
           <NavLink to='/about'>
             <span className='cursor-pointer'>About</span>
           </NavLink>

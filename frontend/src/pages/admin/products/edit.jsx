@@ -158,6 +158,7 @@ export default function AdminEditProduct() {
               name='name'
               value={productData.name}
               onChange={handleChange}
+              required
               className='w-full border-b border-gray-400 outline-none focus:border-green-600 pl-1 py-2  font-light text-md'
             />
           </div>
@@ -176,6 +177,7 @@ export default function AdminEditProduct() {
               name='price'
               value={productData.price}
               onChange={handleChange}
+              required
               className='w-full border-b border-gray-400 outline-none focus:border-green-600 pl-1 py-2  font-light text-md'
             />
           </div>
@@ -194,6 +196,7 @@ export default function AdminEditProduct() {
               name='countInStock'
               value={productData.countInStock}
               onChange={handleChange}
+              required
               className='w-full border-b border-gray-400 outline-none focus:border-green-600 pl-1 py-2  font-light text-md'
             />
           </div>
@@ -212,6 +215,7 @@ export default function AdminEditProduct() {
               name='purchaseLimit'
               value={productData.purchaseLimit}
               onChange={handleChange}
+              required
               className='w-full border-b border-gray-400 outline-none focus:border-green-600 pl-1 py-2  font-light text-md'
             />
           </div>
@@ -228,6 +232,7 @@ export default function AdminEditProduct() {
               name='description'
               value={productData.description}
               onChange={handleChange}
+              required
               className='w-full h-40 border-b border-gray-400 outline-none focus:border-green-600 pl-1 py-2 font-light text-md'
             ></textarea>
           </div>
