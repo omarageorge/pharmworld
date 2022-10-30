@@ -103,7 +103,7 @@ export default function AdminEditProduct() {
           description: data.description,
         });
 
-        setImagePreview(`http://localhost:5000/${data.image}`);
+        setImagePreview(`/images/${data.image}`);
         setPageLoading(false);
       } catch (error) {
         console.error(error.response.data.message);
