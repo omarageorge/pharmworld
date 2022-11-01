@@ -1,6 +1,6 @@
 export default function AboutProduct({ name, description }) {
   return (
-    <div>
+    <div className='flex flex-col'>
       <span className='font-bold text-xl'>
         <strong>{name}</strong>
       </span>
