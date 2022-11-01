@@ -91,7 +91,7 @@ export default function ProductCard({ _id, name, price, image }) {
 
         <div className='flex justify-between items-center'>
           <span className='font-light'>
-            Price: <span className='text-red-800'>{price}</span>
+            Price: <span className='text-red-800'>${price}</span>
           </span>
 
           {user && (

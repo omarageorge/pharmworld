@@ -28,7 +28,7 @@ export default function AdminProductCard({
         <span className='font-medium'>{name}</span>
 
         <span className='font-light'>
-          Price: <span className='text-red-800'>{price}</span>
+          Price: <span className='text-red-800'>${price}</span>
         </span>
 
         <div className='flex justify-between items-center'>

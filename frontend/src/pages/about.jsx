@@ -43,9 +43,12 @@ export default function About() {
         {/* Products */}
         <div className='grid grid-cols-1 space-y-6'>
           {products.map((product) => (
-            <AboutProduct key={product._id} {...product} />
+            <AboutProduct
+              key={product._id}
+              name={product.name}
+              description={product.description}
+            />
           ))}
-
           {products.length <= 0 && <span>No products available</span>}
         </div>
       </div>
