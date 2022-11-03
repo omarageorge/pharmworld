@@ -87,9 +87,7 @@ export default function ProductCard({ _id, name, price, image }) {
       <div className='p-4 text-gray-900 grid grid-cols-1'>
         <span className='font-medium'>{name}</span>
 
-        <span className='font-medium'>{isInCart}</span>
-
-        <div className='flex justify-between items-center'>
+        <div className='flex justify-between items-start mt-4'>
           <span className='font-light'>
             Price: <span className='text-red-800'>${price}</span>
           </span>

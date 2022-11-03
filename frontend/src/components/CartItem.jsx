@@ -1,77 +1,46 @@
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import ProductQuantity from './ProductQuantity';
+import { useState } from 'react';
+import { FaTimesCircle } from 'react-icons/fa';
 
 export default function CartItem({ product, quantity }) {
-  const navigate = useNavigate();
+  const { name, image, price, minimumOrder = 1 } = product;
+  const [qty, setQty] = useState(minimumOrder);
+  const [subTotal, setSubTotal] = useState(price * qty);
 
-  const { _id, name, price, purchaseLimit } = product;
-
-  const setQuantity = async (quantity) => {
-    try {
-      await axios.put(
-        `/api/cart`,
-        {
-          product: _id,
-          quantity,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${
-              JSON.parse(localStorage.getItem('user')).token
-            }`,
-          },
-        }
-      );
-    } catch (error) {
-      console.log(error.response.data.message);
-    }
-
-    navigate(0);
+  const updateSubTotal = () => {
+    setSubTotal(price * qty);
   };
 
-  const deleteFromCart = async () => {
-    try {
-      await axios.delete(`/api/cart`, {
-        headers: {
-          Authorization: `Bearer ${
-            JSON.parse(localStorage.getItem('user')).token
-          }`,
-        },
-        data: {
-          product: _id,
-        },
-      });
-
-      navigate(0);
-    } catch (error) {
-      console.log(error.response.data.message);
-    }
+  const handleQtyChange = (e) => {
+    setQty(e.target.value);
+    updateSubTotal();
   };
 
   return (
-    <div className='w-full h-auto md:h-20 rounded-md mx-auto bg-lime-100 flex flex-col space-y-6  p-8 md:p-0 md:px-8 md:grid md:grid-cols-3 md:place-items-center md:space-y-0 md:justify-items-start'>
-      <span className='font-normal text-xl md:font-light md:text-lg'>
-        {name}
-      </span>
-
-      <span className='justify-self-center flex items-center space-x-3'>
-        <span className='justify-self-center font-medium text-lg'>
-          ${price}
-        </span>
-        <ProductQuantity
-          quantity={quantity}
-          limit={purchaseLimit}
-          setQuantity={setQuantity}
+    <tr className='w-full h-auto'>
+      <td className='w-1/6 h-auto text-left p-3'>
+        <img
+          crossOrigin='anonymous'
+          src={`/images/${image}`}
+          alt={name}
+          className='w-10 h-10 object-cover rounded-sm'
         />
-      </span>
-
-      <button
-        onClick={deleteFromCart}
-        className='bg-yellow-500 hover:bg-yellow-400 rounded-md p-3 font-light text-gray-900 cursor-pointer justify-self-end'
-      >
-        Remove from Cart
-      </button>
-    </div>
+      </td>
+      <td className='w-1/6 h-auto text-center p-3'>${price}</td>
+      <td className='w-1/6 h-auto text-center p-3'>
+        <input
+          type='number'
+          min='1'
+          value={qty}
+          onChange={handleQtyChange}
+          className='mx-3 w-16 outline-none'
+        />
+      </td>
+      <td className='w-1/6 h-auto text-center p-3'>${subTotal}</td>
+      <td className='w-1/6 h-auto text-center p-3'>
+        <div className='w-5 h-5 text-xl flex items-center justify-center ml-8'>
+          <FaTimesCircle className='text-red-500 cursor-pointer' />
+        </div>
+      </td>
+    </tr>
   );
 }

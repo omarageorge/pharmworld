@@ -17,7 +17,7 @@ export default function AdminEditProduct() {
     name: '',
     price: '',
     countInStock: '',
-    purchaseLimit: '',
+    minimumOrder: '',
     description: '',
   });
 
@@ -45,7 +45,7 @@ export default function AdminEditProduct() {
       formData.append('name', productData.name);
       formData.append('price', productData.price);
       formData.append('countInStock', productData.countInStock);
-      formData.append('purchaseLimit', productData.purchaseLimit);
+      formData.append('minimumOrder', productData.minimumOrder);
       formData.append('description', productData.description);
       formData.append('image', image);
 
@@ -99,7 +99,7 @@ export default function AdminEditProduct() {
           price: data.price,
           image: data.image,
           countInStock: data.countInStock,
-          purchaseLimit: data.purchaseLimit,
+          minimumOrder: data.minimumOrder,
           description: data.description,
         });
 
@@ -213,7 +213,7 @@ export default function AdminEditProduct() {
               type='number'
               min={1}
               name='purchaseLimit'
-              value={productData.purchaseLimit}
+              value={productData.minimumOrder}
               onChange={handleChange}
               required
               className='w-full border-b border-gray-400 outline-none focus:border-green-600 pl-1 py-2  font-light text-md'
