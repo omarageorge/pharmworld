@@ -32,4 +32,6 @@ server.use('/api/cart', cartRoutes);
 
 server.use(errorHandler);
 
-server.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
+server.listen(PORT, () =>
+  console.log(`Server is running in ${process.env.NODE_ENV} on port ${PORT}`)
+);

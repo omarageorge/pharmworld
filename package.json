@@ -8,9 +8,9 @@
   "scripts": {
     "dev": "nodemon backend/server.js",
     "build": "cd frontend && yarn build",
-    "start": "concurrently \"yarn start-client\" \"yarn start-server\"",
-    "start-server": "node backend/server.js",
-    "start-client": "cd frontend && yarn preview"
+    "start": "concurrently \"yarn client\" \"yarn server\"",
+    "server": "export NODE_ENV=production && node backend/server.js",
+    "client": "cd frontend && yarn preview"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

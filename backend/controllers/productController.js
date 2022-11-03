@@ -33,7 +33,7 @@ export const createProduct = asyncHandler(async (req, res) => {
     price: req.body.price,
     image: req.file.filename,
     countInStock: req.body.countInStock,
-    purchaseLimit: req.body.purchaseLimit,
+    minimumOrder: req.body.minimumOrder,
     description: req.body.description,
   });
 
@@ -49,7 +49,7 @@ export const createProduct = asyncHandler(async (req, res) => {
 // @desc    Update a product
 // @access  Private/Admin
 export const updateProduct = asyncHandler(async (req, res) => {
-  const { name, price, description, countInStock, purchaseLimit } = req.body;
+  const { name, price, description, countInStock, minimumOrder } = req.body;
 
   const product = await Product.findById(req.params.id);
 
@@ -64,7 +64,7 @@ export const updateProduct = asyncHandler(async (req, res) => {
     product.price = price;
     product.image = req.file ? req.file.filename : product.image;
     product.countInStock = countInStock;
-    product.purchaseLimit = purchaseLimit;
+    product.minimumOrder = minimumOrder;
     product.description = description;
 
     const updatedProduct = await product.save();
