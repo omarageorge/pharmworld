@@ -1,26 +1,65 @@
-import { useEffect, createContext, useReducer } from 'react';
-import { cartReducer } from './reducers/cartReducer';
+import { useState, useEffect, createContext } from 'react';
 
-const INITIAL_STATE = JSON.parse(localStorage.getItem('cart')) || {
-  cartItems: [],
-  total: 0,
-};
-
-export const CartContext = createContext(INITIAL_STATE);
+export const CartContext = createContext();
 
 export default function CartProvider({ children }) {
-  const [state, dispatch] = useReducer(cartReducer, INITIAL_STATE);
+  const [cartItems, setCartItems] = useState([]);
+
+  const onAdd = (product) => {
+    const exists = cartItems.find((item) => item._id === product._id);
+
+    if (exists) {
+      const newCartItems = cartItems.map((item) =>
+        item._id === product._id ? { ...exists, qty: exists.qty + 1 } : exists
+      );
+      setCartItems(newCartItems);
+      localStorage.setItem('cartItems', JSON.stringify(newCartItems));
+    } else {
+      const newCartItems = [
+        ...cartItems,
+        { ...product, qty: product.minimumOrder },
+      ];
+      setCartItems(newCartItems);
+      localStorage.setItem('cartItems', JSON.stringify(newCartItems));
+    }
+  };
+
+  const onRemove = (product) => {
+    const newCartItems = cartItems.filter((item) => item._id !== product._id);
+    setCartItems(newCartItems);
+    localStorage.setItem('cartItems', JSON.stringify(newCartItems));
+  };
+
+  const onUpdateQty = (productId, newQty) => {
+    const exists = cartItems.find((item) => item._id === productId);
+
+    if (exists) {
+      const newCartItems = cartItems.map((item) =>
+        item._id === productId ? { ...exists, qty: newQty } : exists
+      );
+
+      setCartItems(newCartItems);
+      localStorage.setItem('cartItems', JSON.stringify(newCartItems));
+    }
+  };
 
   useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(state));
-  }, [state.cartItems]);
+    const cartItems = localStorage.getItem('cartItems')
+      ? JSON.parse(localStorage.getItem('cartItems'))
+      : [];
+
+    if (cartItems) {
+      setCartItems(cartItems);
+    }
+  }, []);
 
   return (
     <CartContext.Provider
       value={{
-        cartItems: state.cartItems,
-        total: state.total,
-        dispatch,
+        cartItems,
+        onAdd,
+        onRemove,
+        onUpdateQty,
       }}
     >
       {children}

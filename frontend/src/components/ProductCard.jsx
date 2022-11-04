@@ -2,32 +2,23 @@ import { useState, useEffect, useContext } from 'react';
 import { FaCartPlus } from 'react-icons/fa';
 import { UserContext } from '../context/userContext';
 import { CartContext } from '../context/cartContext';
-import { addToCart, removeFromCart } from '../context/actions/cartActions';
 
 export default function ProductCard({ _id, name, price, image, minimumOrder }) {
   const { user } = useContext(UserContext);
-  const { cartItems, dispatch } = useContext(CartContext);
+  const { cartItems, onAdd, onRemove } = useContext(CartContext);
 
   const [isInCart, setIsInCart] = useState(false);
 
   const handleAddToCart = () => {
-    dispatch(
-      addToCart({
-        _id,
-        name,
-        price,
-        image,
-        minimumOrder,
-      })
-    );
+    onAdd({ _id, name, price, image, minimumOrder });
   };
 
   const handleRemoveFromCart = () => {
-    dispatch(removeFromCart({ _id, name, price, image, minimumOrder }));
+    onRemove({ _id, name, price, image, minimumOrder });
   };
 
   useEffect(() => {
-    const isProductInCart = cartItems.find((item) => item.product._id === _id);
+    const isProductInCart = cartItems.find((item) => item._id === _id);
 
     if (isProductInCart) {
       setIsInCart(true);

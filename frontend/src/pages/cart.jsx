@@ -1,8 +1,6 @@
-import axios from 'axios';
-import { useState, useEffect, useContext } from 'react';
+import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Layout from '../components/Layout';
-import PageLoading from '../components/PageLoading';
 import CartItem from '../components/CartItem';
 import { CartContext } from '../context/cartContext';
 import useInput from '../hooks/useInput';
@@ -10,7 +8,9 @@ import useInput from '../hooks/useInput';
 export default function Cart() {
   const navigate = useNavigate();
 
-  const { cartItems, total, dispatch } = useContext(CartContext);
+  const { cartItems } = useContext(CartContext);
+
+  const itemsPrice = cartItems.reduce((a, c) => a + c.price * c.qty, 0);
 
   const [deliveryAddress, bindDeliveryAddress] = useInput('');
 
@@ -57,7 +57,7 @@ export default function Cart() {
 
               <tbody className='w-full h-auto bg-gray-100 font-light text-gray-900'>
                 {cartItems.map((item) => (
-                  <CartItem key={item.product._id} {...item} />
+                  <CartItem key={item._id} {...item} />
                 ))}
               </tbody>
             </table>
@@ -69,7 +69,7 @@ export default function Cart() {
           <div className='w-full h-auto rounded-sm bg-lime-900 px-5 pt-4 pb-10 '>
             <div className='mb-4 text-center'>
               <span className='font-medium text-gray-100 text-2xl'>
-                Total: <span className='text-red-400'>${total}</span>
+                Total: <span className='text-red-400'>${itemsPrice}</span>
               </span>
             </div>
 

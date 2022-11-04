@@ -1,22 +1,27 @@
 import { useState, useContext } from 'react';
 import { FaTimesCircle } from 'react-icons/fa';
 import { CartContext } from '../context/cartContext';
-import { removeFromCart } from '../context/actions/cartActions';
 
-export default function CartItem({ product, qty }) {
-  const { name, image, price, minimumOrder } = product;
-  const { dispatch } = useContext(CartContext);
+export default function CartItem({
+  _id,
+  name,
+  price,
+  image,
+  minimumOrder,
+  qty,
+}) {
+  const { onRemove, onUpdateQty } = useContext(CartContext);
 
   const [quantity, setQuantity] = useState(qty);
 
   const handleQtyChange = (e) => {
     setQuantity(e.target.value);
-
     quantity < minimumOrder && setQuantity(minimumOrder);
+    onUpdateQty(_id, quantity);
   };
 
   const handleRemoveFromCart = () => {
-    dispatch(removeFromCart(product));
+    onRemove({ _id, name, price, image, minimumOrder, qty });
   };
 
   return (
