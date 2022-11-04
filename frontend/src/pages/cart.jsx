@@ -1,123 +1,67 @@
 import axios from 'axios';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Layout from '../components/Layout';
 import PageLoading from '../components/PageLoading';
 import CartItem from '../components/CartItem';
+import { CartContext } from '../context/cartContext';
 import useInput from '../hooks/useInput';
 
 export default function Cart() {
   const navigate = useNavigate();
-  const [total, setTotal] = useState(0);
-  const [items, setItems] = useState([]);
-  const [loading, setLoading] = useState(true);
+
+  const { cartItems, total, dispatch } = useContext(CartContext);
 
   const [deliveryAddress, bindDeliveryAddress] = useInput('');
 
   const handleSubmission = async (e) => {
     e.preventDefault();
-
-    const itemList = items.map((item) => {
-      return {
-        product: item.product._id,
-        quantity: item.quantity,
-      };
-    });
-
-    const payload = {
-      orderItems: itemList,
-      totalPrice: total,
-      deliveryAddress,
-    };
-
-    try {
-      await axios.post('/api/orders', payload, {
-        headers: {
-          Authorization: `Bearer ${
-            JSON.parse(localStorage.getItem('user')).token
-          }`,
-        },
-      });
-
-      navigate('/');
-    } catch (error) {
-      console.error(error.response.data.message);
-    }
   };
-
-  useEffect(() => {
-    const getProductsInCart = async () => {
-      setLoading(true);
-
-      try {
-        const { data } = await axios.get('/api/cart', {
-          headers: {
-            Authorization: `Bearer ${
-              JSON.parse(localStorage.getItem('user')).token
-            }`,
-          },
-        });
-
-        setItems(data.products);
-        setLoading(false);
-      } catch (error) {
-        setLoading(false);
-        console.log(error.response.data.message);
-      }
-    };
-
-    getProductsInCart();
-  }, []);
-
-  useEffect(() => {
-    const getTotal = () => {
-      let total = 0;
-
-      items.forEach((item) => {
-        total += item.product.price * item.quantity;
-      });
-
-      setTotal(total);
-    };
-
-    getTotal();
-  }, [items]);
-
-  if (loading) {
-    return <PageLoading />;
-  }
 
   return (
     <Layout>
       <main className='w-[80%] m-auto flex flex-col md:flex-row gap-x-4 space-y-6 md:space-y-0 '>
         {/* Col 1 */}
         <div className='flex-auto md:w-64'>
-          <table className='w-full h-auto text-gray-200 border-collapse border'>
-            <thead className='w-full h-auto bg-lime-900'>
-              <tr className='w-full h-auto'>
-                <th className='w-1/4 h-auto  text-left font-medium text-lg p-3'>
-                  Product
-                </th>
-                <th className='w-1/6 h-auto text-center font-medium text-lg p-3'>
-                  Price
-                </th>
-                <th className='w-1/6 h-auto text-center font-medium text-lg p-3'>
-                  Qty
-                </th>
-                <th className='w-1/6 h-auto text-center font-medium text-lg p-3'>
-                  Subtotal
-                </th>
-                <th className='w-1/6 h-auto text-center font-medium text-lg p-3'>
-                  Remove
-                </th>
-              </tr>
-            </thead>
-            <tbody className='w-full h-auto bg-gray-100 font-light text-gray-900'>
-              {items.map((item) => (
-                <CartItem key={item.product._id} {...item} />
-              ))}
-            </tbody>
-          </table>
+          {cartItems.length === 0 ? (
+            <div className='flex flex-col items-center justify-center space-y-4'>
+              <span className='text-2xl font-bold'>Your cart is empty</span>
+              <button
+                onClick={() => navigate('/')}
+                className='px-4 py-2 bg-lime-700 text-gray-100 rounded-md'
+              >
+                Shop Now
+              </button>
+            </div>
+          ) : (
+            <table className='w-full h-auto text-gray-200 border-collapse border'>
+              <thead className='w-full h-auto bg-lime-900'>
+                <tr className='w-full h-auto'>
+                  <th className='w-1/4 h-auto  text-left font-medium text-lg p-3'>
+                    Product
+                  </th>
+                  <th className='w-1/6 h-auto text-center font-medium text-lg p-3'>
+                    Price
+                  </th>
+                  <th className='w-1/6 h-auto text-center font-medium text-lg p-3'>
+                    Qty
+                  </th>
+                  <th className='w-1/6 h-auto text-center font-medium text-lg p-3'>
+                    Subtotal
+                  </th>
+                  <th className='w-1/6 h-auto text-center font-medium text-lg p-3'>
+                    Remove
+                  </th>
+                </tr>
+              </thead>
+
+              <tbody className='w-full h-auto bg-gray-100 font-light text-gray-900'>
+                {cartItems.map((item) => (
+                  <CartItem key={item.product._id} {...item} />
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
 
         {/* Col 2 */}

@@ -1,79 +1,40 @@
-import axios from 'axios';
 import { useState, useEffect, useContext } from 'react';
 import { FaCartPlus } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../context/userContext';
+import { CartContext } from '../context/cartContext';
+import { addToCart, removeFromCart } from '../context/actions/cartActions';
 
-export default function ProductCard({ _id, name, price, image }) {
-  const navigate = useNavigate();
+export default function ProductCard({ _id, name, price, image, minimumOrder }) {
   const { user } = useContext(UserContext);
+  const { cartItems, dispatch } = useContext(CartContext);
+
   const [isInCart, setIsInCart] = useState(false);
 
-  const handleAddToCart = async () => {
-    try {
-      await axios.post(
-        '/api/cart',
-        {
-          product: _id,
-          quantity: 1,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${
-              JSON.parse(localStorage.getItem('user')).token
-            }`,
-          },
-        }
-      );
-
-      navigate('/cart');
-    } catch (error) {
-      console.log(error.response.data.message);
-    }
+  const handleAddToCart = () => {
+    dispatch(
+      addToCart({
+        _id,
+        name,
+        price,
+        image,
+        minimumOrder,
+      })
+    );
   };
 
-  const handleRemoveFromCart = async () => {
-    try {
-      await axios.delete(`/api/cart`, {
-        headers: {
-          Authorization: `Bearer ${
-            JSON.parse(localStorage.getItem('user')).token
-          }`,
-        },
-        data: {
-          product: _id,
-        },
-      });
-
-      navigate(0);
-    } catch (error) {
-      console.log(error.response.data.message);
-    }
+  const handleRemoveFromCart = () => {
+    dispatch(removeFromCart({ _id, name, price, image, minimumOrder }));
   };
 
   useEffect(() => {
-    const getProductsInCart = async () => {
-      try {
-        const { data } = await axios.get('/api/cart', {
-          headers: {
-            Authorization: `Bearer ${
-              JSON.parse(localStorage.getItem('user')).token
-            }`,
-          },
-        });
+    const isProductInCart = cartItems.find((item) => item.product._id === _id);
 
-        const productInCart = data.products;
-
-        if (productInCart.find((product) => product.product._id === _id)) {
-          setIsInCart(true);
-        }
-      } catch (error) {
-        console.log(error.response.data.message);
-      }
-    };
-
-    getProductsInCart();
-  }, []);
+    if (isProductInCart) {
+      setIsInCart(true);
+    } else {
+      setIsInCart(false);
+    }
+  }, [cartItems, _id]);
 
   return (
     <div className='block overflow-hidden rounded-md bg-lime-400'>
@@ -87,7 +48,7 @@ export default function ProductCard({ _id, name, price, image }) {
       <div className='p-4 text-gray-900 grid grid-cols-1'>
         <span className='font-medium'>{name}</span>
 
-        <div className='flex justify-between items-start mt-4'>
+        <div className='flex justify-between items-start mt-2'>
           <span className='font-light'>
             Price: <span className='text-red-800'>${price}</span>
           </span>

@@ -1,33 +1,13 @@
-import axios from 'axios';
-import { useState, useEffect, useContext } from 'react';
+import { useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { FaShoppingCart } from 'react-icons/fa';
 import { UserContext } from '../context/userContext';
+import { CartContext } from '../context/cartContext';
 import { logout } from '../context/actions/userActions';
 
 export default function Navbar() {
   const { user, dispatch } = useContext(UserContext);
-  const [CartItems, setCartItems] = useState(0);
-
-  useEffect(() => {
-    const fetchCartItems = async () => {
-      try {
-        const { data } = await axios.get('/api/cart', {
-          headers: {
-            Authorization: `Bearer ${
-              JSON.parse(localStorage.getItem('user')).token
-            }`,
-          },
-        });
-
-        data.products.length > 0 && setCartItems(data.products.length);
-      } catch (error) {
-        setCartItems(0);
-      }
-    };
-
-    fetchCartItems();
-  }, []);
+  const { cartItems } = useContext(CartContext);
 
   return (
     <nav className='fixed z-50 w-full bg-lime-700 py-5 shadow-sm'>
@@ -78,7 +58,7 @@ export default function Navbar() {
             <NavLink to='/cart'>
               <span className='cursor-pointer flex items-center justify-center space-x-1'>
                 <span>
-                  (<span className='font-bold mx-1'>{CartItems}</span>)
+                  (<span className='font-bold mx-1'>{cartItems.length}</span>)
                 </span>
                 <FaShoppingCart />
               </span>

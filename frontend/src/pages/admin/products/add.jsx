@@ -30,7 +30,7 @@ export default function AdminAddProduct() {
       formData.append('price', price);
       formData.append('countInStock', countInStock);
       formData.append('description', description);
-      formData.append('purchaseLimit', minimumOrder);
+      formData.append('minimumOrder', minimumOrder);
       formData.append('image', image);
 
       await axios.post('/api/products', formData, {
@@ -84,7 +84,7 @@ export default function AdminAddProduct() {
 
           <div className=''>
             <input
-              placeholder='Purchase limit per order'
+              placeholder='Minimum order'
               type='number'
               min={1}
               {...bindMinimumOrder}

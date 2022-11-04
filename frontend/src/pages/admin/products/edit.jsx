@@ -206,7 +206,7 @@ export default function AdminEditProduct() {
               htmlFor='countInStock'
               className='block font-medium text-lg text-lime-700'
             >
-              Purchase limit per order
+              Minimum order:
             </label>
 
             <input

@@ -1,18 +1,22 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { FaTimesCircle } from 'react-icons/fa';
+import { CartContext } from '../context/cartContext';
+import { removeFromCart } from '../context/actions/cartActions';
 
-export default function CartItem({ product, quantity }) {
-  const { name, image, price, minimumOrder = 1 } = product;
-  const [qty, setQty] = useState(minimumOrder);
-  const [subTotal, setSubTotal] = useState(price * qty);
+export default function CartItem({ product, qty }) {
+  const { name, image, price, minimumOrder } = product;
+  const { dispatch } = useContext(CartContext);
 
-  const updateSubTotal = () => {
-    setSubTotal(price * qty);
-  };
+  const [quantity, setQuantity] = useState(qty);
 
   const handleQtyChange = (e) => {
-    setQty(e.target.value);
-    updateSubTotal();
+    setQuantity(e.target.value);
+
+    quantity < minimumOrder && setQuantity(minimumOrder);
+  };
+
+  const handleRemoveFromCart = () => {
+    dispatch(removeFromCart(product));
   };
 
   return (
@@ -29,16 +33,19 @@ export default function CartItem({ product, quantity }) {
       <td className='w-1/6 h-auto text-center p-3'>
         <input
           type='number'
-          min='1'
-          value={qty}
+          min={minimumOrder}
+          value={quantity}
           onChange={handleQtyChange}
           className='mx-3 w-16 outline-none'
         />
       </td>
-      <td className='w-1/6 h-auto text-center p-3'>${subTotal}</td>
+      <td className='w-1/6 h-auto text-center p-3'>${price * qty}</td>
       <td className='w-1/6 h-auto text-center p-3'>
-        <div className='w-5 h-5 text-xl flex items-center justify-center ml-8'>
-          <FaTimesCircle className='text-red-500 cursor-pointer' />
+        <div
+          onClick={handleRemoveFromCart}
+          className='w-5 h-5 text-xl flex items-center justify-center ml-8 cursor-pointer'
+        >
+          <FaTimesCircle className='text-red-500' />
         </div>
       </td>
     </tr>
