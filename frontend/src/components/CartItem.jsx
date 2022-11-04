@@ -15,7 +15,6 @@ export default function CartItem({
   qty,
 }) {
   const { dispatch } = useContext(CartContext);
-
   const [quantity, setQuantity] = useState(qty);
 
   const handleQtyChange = (e) => {

@@ -22,7 +22,10 @@ export const cartReducer = (state, action) => {
 
       return {
         ...state,
-        cartItems: [...state.cartItems, { ...product, qty: 1 }],
+        cartItems: [
+          ...state.cartItems,
+          { ...product, qty: product.minimumOrder },
+        ],
       };
 
     case REMOVE_FROM_CART:
