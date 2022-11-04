@@ -21,7 +21,7 @@ export default function CartItem({
   const handleQtyChange = (e) => {
     setQuantity(e.target.value);
     quantity < minimumOrder && setQuantity(minimumOrder);
-    dispatch(updateItemQuantity({ productId: _id, quantity }));
+    dispatch(updateItemQuantity(_id, quantity));
   };
 
   const handleRemoveFromCart = () => {

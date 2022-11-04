@@ -2,6 +2,7 @@ import {
   ADD_TO_CART,
   REMOVE_FROM_CART,
   UPDATE_ITEM_QUANTITY,
+  CLEAR_CART,
 } from '../constants/cartConstants';
 
 export const addToCart = (product) => {
@@ -22,5 +23,11 @@ export const updateItemQuantity = (productId, quantity) => {
   return {
     type: UPDATE_ITEM_QUANTITY,
     payload: { productId, quantity },
+  };
+};
+
+export const clearCart = () => {
+  return {
+    type: CLEAR_CART,
   };
 };

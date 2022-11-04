@@ -2,6 +2,7 @@ import {
   ADD_TO_CART,
   REMOVE_FROM_CART,
   UPDATE_ITEM_QUANTITY,
+  CLEAR_CART,
 } from '../constants/cartConstants';
 
 export const cartReducer = (state, action) => {
@@ -32,18 +33,20 @@ export const cartReducer = (state, action) => {
       return { ...state, cartItems: newCartItems };
 
     case UPDATE_ITEM_QUANTITY:
-      const { productId, quantity } = action.payload;
-      const inCart = state.cartItems.find((item) => item._id === productId);
+      const inCart = state.cartItems.find(
+        (item) => item._id === action.payload.productId
+      );
 
-      if (inCart) {
-        const newCartItems = state.cartItems.map((item) =>
-          item._id === productId ? { ...inCart, qty: quantity } : inCart
-        );
+      const updatedCartItems = state.cartItems.map((item) =>
+        item._id === action.payload.productId
+          ? { ...inCart, qty: action.payload.quantity }
+          : inCart
+      );
 
-        return { ...state, cartItems: newCartItems };
-      }
+      return { ...state, cartItems: updatedCartItems };
 
-      return state;
+    case CLEAR_CART:
+      return { ...state, cartItems: [] };
 
     default:
       return state;

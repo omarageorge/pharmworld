@@ -112,7 +112,7 @@ export default function AdminOrder() {
                 <td className='border p-2 sm:p-4 text-center'>{index + 1}</td>
                 <td className='border p-2 sm:p-4'>{item.product.name}</td>
                 <td className='border p-2 sm:p-4 text-center'>
-                  {item.product.price}
+                  ${item.product.price}
                 </td>
                 <td className='border p-2 sm:p-4 text-center'>
                   {item.quantity}

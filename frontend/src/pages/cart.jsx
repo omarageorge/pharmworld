@@ -1,14 +1,18 @@
-import { useContext } from 'react';
+import axios from 'axios';
+import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import PulseLoader from 'react-spinners/PulseLoader';
 import Layout from '../components/Layout';
 import CartItem from '../components/CartItem';
 import { CartContext } from '../context/cartContext';
+import { clearCart } from '../context/actions/cartActions';
 import useInput from '../hooks/useInput';
 
 export default function Cart() {
   const navigate = useNavigate();
 
-  const { cartItems } = useContext(CartContext);
+  const { cartItems, dispatch } = useContext(CartContext);
+  const [loading, setLoading] = useState(false);
 
   const itemsPrice = cartItems.reduce((a, c) => a + c.price * c.qty, 0);
 
@@ -16,6 +20,34 @@ export default function Cart() {
 
   const handleSubmission = async (e) => {
     e.preventDefault();
+    setLoading(true);
+
+    const itemList = cartItems.map((item) => {
+      return {
+        product: item._id,
+        quantity: item.qty,
+      };
+    });
+
+    const payload = {
+      orderItems: itemList,
+      totalPrice: itemsPrice,
+      deliveryAddress,
+    };
+
+    try {
+      await axios.post('/api/orders', payload, {
+        headers: {
+          Authorization: `Bearer ${
+            JSON.parse(localStorage.getItem('user')).token
+          }`,
+        },
+      });
+
+      dispatch(clearCart());
+      setLoading(false);
+      navigate('/');
+    } catch (error) {}
   };
 
   return (
@@ -86,8 +118,15 @@ export default function Cart() {
                   className='w-full h-32 focus:outline focus:outline-lime-400 rounded-md p-4 bg-gray-100'
                 ></textarea>
               </div>
-              <button className='w-full h-12 rounded-md bg-yellow-500 hover:bg-yellow-400 mt-4 font-light text-gray-900 cursor-pointer'>
-                Place order
+              <button
+                disabled={loading && loading === true ? true : false}
+                className='w-full h-12 rounded-md bg-yellow-500 hover:bg-yellow-400 mt-4 font-light text-gray-900 '
+              >
+                {loading && loading === true ? (
+                  <PulseLoader size={12} color='rgb(17,24,39,90%)' />
+                ) : (
+                  'Place order'
+                )}
               </button>
             </form>
           </div>
