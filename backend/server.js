@@ -28,7 +28,7 @@ server.use('/images', express.static('backend/public'));
 server.use('/api/auth', authRoutes);
 server.use('/api/products', productRoutes);
 server.use('/api/orders', orderRoutes);
-server.use('/api/cart', cartRoutes);
+// server.use('/api/cart', cartRoutes);
 
 server.use(errorHandler);
 
