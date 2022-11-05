@@ -110,6 +110,7 @@ export default function Cart() {
                 </label>
                 <textarea
                   type='text'
+                  minLength={5}
                   {...bindDeliveryAddress}
                   placeholder='Address to deliver the package'
                   className='w-full h-32 focus:outline focus:outline-lime-400 rounded-md p-4 bg-gray-100'
