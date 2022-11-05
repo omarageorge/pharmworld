@@ -16,7 +16,7 @@ export default function CartItem({ _id, name, price, image, qty }) {
             alt={name}
             className='block w-10 h-10 object-cover rounded-sm'
           />
-          <span>{name}</span>
+          <span className='text-sm'>{name}</span>
         </div>
       </td>
       <td className='w-1/6 h-auto text-center p-3'>${price}</td>
