@@ -69,7 +69,7 @@ export default function Cart() {
             <table className='w-full h-auto text-gray-200 border-collapse border'>
               <thead className='w-full h-auto bg-lime-900'>
                 <tr className='w-full h-auto'>
-                  <th className='w-1/4 h-auto  text-left font-medium text-lg p-3'>
+                  <th className='w-1/6 h-auto  text-left font-medium text-lg p-3'>
                     Product
                   </th>
                   <th className='w-1/6 h-auto text-center font-medium text-lg p-3'>

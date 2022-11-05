@@ -16,19 +16,19 @@ export const cartReducer = (state, action) => {
         const newCartItems = state.cartItems.map((item) =>
           item._id === action.payload._id
             ? { ...exists, qty: exists.qty + 1 }
-            : exists
+            : item
         );
 
         return { ...state, cartItems: newCartItems };
+      } else {
+        return {
+          ...state,
+          cartItems: [
+            ...state.cartItems,
+            { ...action.payload, qty: action.payload.minimumOrder },
+          ],
+        };
       }
-
-      return {
-        ...state,
-        cartItems: [
-          ...state.cartItems,
-          { ...action.payload, qty: action.payload.minimumOrder },
-        ],
-      };
 
     case REMOVE_FROM_CART:
       const itemInCart = state.cartItems.find(
@@ -41,15 +41,15 @@ export const cartReducer = (state, action) => {
         );
 
         return { ...state, cartItems: newCartItems };
+      } else {
+        const newCartItems = state.cartItems.map((item) =>
+          item._id === action.payload._id
+            ? { ...itemInCart, qty: itemInCart.qty - 1 }
+            : item
+        );
+
+        return { ...state, cartItems: newCartItems };
       }
-
-      const newCartItems = state.cartItems.map((item) =>
-        item._id === action.payload._id
-          ? { ...itemInCart, qty: itemInCart.qty - 1 }
-          : item
-      );
-
-      return { ...state, cartItems: newCartItems };
 
     case DELETE_FROM_CART:
       const filteredCartItems = state.cartItems.filter(
