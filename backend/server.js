@@ -10,7 +10,7 @@ import errorHandler from './middleware/errorMiddleware.js';
 import authRoutes from './routes/authRoutes.js';
 import productRoutes from './routes/productRoutes.js';
 import orderRoutes from './routes/orderRoutes.js';
-import cartRoutes from './routes/cartRoutes.js';
+// import cartRoutes from './routes/cartRoutes.js';
 
 config(); // Load env vars
 connectDB(); // Connect to database
