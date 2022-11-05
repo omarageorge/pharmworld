@@ -36,11 +36,13 @@ export const cartReducer = (state, action) => {
       );
 
       if (itemInCart.qty === itemInCart.minimumOrder) {
-        const newCartItems = state.cartItems.filter(
-          (item) => item._id !== action.payload._id
-        );
+        // const newCartItems = state.cartItems.filter(
+        //   (item) => item._id !== action.payload._id
+        // );
 
-        return { ...state, cartItems: newCartItems };
+        // return { ...state, cartItems: newCartItems };
+
+        return { ...state };
       } else {
         const newCartItems = state.cartItems.map((item) =>
           item._id === action.payload._id

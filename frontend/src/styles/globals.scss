@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  @apply select-none;
+}
+
 .active {
   @apply text-orange-400 font-normal;
 }

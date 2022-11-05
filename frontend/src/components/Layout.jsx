@@ -10,6 +10,14 @@ export default function Layout({ children }) {
     if (user && user.isAdmin) {
       navigate('/admin');
     }
+
+    const handleContextmenu = (e) => {
+      e.preventDefault();
+    };
+    document.addEventListener('contextmenu', handleContextmenu);
+    return function cleanup() {
+      document.removeEventListener('contextmenu', handleContextmenu);
+    };
   }, []);
 
   return (

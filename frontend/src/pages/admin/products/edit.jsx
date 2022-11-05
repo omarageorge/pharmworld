@@ -212,7 +212,7 @@ export default function AdminEditProduct() {
             <input
               type='number'
               min={1}
-              name='purchaseLimit'
+              name='minimumOrder'
               value={productData.minimumOrder}
               onChange={handleChange}
               required
@@ -241,7 +241,9 @@ export default function AdminEditProduct() {
             <button
               type='submit'
               className='w-full bg-lime-600 hover:bg-lime-500 py-3 rounded-sm text-white font-normal transition-all ease-out delay-300'
-              disabled={saveChangesLoading && 'true'}
+              disabled={
+                saveChangesLoading && saveChangesLoading === true ? true : false
+              }
             >
               {saveChangesLoading ? (
                 <PulseLoader size={12} color='white' />
@@ -253,7 +255,11 @@ export default function AdminEditProduct() {
             <span
               onClick={deleteProduct}
               className='block text-center w-full bg-red-600 hover:bg-red-500 py-3 rounded-sm text-white font-normal transition-all ease-out delay-300 cursor-pointer'
-              disabled={deleteProductLoading && 'true'}
+              disabled={
+                deleteProductLoading && deleteProductLoading === true
+                  ? true
+                  : false
+              }
             >
               {deleteProductLoading ? (
                 <PulseLoader size={12} color='white' />

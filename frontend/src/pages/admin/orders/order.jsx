@@ -103,7 +103,8 @@ export default function AdminOrder() {
               <th className='p-2 sm:p-4 text-center border-r-2'>#</th>
               <th className='p-2 sm:p-4 border-r-2'>Item</th>
               <th className='p-2 sm:p-4 border-r-2 text-center'>Price</th>
-              <th className='p-2 sm:p-4 text-center'>Quantity</th>
+              <th className='p-2 sm:p-4 border-r-2 text-center'>Qty</th>
+              <th className='p-2 sm:p-4 text-center'>Subtotal</th>
             </tr>
           </thead>
           <tbody className='font-light'>
@@ -116,6 +117,9 @@ export default function AdminOrder() {
                 </td>
                 <td className='border p-2 sm:p-4 text-center'>
                   {item.quantity}
+                </td>
+                <td className='border p-2 sm:p-4 text-center'>
+                  ${item.quantity * item.product.price}
                 </td>
               </tr>
             ))}

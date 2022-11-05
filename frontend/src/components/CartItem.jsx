@@ -9,14 +9,15 @@ export default function CartItem({ _id, name, price, image, qty }) {
   return (
     <tr className='w-full h-auto'>
       <td className='w-1/6 h-auto text-left p-3'>
-        <span>
+        <div className='flex items-center space-x-2'>
           <img
             crossOrigin='anonymous'
             src={`/images/${image}`}
             alt={name}
-            className='w-10 h-10 object-cover rounded-sm'
+            className='block w-10 h-10 object-cover rounded-sm'
           />
-        </span>
+          <span>{name}</span>
+        </div>
       </td>
       <td className='w-1/6 h-auto text-center p-3'>${price}</td>
       <td className='w-1/6 h-auto text-center p-3'>
