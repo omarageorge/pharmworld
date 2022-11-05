@@ -1,7 +1,7 @@
 import {
   ADD_TO_CART,
   REMOVE_FROM_CART,
-  UPDATE_ITEM_QUANTITY,
+  DELETE_FROM_CART,
   CLEAR_CART,
 } from '../constants/cartConstants';
 
@@ -18,11 +18,10 @@ export const removeFromCart = (product) => {
     payload: product,
   };
 };
-
-export const updateItemQuantity = (productId, quantity) => {
+export const deleteFromCart = (product) => {
   return {
-    type: UPDATE_ITEM_QUANTITY,
-    payload: { productId, quantity },
+    type: DELETE_FROM_CART,
+    payload: product,
   };
 };
 

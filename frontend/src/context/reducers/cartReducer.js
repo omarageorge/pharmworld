@@ -1,20 +1,22 @@
 import {
   ADD_TO_CART,
   REMOVE_FROM_CART,
-  UPDATE_ITEM_QUANTITY,
+  DELETE_FROM_CART,
   CLEAR_CART,
 } from '../constants/cartConstants';
 
 export const cartReducer = (state, action) => {
-  const product = action.payload;
-
   switch (action.type) {
     case ADD_TO_CART:
-      const exists = state.cartItems.find((item) => item._id === product._id);
+      const exists = state.cartItems.find(
+        (item) => item._id === action.payload._id
+      );
 
       if (exists) {
         const newCartItems = state.cartItems.map((item) =>
-          item._id === product._id ? { ...exists, qty: exists.qty + 1 } : exists
+          item._id === action.payload._id
+            ? { ...exists, qty: exists.qty + 1 }
+            : exists
         );
 
         return { ...state, cartItems: newCartItems };
@@ -24,29 +26,37 @@ export const cartReducer = (state, action) => {
         ...state,
         cartItems: [
           ...state.cartItems,
-          { ...product, qty: product.minimumOrder },
+          { ...action.payload, qty: action.payload.minimumOrder },
         ],
       };
 
     case REMOVE_FROM_CART:
-      const newCartItems = state.cartItems.filter(
-        (item) => item._id !== product._id
+      const itemInCart = state.cartItems.find(
+        (item) => item._id === action.payload._id
+      );
+
+      if (itemInCart.qty === itemInCart.minimumOrder) {
+        const newCartItems = state.cartItems.filter(
+          (item) => item._id !== action.payload._id
+        );
+
+        return { ...state, cartItems: newCartItems };
+      }
+
+      const newCartItems = state.cartItems.map((item) =>
+        item._id === action.payload._id
+          ? { ...itemInCart, qty: itemInCart.qty - 1 }
+          : item
       );
 
       return { ...state, cartItems: newCartItems };
 
-    case UPDATE_ITEM_QUANTITY:
-      const inCart = state.cartItems.find(
-        (item) => item._id === action.payload.productId
+    case DELETE_FROM_CART:
+      const filteredCartItems = state.cartItems.filter(
+        (item) => item._id !== action.payload._id
       );
 
-      const updatedCartItems = state.cartItems.map((item) =>
-        item._id === action.payload.productId
-          ? { ...inCart, qty: action.payload.quantity }
-          : inCart
-      );
-
-      return { ...state, cartItems: updatedCartItems };
+      return { ...state, cartItems: filteredCartItems };
 
     case CLEAR_CART:
       return { ...state, cartItems: [] };

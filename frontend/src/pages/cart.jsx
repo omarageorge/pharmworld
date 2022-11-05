@@ -81,9 +81,6 @@ export default function Cart() {
                   <th className='w-1/6 h-auto text-center font-medium text-lg p-3'>
                     Subtotal
                   </th>
-                  <th className='w-1/6 h-auto text-center font-medium text-lg p-3'>
-                    Remove
-                  </th>
                 </tr>
               </thead>
 

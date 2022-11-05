@@ -2,21 +2,13 @@ import { useState, useEffect, useContext } from 'react';
 import { FaCartPlus } from 'react-icons/fa';
 import { UserContext } from '../context/userContext';
 import { CartContext } from '../context/cartContext';
-import { addToCart, removeFromCart } from '../context/actions/cartActions';
+import { addToCart, deleteFromCart } from '../context/actions/cartActions';
 
 export default function ProductCard({ _id, name, price, image, minimumOrder }) {
   const { user } = useContext(UserContext);
   const { cartItems, dispatch } = useContext(CartContext);
 
   const [isInCart, setIsInCart] = useState(false);
-
-  const handleAddToCart = () => {
-    dispatch(addToCart({ _id, name, price, image, minimumOrder }));
-  };
-
-  const handleRemoveFromCart = () => {
-    dispatch(removeFromCart({ _id }));
-  };
 
   useEffect(() => {
     const isProductInCart = cartItems.find((item) => item._id === _id);
@@ -49,13 +41,20 @@ export default function ProductCard({ _id, name, price, image, minimumOrder }) {
             <span className='text-slate-800 hover:text-red-900 cursor-pointer transition-all delay-100 ease-out p-1'>
               {isInCart ? (
                 <span
-                  onClick={handleRemoveFromCart}
+                  onClick={() => dispatch(deleteFromCart({ _id }))}
                   className='bg-yellow-500 hover:bg-yellow-400 rounded-md p-3 font-light text-gray-900'
                 >
                   Remove from Cart
                 </span>
               ) : (
-                <FaCartPlus size={24} onClick={handleAddToCart} />
+                <FaCartPlus
+                  size={24}
+                  onClick={() =>
+                    dispatch(
+                      addToCart({ _id, name, price, image, minimumOrder })
+                    )
+                  }
+                />
               )}
             </span>
           )}
