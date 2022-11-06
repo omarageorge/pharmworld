@@ -34,7 +34,7 @@ export default function AdminOrder() {
   const markAsCompleted = async () => {
     try {
       await axios.put(
-        `http://localhost:5000/api/orders/${order._id}`,
+        `/api/orders/${order._id}`,
         {
           isComplete: true,
         },
