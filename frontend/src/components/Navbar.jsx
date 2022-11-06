@@ -4,6 +4,7 @@ import { FaShoppingCart } from 'react-icons/fa';
 import { UserContext } from '../context/userContext';
 import { CartContext } from '../context/cartContext';
 import { logout } from '../context/actions/userActions';
+// import { clearCart } from '../context/actions/cartActions';
 
 export default function Navbar() {
   const { user, dispatch } = useContext(UserContext);

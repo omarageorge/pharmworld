@@ -30,7 +30,7 @@ export default function Home() {
           No products have been posted.
         </span>
       ) : (
-        <section className='md:w-[80%] md:mx-auto grid grid-cols-1 gap-6 px-6 sm:grid-cols-2 lg:grid-cols-3  md:gap-8 md:px-0 '>
+        <section className='md:w-[80%] md:mx-auto grid grid-cols-1 gap-6 px-6 sm:grid-cols-2 lg:grid-cols-3  md:gap-8 md:px-0'>
           {products.map((product) => {
             if (product.countInStock > 0) {
               return <ProductCard key={product._id} {...product} />;
