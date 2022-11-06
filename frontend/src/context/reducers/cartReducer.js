@@ -13,13 +13,17 @@ export const cartReducer = (state, action) => {
       );
 
       if (exists) {
-        const newCartItems = state.cartItems.map((item) =>
-          item._id === action.payload._id
-            ? { ...exists, qty: exists.qty + 1 }
-            : item
-        );
+        if (exists.countInStock === exists.qty) {
+          return { ...state };
+        } else {
+          const newCartItems = state.cartItems.map((item) =>
+            item._id === action.payload._id
+              ? { ...exists, qty: exists.qty + 1 }
+              : item
+          );
 
-        return { ...state, cartItems: newCartItems };
+          return { ...state, cartItems: newCartItems };
+        }
       } else {
         return {
           ...state,
@@ -36,12 +40,6 @@ export const cartReducer = (state, action) => {
       );
 
       if (itemInCart.qty === itemInCart.minimumOrder) {
-        // const newCartItems = state.cartItems.filter(
-        //   (item) => item._id !== action.payload._id
-        // );
-
-        // return { ...state, cartItems: newCartItems };
-
         return { ...state };
       } else {
         const newCartItems = state.cartItems.map((item) =>

@@ -37,7 +37,7 @@ router
 
   // @route   GET /api/products
   // @desc    Get all products
-  // @access  Private
+  // @access  Public
   .get(getProducts)
 
   // @route   POST /api/products

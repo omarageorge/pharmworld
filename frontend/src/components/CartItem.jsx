@@ -3,7 +3,14 @@ import { FaMinus, FaPlus } from 'react-icons/fa';
 import { CartContext } from '../context/cartContext';
 import { addToCart, removeFromCart } from '../context/actions/cartActions';
 
-export default function CartItem({ _id, name, price, image, qty }) {
+export default function CartItem({
+  _id,
+  name,
+  price,
+  image,
+  qty,
+  countInStock,
+}) {
   const { dispatch } = useContext(CartContext);
 
   return (
@@ -34,7 +41,9 @@ export default function CartItem({ _id, name, price, image, qty }) {
           </div>
           <div
             className='w-8 h-8 rounded-3xl bg-lime-800 hover:bg-lime-700 flex items-center justify-center text-gray-100 cursor-pointer'
-            onClick={() => dispatch(addToCart({ _id, name, price, image }))}
+            onClick={() =>
+              dispatch(addToCart({ _id, name, price, image, countInStock }))
+            }
           >
             <FaPlus />
           </div>

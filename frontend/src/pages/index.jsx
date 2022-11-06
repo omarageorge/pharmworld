@@ -12,6 +12,13 @@ export default function Home() {
     const fetchProducts = async () => {
       try {
         const { data } = await axios.get('/api/products');
+
+        /*  const productsInStock = data.filter(
+          (product) => product.countInStock > 0
+        );
+
+        setProducts(productsInStock); */
+
         setProducts(data);
         setLoading(false);
       } catch (error) {}
@@ -31,12 +38,17 @@ export default function Home() {
         </span>
       ) : (
         <section className='md:w-[80%] md:mx-auto grid grid-cols-1 gap-6 px-6 sm:grid-cols-2 lg:grid-cols-3  md:gap-8 md:px-0'>
+          {products.map((product) => (
+            <ProductCard key={product._id} {...product} />
+          ))}
+        </section>
+        /*         <section className='md:w-[80%] md:mx-auto grid grid-cols-1 gap-6 px-6 sm:grid-cols-2 lg:grid-cols-3  md:gap-8 md:px-0'>
           {products.map((product) => {
             if (product.countInStock > 0) {
               return <ProductCard key={product._id} {...product} />;
             }
           })}
-        </section>
+        </section> */
       )}
     </Layout>
   );
