@@ -38,6 +38,10 @@ export default function ProductCard({
 
       <div className='p-4 text-gray-900 grid grid-cols-1'>
         <span className='font-medium'>{name}</span>
+        <span className='font-light mb-1'>
+          Minimum order quantity:
+          <span className='text-red-800 ml-1'>{minimumOrder}</span>
+        </span>
 
         {countInStock > 0 ? (
           <div className='flex justify-between items-start mt-2'>

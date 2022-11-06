@@ -8,7 +8,7 @@ import { logout } from '../context/actions/userActions';
 
 export default function Navbar() {
   const { user, dispatch } = useContext(UserContext);
-  const { cartItems } = useContext(CartContext);
+  const { cartItems, handleClearCart } = useContext(CartContext);
 
   return (
     <nav className='fixed z-50 w-full bg-lime-700 py-5 shadow-sm'>
@@ -46,7 +46,10 @@ export default function Navbar() {
 
           {user && (
             <span
-              onClick={() => dispatch(logout())}
+              onClick={() => {
+                handleClearCart();
+                dispatch(logout());
+              }}
               className='cursor-pointer font-medium'
             >
               Logout
