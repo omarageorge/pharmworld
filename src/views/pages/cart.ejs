@@ -1,0 +1,50 @@
+<%- include('../partials/layout_top') -%>
+
+
+      <section id="cart">
+        <!-- Checkout instructions -->
+        <div id="checkout">
+          <h1>
+            Your total is
+            <span style="color: #008000"> $199.99 </span>
+          </h1>
+          <button>Check Out</button>
+          <a href="/">Continue shopping</a>
+        </div>
+
+        <!-- Cart Items -->
+        <table>
+          <caption>
+            Items in cart
+          </caption>
+
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Total</th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td>Medicine</td>
+              <td>$10</td>
+              <td>
+                <input type="number" min="1" max="4" value="1" />
+              </td>
+              <td>$40</td>
+              <td>
+                <span id="remove">Remove</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Update cart button -->
+        <button id="update">Update Cart</button>
+      </section>
+      
+<%- include('../partials/layout_bottom') -%>
