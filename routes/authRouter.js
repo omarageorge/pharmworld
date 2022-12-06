@@ -1,21 +1,13 @@
-const { Router } = require('express');
-const passport = require('passport');
-const { registerUser } = require('../controllers/userController.js');
+import { Router } from 'express';
+import { registerUser } from '../controllers/userController.js';
 
 const router = Router();
 
 router.post('/register', registerUser);
 
-router.post(
-  '/login',
-  passport.authenticate('local', {
-    successRedirect: '/',
-    failureRedirect: '/login',
-  }),
-  (req, res) => {
-    res.send('Login');
-  }
-);
+router.post('/login', (req, res) => {
+  res.send('Login');
+});
 
 router.post('/logout', function (req, res, next) {
   req.logout(function (err) {
@@ -26,4 +18,4 @@ router.post('/logout', function (req, res, next) {
   });
 });
 
-module.exports = router;
+export default router;

@@ -1,10 +1,10 @@
-const asyncHandler = require('express-async-handler');
-const User = require('../models/userModel.js');
+import asyncHandler from 'express-async-handler';
+import User from '../models/userModel.js';
 
 // @route   POST /auth/register
 // @desc    Register a new user
 // @access  Public
-const registerUser = asyncHandler(async (req, res) => {
+export const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
 
   const userExists = await User.findOne({ email });
@@ -22,7 +22,3 @@ const registerUser = asyncHandler(async (req, res) => {
 
   res.redirect('/login');
 });
-
-module.exports = {
-  registerUser,
-};
