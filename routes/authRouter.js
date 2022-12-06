@@ -1,13 +1,18 @@
 import { Router } from 'express';
+import passport from 'passport';
 import { registerUser } from '../controllers/userController.js';
 
 const router = Router();
 
 router.post('/register', registerUser);
 
-router.post('/login', (req, res) => {
-  res.send('Login');
-});
+router.post(
+  '/login',
+  passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/login',
+  })
+);
 
 router.post('/logout', function (req, res, next) {
   req.logout(function (err) {

@@ -1,11 +1,14 @@
-import cors from 'cors';
 import morgan from 'morgan';
 import helmet from 'helmet';
 import express from 'express';
-import { config } from 'dotenv';
+import flash from 'connect-flash';
+import session from 'express-session';
 import connectDB from './config/db.js';
+import passport from 'passport';
 import indexRoutes from './routes/indexRoutes.js';
 import authRoutes from './routes/authRouter.js';
+import passportConfig from './config/passport.js';
+import { config } from 'dotenv';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -13,19 +16,32 @@ const PORT = process.env.PORT || 5000;
 /* Configs */
 config();
 connectDB();
+passportConfig(passport);
+
+/* View Engine */
+app.set('view engine', 'ejs');
 
 /* Middleware */
-app.use(cors());
+app.use(flash());
 app.use(helmet());
 app.use(morgan('dev'));
-app.use(json());
-app.use(urlencoded({ extended: true }));
+
+/* Bodyparser */
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 /* Static Routes */
 app.use(express.static('public'));
 
-/* View Engine */
-app.set('view engine', 'ejs');
+/* Express Session */
+app.use(
+  session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+app.use(passport.authenticate('session'));
 
 /* Routes */
 app.use('/', indexRoutes);
