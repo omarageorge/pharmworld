@@ -1,28 +1,24 @@
-// import bcrypt from 'bcryptjs';
 import LocalStrategy from 'passport-local';
 import User from '../models/userModel.js';
 
 export default function passportConfig(passport) {
   passport.use(
-    new LocalStrategy((username, password, cb) => {
-      User.findOne({ email: username }, (err, user) => {
-        if (err) {
-          return cb(err);
-        }
+    new LocalStrategy(async (username, password, cb) => {
+      try {
+        const user = await User.findOne({ email: username });
+
         if (!user) {
           return cb(null, false);
         }
 
-        /*  bcrypt.compare(password, user.password, (err, result) => {
-          if (err) {
-            return cb(err);
-          }
-          if (result === true) {
-            return cb(null, user);
-          }
+        if (!(await user.verifyPassword(password))) {
           return cb(null, false);
-        }); */
-      });
+        }
+
+        return cb(null, user);
+      } catch (err) {
+        return cb(err);
+      }
     })
   );
 
@@ -30,6 +26,7 @@ export default function passportConfig(passport) {
     process.nextTick(function () {
       return cb(null, {
         id: user._id,
+        name: user.name,
         role: user.isAdmin,
       });
     });
