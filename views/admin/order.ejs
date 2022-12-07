@@ -1,0 +1,81 @@
+<%- include('../partials/admin_top') -%>
+<section id="order">
+  <!-- Order details -->
+  <div id="order-details">
+    <table>
+      <tr>
+        <td class="bold">Order ID:</td>
+                <td>123456</td>
+              </tr>
+              <tr>
+                <td class="bold">Order Date:</td>
+                <td>12/12/2021</td>
+              </tr>
+            </table>
+          </div>
+
+          <!-- Client details -->
+          <div id="client-details">
+            <table>
+              <tr>
+                <td class="bold">Name:</td>
+                <td>John Doe</td>
+              </tr>
+              <tr>
+                <td class="bold">Email:</td>
+                <td>client@dnmx.org</td>
+              </tr>
+            </table>
+          </div>
+
+          <!-- Order items -->
+          <div id="order-items">
+            <table>
+              <thead>
+                <tr>
+                  <th id="left">Product</th>
+                  <th>Qty</th>
+                  <th>Price</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              
+              <tbody>
+                <tr>
+                  <td class="left">Product 1</td>
+                  <td>2</td>
+                  <td>100</td>
+                  <td>200</td>
+                </tr>
+                <tr>
+                  <td class="left">Product 2</td>
+                  <td>1</td>
+                  <td>50</td>
+                  <td>50</td>
+                </tr>
+                <tr>
+                  <td class="left">Product 3</td>
+                  <td>3</td>
+                  <td>150</td>
+                  <td>450</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <!-- Total -->
+          <div id="total">
+            <span>
+              <strong>Total Price:</strong>
+              <span id="price">$700</span>
+            </span>
+          </div>
+          
+          <!-- Mark order as complete -->
+          <div id="complete">
+            <button>Mark as Complete</button>
+            <!-- <button id="delivered" disabled>Delivered</button> -->
+          </div>
+        </section>
+
+  <%- include('../partials/admin_bottom') -%>

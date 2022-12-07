@@ -1,0 +1,46 @@
+#add h1 {
+  margin-bottom: 15px;
+}
+#add form .form-control {
+  width: 100%;
+  margin-bottom: 15px;
+}
+#add form .form-control label {
+  display: block;
+  margin-bottom: 5px;
+}
+#add form .form-control input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+#add form .form-control textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+#add form .form-control button {
+  padding: 15px 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  background-color: #333;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+#add form .form-control button:hover {
+  background-color: #444;
+}
+#add form .form-control button#delete {
+  background-color: #f00;
+  color: #fff;
+}
+#add form .form-control button#delete:hover {
+  background-color: #f33;
+}

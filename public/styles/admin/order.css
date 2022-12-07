@@ -1,0 +1,64 @@
+#order #order-details table {
+  margin-left: auto;
+}
+#order #order-details table td {
+  padding: 0 4px;
+}
+#order #order-details table td.bold {
+  font-weight: bold;
+}
+#order #client-details {
+  margin-top: 20px;
+}
+#order #client-details table td {
+  padding: 0 4px;
+}
+#order #client-details table td.bold {
+  font-weight: bold;
+}
+#order #order-items table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+  border: 0px solid #fff;
+  border-radius: 5px;
+  overflow: hidden;
+}
+#order #order-items table th {
+  text-align: center;
+  color: #fff;
+  background-color: #333;
+  padding: 10px;
+}
+#order #order-items table th#left {
+  text-align: left;
+}
+#order #order-items table td {
+  padding: 10px;
+  background-color: #f4f4f4;
+  text-align: center;
+}
+#order #order-items table td.left {
+  text-align: left;
+}
+#order #total {
+  margin-top: 20px;
+}
+#order #total #price {
+  color: #008000;
+}
+#order #complete {
+  margin-top: 20px;
+}
+#order #complete button {
+  padding: 10px 20px;
+  background-color: #333;
+  color: #fff;
+  border: 0px solid #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+#order #complete button#delivered {
+  background-color: gray;
+  cursor: not-allowed;
+}

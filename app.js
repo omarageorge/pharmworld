@@ -8,6 +8,7 @@ import session from 'express-session';
 
 import connectDB from './config/db.js';
 import authRoutes from './routes/authRouter.js';
+import adminRoutes from './routes/adminRoutes.js';
 import indexRoutes from './routes/indexRoutes.js';
 import passportConfig from './config/passport.js';
 
@@ -37,7 +38,7 @@ app.use(express.static('public'));
 /* Express Session */
 app.use(
   session({
-    secret: 'keyboard cat',
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
   })
@@ -47,6 +48,7 @@ app.use(passport.authenticate('session'));
 /* Routes */
 app.use('/', indexRoutes);
 app.use('/auth', authRoutes);
+app.use('/admin', adminRoutes);
 
 app.listen(PORT, () =>
   console.log(`App is running in ${process.env.NODE_ENV} on port ${PORT}`)

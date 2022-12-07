@@ -1,0 +1,50 @@
+<%- include('../partials/admin_top') -%>
+<section id="products">
+  <h1>Products</h1>
+
+          <table>
+            <caption></caption>
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>In Stock</th>
+                <th>Min Order</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <img src="/images/pill.jpg" alt="" />
+                </td>
+                <td class="product-name">Product some other</td>
+                <td>100</td>
+                <td>10</td>
+                <td>1</td>
+                <td>
+                  <a href="/admin/update/1">Edit</a>
+                  <a href="#" id="delete">Delete</a>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <img src="/images/pill.jpg" alt="" />
+                </td>
+                <td class="product-name">Product 2</td>
+                <td>200</td>
+                <td>20</td>
+                <td>2</td>
+                
+                <td>
+                  <a href="/admin/update/1">Edit</a>
+                  <a href="#" id="delete">Delete</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+     
+  
+  <%- include('../partials/admin_bottom') -%>

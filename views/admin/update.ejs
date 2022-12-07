@@ -1,0 +1,50 @@
+<%- include('../partials/admin_top') -%>
+
+<section id="add">
+  <h1>Add Product</h1>
+  
+  <form action="/admin/add" method="POST">
+    <div class="form-control">
+              <label for="name">Name</label>
+              <input type="text" name="name" id="name" />
+            </div>
+            
+            <div class="form-control">
+              <label for="price">Price</label>
+              <input type="number" name="price" id="price" />
+            </div>
+            
+            <div class="form-control">
+              <label for="countInStock">In Stock</label>
+              <input type="number" name="countInStock" id="countInStock" />
+            </div>
+            
+            <div class="form-control">
+              <label for="minimumOrder">Minimum Order</label>
+              <input type="number" name="minimumOrder" id="minimumOrder" />
+            </div>
+            
+            <div class="form-control">
+              <label for="image">Image</label>
+              <input type="file" name="image" id="image" />
+            </div>
+
+            <div class="form-control">
+              <label for="description">Description</label>
+              <textarea
+                name="description"
+                id="description"
+                cols="30"
+                rows="10"
+              ></textarea>
+            </div>
+
+            <div class="form-control">
+              <button type="submit">Update Product</button>
+              <button type="submit" id="delete">Delete Product</button>
+            </div>
+          </form>
+        </section>
+
+  
+  <%- include('../partials/admin_bottom') -%>
