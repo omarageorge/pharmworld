@@ -22,3 +22,15 @@ export const registerUser = asyncHandler(async (req, res) => {
 
   res.redirect('/login');
 });
+
+// @route   POST /auth/logout
+// @desc    Logout a user
+// @access  Private
+export const logoutUser = (req, res, next) => {
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+    res.redirect('/');
+  });
+};

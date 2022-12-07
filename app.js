@@ -1,14 +1,15 @@
 import morgan from 'morgan';
 import helmet from 'helmet';
 import express from 'express';
+import { config } from 'dotenv';
+import passport from 'passport';
 import flash from 'connect-flash';
 import session from 'express-session';
+
 import connectDB from './config/db.js';
-import passport from 'passport';
-import indexRoutes from './routes/indexRoutes.js';
 import authRoutes from './routes/authRouter.js';
+import indexRoutes from './routes/indexRoutes.js';
 import passportConfig from './config/passport.js';
-import { config } from 'dotenv';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
