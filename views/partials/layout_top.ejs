@@ -16,21 +16,32 @@
   <body>
    
     <nav>
+
       <span>
-        <h1 class="logo">Pharmworld</h1>
+        <h1 class="logo">Pharmworld <span><%= user.name %></span></h1>
       </span>
 
       <ul>
         <li><a href="/" class="active">Products</a></li>
         <li><a href="/about">About</a></li>
         <li><a href="/faq">FAQ</a></li>
+
+        <% if (loggedIn) {%>
+          <li>
+            <form method="POST" action="/auth/logout?_method=POST">
+              <button type="submit">Logout</button>
+            </form>
+          </li>
+        <% } else { %>  
         <li><a href="/login">Login</a></li>
+        <% } %>  
       </ul>
 
-   
-      <span>
-        <a href="/cart"> (0) Cart </a>
-      </span>
+      <% if (loggedIn) {%>
+        <span>
+          <a href="/cart"> (0) Cart </a>
+        </span>
+      <% } %>  
     </nav>
 
     <main>

@@ -1,18 +1,30 @@
 import { Router } from 'express';
-import ensureAuthenticated from '../config/auth.js';
+import { ensureAuthenticated } from '../config/auth.js';
 
 const router = Router();
 
-router.get('/', ensureAuthenticated, (req, res) => {
-  res.render('pages/index', { title: 'Welcome', user: req.user });
+router.get('/', (req, res) => {
+  res.render('pages/index', {
+    title: 'Welcome',
+    user: req.isAuthenticated() ? req.user : '',
+    loggedIn: req.isAuthenticated(),
+  });
 });
 
-router.get('/about', ensureAuthenticated, (req, res) => {
-  res.render('pages/about', { title: 'About', user: req.user });
+router.get('/about', (req, res) => {
+  res.render('pages/about', {
+    title: 'About',
+    user: req.isAuthenticated() ? req.user : '',
+    loggedIn: req.isAuthenticated(),
+  });
 });
 
-router.get('/faq', ensureAuthenticated, (req, res) => {
-  res.render('pages/faq', { title: 'FAQ', user: req.user });
+router.get('/faq', (req, res) => {
+  res.render('pages/faq', {
+    title: 'FAQ',
+    user: req.isAuthenticated() ? req.user : '',
+    loggedIn: req.isAuthenticated(),
+  });
 });
 
 router.get('/login', (req, res) => {
@@ -24,7 +36,11 @@ router.get('/register', (req, res) => {
 });
 
 router.get('/cart', ensureAuthenticated, (req, res) => {
-  res.render('pages/cart', { title: 'Cart', user: req.user });
+  res.render('pages/cart', {
+    title: 'Cart',
+    user: req.isAuthenticated() ? req.user : '',
+    loggedIn: req.isAuthenticated(),
+  });
 });
 
 export default router;

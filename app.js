@@ -5,6 +5,7 @@ import { config } from 'dotenv';
 import passport from 'passport';
 import flash from 'connect-flash';
 import session from 'express-session';
+import methodOverride from 'method-override';
 
 import connectDB from './config/db.js';
 import authRoutes from './routes/authRouter.js';
@@ -34,6 +35,9 @@ app.use(express.urlencoded({ extended: false }));
 
 /* Static Routes */
 app.use(express.static('public'));
+
+/* Method Override */
+app.use(methodOverride('_method'));
 
 /* Express Session */
 app.use(

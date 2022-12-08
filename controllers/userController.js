@@ -1,6 +1,17 @@
 import asyncHandler from 'express-async-handler';
 import User from '../models/userModel.js';
 
+// @route   GET /auth/redirect
+// @desc    Redirect a user to the appropriate page
+// @access  Public/Authenticated
+export const redirectUser = (req, res) => {
+  if (req.user.isAdmin) {
+    res.redirect('/admin');
+  } else {
+    res.redirect('/');
+  }
+};
+
 // @route   POST /auth/register
 // @desc    Register a new user
 // @access  Public

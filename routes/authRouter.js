@@ -1,8 +1,17 @@
 import { Router } from 'express';
 import passport from 'passport';
-import { registerUser, logoutUser } from '../controllers/userController.js';
+import {
+  registerUser,
+  logoutUser,
+  redirectUser,
+} from '../controllers/userController.js';
 
 const router = Router();
+
+// @route   GET /auth/redirect
+// @desc    Redirect a user to the appropriate page
+// @access  Public/Authenticated
+router.get('/redirect', redirectUser);
 
 // @route   POST /auth/register
 // @desc    Register a new user
@@ -15,14 +24,14 @@ router.post('/register', registerUser);
 router.post(
   '/login',
   passport.authenticate('local', {
-    successRedirect: '/',
+    successRedirect: '/auth/redirect',
     failureRedirect: '/login',
   })
 );
 
-// @route   POST /auth/register
-// @desc    Register a new user
-// @access  Public
+// @route   POST /auth/logout
+// @desc    Logout a user
+// @access  Private
 router.post('/logout', logoutUser);
 
 export default router;

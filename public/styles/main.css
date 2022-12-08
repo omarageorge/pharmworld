@@ -44,9 +44,25 @@ nav ul {
 nav ul li {
   margin-left: 20px;
 }
+nav ul li button {
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  padding: 5px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+nav ul li button:hover {
+  background-color: #c0392b;
+}
 nav .logo {
   font-size: 1.5rem;
   font-weight: bold;
+}
+nav .logo span {
+  font-weight: normal;
+  color: #f1c40f;
 }
 
 main {

@@ -23,13 +23,23 @@
 #wrapper #sidebar h1 {
   color: #fff;
   text-align: center;
-  padding: 20px 0;
+  padding-top: 20px;
+}
+#wrapper #sidebar h2 {
+  color: #fff;
+  font-size: 13px;
+  font-weight: normal;
+  text-align: center;
+  text-transform: capitalize;
+  padding: 5px 0;
+  padding-bottom: 15px;
 }
 #wrapper #sidebar ul {
   list-style: none;
   padding: 0;
 }
-#wrapper #sidebar ul li a {
+#wrapper #sidebar ul li a,
+#wrapper #sidebar ul li button {
   color: #fff;
   text-decoration: none;
   display: block;
@@ -37,8 +47,22 @@
   background-color: #222;
   transition: all 0.3s ease;
 }
-#wrapper #sidebar ul li a:hover {
+#wrapper #sidebar ul li a:hover,
+#wrapper #sidebar ul li button:hover {
   background-color: #444;
+}
+#wrapper #sidebar ul li button#logout {
+  width: 100%;
+  border: none;
+  display: block;
+  font-family: sans-serif;
+  text-align: center;
+  text-transform: uppercase;
+  background-color: #f44336;
+  cursor: pointer;
+}
+#wrapper #sidebar ul li button#logout:hover {
+  background-color: #b71c1c;
 }
 #wrapper #main {
   width: 80%;

@@ -27,7 +27,7 @@ export default function passportConfig(passport) {
       return cb(null, {
         id: user._id,
         name: user.name,
-        role: user.isAdmin,
+        isAdmin: user.isAdmin,
       });
     });
   });
