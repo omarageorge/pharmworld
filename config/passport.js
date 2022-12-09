@@ -25,7 +25,7 @@ export default function passportConfig(passport) {
   passport.serializeUser((user, cb) => {
     process.nextTick(function () {
       return cb(null, {
-        id: user._id,
+        _id: user._id,
         name: user.name,
         isAdmin: user.isAdmin,
       });

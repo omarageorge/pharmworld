@@ -1,11 +1,11 @@
 import { Router } from 'express';
-import { ensureAuthenticated, ensureAdmin } from '../config/auth.js';
+import { ensureAuthenticated } from '../config/auth.js';
 import { addToCart } from '../controllers/cartController.js';
 
 const router = Router();
 
 // Restrict access to admin only
-router.use(ensureAuthenticated, ensureAdmin);
+router.use(ensureAuthenticated);
 
 router
   .route('/')

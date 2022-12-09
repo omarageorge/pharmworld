@@ -29,17 +29,22 @@
           </thead>
 
           <tbody>
-            <tr>
-              <td>Medicine</td>
-              <td>$10</td>
-              <td>
-                <input type="number" min="1" max="4" value="1" />
-              </td>
-              <td>$40</td>
-              <td>
-                <span id="remove">Remove</span>
-              </td>
-            </tr>
+            <% items.forEach( item  => { %>
+              <!-- const variable containing total price -->
+              <% const total = item.product.price * item.quantity %>
+
+              <tr>
+                <td><%= item.product.name %></td>
+                <td>$<%= item.product.price %></td>
+                <td>
+                  <input type="number" min=<%= item.product.minimumOrder %> max=<%= item.product.countInStock %> value=<%= item.quantity %> />
+                </td>
+                <td>$<%= total %> </td>
+                <td>
+                  <span id="remove">Remove</span>
+                </td>
+              </tr>
+            <% }) %> 
           </tbody>
         </table>
 

@@ -18,16 +18,18 @@
   
             <p class="product-price">In Stock: <span class="value"><%= product.countInStock %></span></p>
 
-            <form method="POST" action="/cart">
-               <input type="text" name="product" value="<%= product._id %>" >
-               <input type="number" name="quantity" value="<%= product.minimumOrder %>" >
-               <button type="submit" class="product-button">Add to cart</button>
-            </form>
-
-            <!-- <form method="POST" action="/cart?_method=DELETE">
-               <input type="text" name="product" value="<%= product._id %>" >
-               <button type="submit" class="remove-from-cart">Remove from cart</button>
-            </form> -->
+            <% if(loggedIn) { %>
+               <form method="POST" action="/cart">
+                  <input type="text" name="product" value="<%= product._id %>" >
+                  <input type="number" name="quantity" value="<%= product.minimumOrder %>" >
+                  <button type="submit" class="product-button">Add to cart</button>
+               </form>
+               
+               <!-- <form method="POST" action="/cart?_method=DELETE">
+                  <input type="text" name="product" value="<%= product._id %>" >
+                  <button type="submit" class="remove-from-cart">Remove from cart</button>
+               </form> -->
+            <% } %>
           </div>
        <% }) %> 
 

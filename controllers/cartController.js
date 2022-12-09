@@ -1,30 +1,29 @@
 import asyncHandler from 'express-async-handler';
 import Cart from '../models/cartModel.js';
 
-// @route   GET /api/cart
-// @desc    Get cart items
+// @route   GET   /cart
+// @desc    render cart page
 // @access  Private/Protected
-export const getCartItems = asyncHandler(async (req, res) => {
+export const cartPage = asyncHandler(async (req, res) => {
   const cart = await Cart.findOne({ user: req.user._id })
     .populate('user', 'name email')
-    .populate('products.product', 'name image price purchaseLimit')
+    .populate('products.product', 'name price countInStock minimumOrder')
     .exec();
 
-  if (cart) {
-    res.status(200).json(cart);
-  } else {
-    res.status(404);
-    throw new Error('No items in cart');
-  }
+  res.render('pages/cart', {
+    title: 'Cart',
+    user: req.isAuthenticated() ? req.user : '',
+    loggedIn: req.isAuthenticated(),
+    items: cart.products,
+  });
 });
 
 // @route   POST /cart
 // @desc    Create new cart
 // @access  Private/Protected
 export const addToCart = asyncHandler(async (req, res) => {
-  console.log(req.body);
-
-  /*  const { product, quantity } = req.body;
+  const product = req.body.product;
+  const quantity = parseInt(req.body.quantity);
 
   const cart = await Cart.findOne({ user: req.user._id });
 
@@ -42,20 +41,19 @@ export const addToCart = asyncHandler(async (req, res) => {
       });
     }
 
-    const updatedCart = await cart.save();
-
-    res.status(201).json(updatedCart);
+    await cart.save();
+    res.redirect('/');
   } else {
     await Cart.create({
       user: req.user._id,
       products: [{ product, quantity }],
     });
 
-    res.status(201).json({ message: 'Cart created successfully' });
-  } */
+    res.redirect('/');
+  }
 });
 
-// @route   PUT /api/cart
+// @route   PUT /cart
 // @desc    Update cart item
 // @access  Private/Protected
 export const updateCartItem = asyncHandler(async (req, res) => {
@@ -75,7 +73,7 @@ export const updateCartItem = asyncHandler(async (req, res) => {
   res.status(200).json(cart);
 });
 
-// @route   DELETE /api/cart
+// @route   DELETE /cart
 // @desc    Delete cart item
 // @access  Private/Protected
 export const deleteCartItem = asyncHandler(async (req, res) => {

@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { ensureAuthenticated } from '../config/auth.js';
+import { cartPage } from '../controllers/cartController.js';
 import { indexPage } from '../controllers/productController.js';
 
 const router = Router();
@@ -33,12 +34,6 @@ router.get('/register', (req, res) => {
   res.render('pages/register', { title: 'Register' });
 });
 
-router.get('/cart', ensureAuthenticated, (req, res) => {
-  res.render('pages/cart', {
-    title: 'Cart',
-    user: req.isAuthenticated() ? req.user : '',
-    loggedIn: req.isAuthenticated(),
-  });
-});
+router.get('/cart', ensureAuthenticated, cartPage);
 
 export default router;
