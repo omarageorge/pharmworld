@@ -18,11 +18,13 @@ export const getCartItems = asyncHandler(async (req, res) => {
   }
 });
 
-// @route   POST /api/cart
+// @route   POST /cart
 // @desc    Create new cart
 // @access  Private/Protected
 export const addToCart = asyncHandler(async (req, res) => {
-  const { product, quantity } = req.body;
+  console.log(req.body);
+
+  /*  const { product, quantity } = req.body;
 
   const cart = await Cart.findOne({ user: req.user._id });
 
@@ -50,7 +52,7 @@ export const addToCart = asyncHandler(async (req, res) => {
     });
 
     res.status(201).json({ message: 'Cart created successfully' });
-  }
+  } */
 });
 
 // @route   PUT /api/cart

@@ -1,7 +1,11 @@
 <%- include('../partials/admin_top') -%>
-<section id="products">
-  <h1>Products</h1>
 
+    <section id="products">
+      <h1>Products</h1>
+
+      <% if (products.length <= 0) {%>
+      <span id="no-products">No products have been added.</span>
+      <% } else { %> 
           <table>
             <caption></caption>
             <thead>
@@ -15,36 +19,28 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>
-                  <img src="/images/pill.jpg" alt="" />
-                </td>
-                <td class="product-name">Product some other</td>
-                <td>100</td>
-                <td>10</td>
-                <td>1</td>
-                <td>
-                  <a href="/admin/update/1">Edit</a>
-                  <a href="#" id="delete">Delete</a>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <img src="/images/pill.jpg" alt="" />
-                </td>
-                <td class="product-name">Product 2</td>
-                <td>200</td>
-                <td>20</td>
-                <td>2</td>
-                
-                <td>
-                  <a href="/admin/update/1">Edit</a>
-                  <a href="#" id="delete">Delete</a>
-                </td>
-              </tr>
+              <% products.forEach(product => { %>
+                  <tr>
+                    <td>
+                      <img src="/images/<%= product.image %>" alt="<%= product.name %>" />
+                    </td>
+                    <td class="product-name"><%= product.name %></td>
+                    <td>$<%= product.price %></td>
+                    <td><%= product.countInStock %></td>
+                    <td><%= product.minimumOrder %></td>
+                    <td>
+                      <a href="/admin/product/<%= product._id %>">Edit</a>
+    
+                      <form  method="POST" action="/products/<%= product._id %>?_method=DELETE">
+                        <button type="submit" class="delete">Delete</button>
+                      </form>
+                    </td>
+                   
+                  </tr>
+              <% }) %> 
             </tbody>
           </table>
-        </section>
-     
+        <% } %>  
+     </section>
   
   <%- include('../partials/admin_bottom') -%>

@@ -1,15 +1,13 @@
 import { Router } from 'express';
 import { ensureAuthenticated } from '../config/auth.js';
+import { indexPage } from '../controllers/productController.js';
 
 const router = Router();
 
-router.get('/', (req, res) => {
-  res.render('pages/index', {
-    title: 'Welcome',
-    user: req.isAuthenticated() ? req.user : '',
-    loggedIn: req.isAuthenticated(),
-  });
-});
+// @route   GET /
+// @desc    Render index page
+// @access  Public/Authenticated
+router.get('/', indexPage);
 
 router.get('/about', (req, res) => {
   res.render('pages/about', {

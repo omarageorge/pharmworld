@@ -1,66 +1,36 @@
 <%- include('../partials/layout_top') -%>
      
      <section id="products">
-      
-        <div class="product">
-          <img src="/images/pill.jpg" loading="lazy" alt="" />
-          <h3 class="product-name">Medicine</h3>
-          <p class="product-price">Price: <span class="value">$10</span></p>
 
-          <p class="product-price">Min Order: <span class="value">5</span></p>
+       <!-- Show this message if products are not available -->
+       <% if (products.length <= 0) {%>
+          <span id="no-products">No Products available</span>
+       <% } %>  
 
-          <p class="product-price">In Stock: <span class="value">15</span></p>
+       <!-- Show available products -->
+       <% products.forEach(product => { %>
+          <div class="product">
+            <img src="/images/<%= product.image %>" loading="lazy" alt="" />
+            <h3 class="product-name"><%= product.name %></h3>
+            <p class="product-price">Price: <span class="value">$<%= product.price %></span></p>
+  
+            <p class="product-price">Min Order: <span class="value"><%= product.minimumOrder %></span></p>
+  
+            <p class="product-price">In Stock: <span class="value"><%= product.countInStock %></span></p>
 
-          <button class="product-button">Add to cart</button>
-        </div>
+            <form method="POST" action="/cart">
+               <input type="text" name="product" value="<%= product._id %>" >
+               <input type="number" name="quantity" value="<%= product.minimumOrder %>" >
+               <button type="submit" class="product-button">Add to cart</button>
+            </form>
 
-        <div class="product">
-          <img src="/images/pill.jpg" loading="lazy" alt="" />
-          <h3 class="product-name">Medicine</h3>
-          <p class="product-price">Price: <span class="value">$10</span></p>
+            <!-- <form method="POST" action="/cart?_method=DELETE">
+               <input type="text" name="product" value="<%= product._id %>" >
+               <button type="submit" class="remove-from-cart">Remove from cart</button>
+            </form> -->
+          </div>
+       <% }) %> 
 
-          <p class="product-price">Min Order: <span class="value">5</span></p>
-
-          <p class="product-price">In Stock: <span class="value">15</span></p>
-
-          <button class="remove-from-cart">Remove from cart</button>
-        </div>
-
-        <div class="product">
-          <img src="/images/pill.jpg" loading="lazy" alt="" />
-          <h3 class="product-name">Medicine</h3>
-          <p class="product-price">Price: <span class="value">$10</span></p>
-
-          <p class="product-price">Min Order: <span class="value">5</span></p>
-
-          <p class="product-price">In Stock: <span class="value">15</span></p>
-
-          <button class="product-button">Add to cart</button>
-        </div>
-
-        <div class="product">
-          <img src="/images/pill.jpg" loading="lazy" alt="" />
-          <h3 class="product-name">Medicine</h3>
-          <p class="product-price">Price: <span class="value">$10</span></p>
-
-          <p class="product-price">Min Order: <span class="value">5</span></p>
-
-          <p class="product-price">In Stock: <span class="value">15</span></p>
-
-          <button class="product-button">Add to cart</button>
-        </div>
-
-        <div class="product">
-          <img src="/images/pill.jpg" loading="lazy" alt="" />
-          <h3 class="product-name">Medicine</h3>
-          <p class="product-price">Price: <span class="value">$10</span></p>
-
-          <p class="product-price">Min Order: <span class="value">5</span></p>
-
-          <p class="product-price">In Stock: <span class="value">15</span></p>
-
-          <button class="product-button">Add to cart</button>
-        </div>
       </section>
 
       <%- include('../partials/layout_bottom') -%>

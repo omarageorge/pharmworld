@@ -2,33 +2,51 @@ import asyncHandler from 'express-async-handler';
 import Product from '../models/productModel.js';
 import { unlink } from 'fs/promises';
 
-// @route   GET /api/products
-// @desc    Get single product
-// @access  Public
-export const getProducts = asyncHandler(async (req, res) => {
+// @route   GET /
+// @desc    Render index products page
+// @access  Public/Authenticated
+export const indexPage = asyncHandler(async (req, res) => {
   const products = await Product.find({});
-  res.status(200).json(products);
+
+  res.render('pages/index', {
+    title: 'Welcome',
+    user: req.isAuthenticated() ? req.user : '',
+    loggedIn: req.isAuthenticated(),
+    products,
+  });
 });
 
-// @route   GET /api/products/:id
-// @desc    Get single product
+// @route   GET /admin/products
+// @desc    Render Admin products page
 // @access  Private/Admin
-export const getProductById = asyncHandler(async (req, res) => {
+export const adminProductsPage = asyncHandler(async (req, res) => {
+  const products = await Product.find({});
+
+  res.render('admin/products', {
+    title: 'Products',
+    user: req.user,
+    products,
+  });
+});
+
+// @route   GET /admin/product/:id
+// @desc    Render a single product
+// @access  Private/Admin
+export const singleProductPage = asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id);
 
-  if (product) {
-    res.status(200).json(product);
-  } else {
-    res.status(404);
-    throw new Error('Product not found');
-  }
+  res.render('admin/product', {
+    title: 'Product',
+    user: req.user,
+    product,
+  });
 });
 
-// @route   POST /api/products
-// @desc    Create a product
+// @route   POST /products
+// @desc    Add a product
 // @access  Private/Admin
-export const createProduct = asyncHandler(async (req, res) => {
-  const product = await Product.create({
+export const addProduct = asyncHandler(async (req, res) => {
+  await Product.create({
     name: req.body.name,
     price: req.body.price,
     image: req.file.filename,
@@ -37,15 +55,10 @@ export const createProduct = asyncHandler(async (req, res) => {
     description: req.body.description,
   });
 
-  if (product) {
-    res.status(201).json(product);
-  } else {
-    res.status(400);
-    throw new Error('Invalid product data');
-  }
+  res.redirect('/admin/products');
 });
 
-// @route   PUT /api/products/:id
+// @route   PUT /admin/products/:id
 // @desc    Update a product
 // @access  Private/Admin
 export const updateProduct = asyncHandler(async (req, res) => {
@@ -56,7 +69,7 @@ export const updateProduct = asyncHandler(async (req, res) => {
   if (product) {
     if (req.file) {
       if (product.image !== req.file.filename) {
-        await unlink(`backend/public/${product.image}`);
+        await unlink(`public/images/${product.image}`);
       }
     }
 
@@ -67,26 +80,24 @@ export const updateProduct = asyncHandler(async (req, res) => {
     product.minimumOrder = minimumOrder;
     product.description = description;
 
-    const updatedProduct = await product.save();
-    res.json(updatedProduct);
+    await product.save();
+    res.redirect('/admin/products');
   } else {
-    res.status(404);
-    throw new Error('Product not found');
+    res.redirect('/admin/products');
   }
 });
 
-// @route   DELETE /api/products/:id
+// @route   DELETE /products/:id
 // @desc    Delete a product
 // @access  Private/Admin
 export const deleteProduct = asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id);
 
   if (product) {
-    await unlink(`backend/public/${product.image}`);
+    await unlink(`public/images/${product.image}`);
     await product.remove();
-    res.json({ message: 'Product removed' });
+    res.redirect('/admin/products');
   } else {
-    res.status(404);
-    throw new Error('Product not found');
+    res.redirect('/admin/products');
   }
 });

@@ -32,10 +32,14 @@
 #products table td#actions {
   width: 100px;
 }
-#products table a {
-  display: inline-block;
-  padding: 5px 10px;
-  border: 1px solid #ccc;
+#products table a,
+#products table button {
+  width: 60%;
+  font-size: 12px;
+  font-family: sans-serif;
+  display: block;
+  padding: 5px 5px;
+  border: none;
   border-radius: 5px;
   background-color: #333;
   text-decoration: none !important;
@@ -44,13 +48,15 @@
   cursor: pointer;
   transition: all 0.3s ease;
 }
-#products table a:hover {
-  background-color: #444;
+#products table a:hover,
+#products table button:hover {
+  background-color: rgb(27, 24, 24);
 }
-#products table a#delete {
-  background-color: #f00;
+#products table button.delete {
+  background-color: #a81505;
   color: #fff;
+  margin-top: 5px;
 }
-#products table a#delete:hover {
-  background-color: #f33;
+#products table button.delete:hover {
+  background-color: #f00;
 }

@@ -31,7 +31,10 @@
   font-weight: normal;
   color: #008000;
 }
-#products .product .product-button {
+#products .product form input {
+  display: none;
+}
+#products .product form .product-button {
   background-color: #f1c40f;
   color: #000;
   padding: 10px 20px;
@@ -41,10 +44,10 @@
   margin-top: 5px;
   transition: all 0.3s ease-in-out;
 }
-#products .product .product-button:hover {
+#products .product form .product-button:hover {
   background-color: #f39c12;
 }
-#products .product .remove-from-cart {
+#products .product form .remove-from-cart {
   background-color: #e74c3c;
   color: #fff;
   padding: 10px 20px;
@@ -54,6 +57,6 @@
   transition: all 0.3s ease-in-out;
   margin-top: 5px;
 }
-#products .product .remove-from-cart:hover {
+#products .product form .remove-from-cart:hover {
   background-color: #c0392b;
 }

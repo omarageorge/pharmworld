@@ -3,30 +3,30 @@
 <section id="add">
           <h1>Add Product</h1>
 
-          <form action="/admin/add" method="POST">
+          <form action="/products" method="POST"  enctype='multipart/form-data'>
             <div class="form-control">
               <label for="name">Name</label>
-              <input type="text" name="name" id="name" />
+              <input type="text" name="name" id="name" required />
             </div>
 
             <div class="form-control">
               <label for="price">Price</label>
-              <input type="number" name="price" id="price" />
+              <input type="number" name="price" id="price" required />
             </div>
             
             <div class="form-control">
               <label for="countInStock">In Stock</label>
-              <input type="number" name="countInStock" id="countInStock" />
+              <input type="number" name="countInStock" id="countInStock" required />
             </div>
 
             <div class="form-control">
               <label for="minimumOrder">Minimum Order</label>
-              <input type="number" name="minimumOrder" id="minimumOrder" />
+              <input type="number" name="minimumOrder" id="minimumOrder" required />
             </div>
             
             <div class="form-control">
               <label for="image">Image</label>
-              <input type="file" name="image" id="image" />
+              <input type="file" name="image" id="image" required />
             </div>
             
             <div class="form-control">
@@ -36,6 +36,7 @@
                 id="description"
                 cols="30"
                 rows="10"
+                required
                 ></textarea>
               </div>
               

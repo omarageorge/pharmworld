@@ -8,9 +8,13 @@ import session from 'express-session';
 import methodOverride from 'method-override';
 
 import connectDB from './config/db.js';
+
 import authRoutes from './routes/authRouter.js';
 import adminRoutes from './routes/adminRoutes.js';
 import indexRoutes from './routes/indexRoutes.js';
+import productRoutes from './routes/productRoutes.js';
+import cartRoutes from './routes/cartRoutes.js';
+
 import passportConfig from './config/passport.js';
 
 const app = express();
@@ -31,7 +35,7 @@ app.use(morgan('dev'));
 
 /* Bodyparser */
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 
 /* Static Routes */
 app.use(express.static('public'));
@@ -53,6 +57,8 @@ app.use(passport.authenticate('session'));
 app.use('/', indexRoutes);
 app.use('/auth', authRoutes);
 app.use('/admin', adminRoutes);
+app.use('/products', productRoutes);
+app.use('/cart', cartRoutes);
 
 app.listen(PORT, () =>
   console.log(`App is running in ${process.env.NODE_ENV} on port ${PORT}`)
