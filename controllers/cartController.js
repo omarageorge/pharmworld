@@ -5,16 +5,11 @@ import Cart from '../models/cartModel.js';
 // @desc    render cart page
 // @access  Private/Protected
 export const cartPage = asyncHandler(async (req, res) => {
-  const cart = await Cart.findOne({ user: req.user._id })
-    .populate('user', 'name email')
-    .populate('products.product', 'name price countInStock minimumOrder')
-    .exec();
-
   res.render('pages/cart', {
     title: 'Cart',
     user: req.isAuthenticated() ? req.user : '',
     loggedIn: req.isAuthenticated(),
-    items: cart.products,
+    items: req.cart,
   });
 });
 

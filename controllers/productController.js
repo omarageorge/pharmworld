@@ -1,5 +1,6 @@
 import asyncHandler from 'express-async-handler';
 import Product from '../models/productModel.js';
+import Cart from '../models/cartModel.js';
 import { unlink } from 'fs/promises';
 
 // @route   GET /
@@ -8,11 +9,21 @@ import { unlink } from 'fs/promises';
 export const indexPage = asyncHandler(async (req, res) => {
   const products = await Product.find({});
 
+  let cart;
+
+  if (req.isAuthenticated()) {
+    cart = await Cart.findOne({ user: req.user._id })
+      .populate('user', 'name email')
+      .populate('products.product', 'name price countInStock minimumOrder')
+      .exec();
+  }
+
   res.render('pages/index', {
     title: 'Welcome',
     user: req.isAuthenticated() ? req.user : '',
     loggedIn: req.isAuthenticated(),
     products,
+    items: req.isAuthenticated() && cart ? cart.products : [],
   });
 });
 

@@ -2,54 +2,60 @@
 
 
       <section id="cart">
-        <!-- Checkout instructions -->
-        <div id="checkout">
-          <h1>
-            Your total is
-            <span style="color: #008000"> $199.99 </span>
-          </h1>
-          <button>Check Out</button>
-          <a href="/">Continue shopping</a>
-        </div>
+        <% if (items.length > 0 ) { %>
+          <!-- Checkout instructions -->
+          <div id="checkout">
+            <h1>
+              Your total is
+              <span style="color: #008000"> $199.99 </span>
+            </h1>
+            <button>Check Out</button>
+            <a href="/">Continue shopping</a>
+          </div>
+
+          <table>
+            <caption>
+              Items in cart
+            </caption>
+          
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th></th>
+              </tr>
+            </thead>
+          
+            <tbody>
+              <% items.forEach( item  => { %>
+          
+                <% const total = item.product.price * item.quantity %>
+          
+                <tr>
+                  <td><%= item.product.name %></td>
+                  <td>$<%= item.product.price %></td>
+                  <td>
+                    <input type="number" min=<%= item.product.minimumOrder %> max=<%= item.product.countInStock %> value=<%= item.quantity %> />
+                  </td>
+                  <td>$<%= total %> </td>
+                  <td>
+                    <span id="remove">Remove</span>
+                  </td>
+                </tr>
+              <% }) %> 
+            </tbody>
+          </table>
+
+          <!-- Update cart button -->
+          <button id="update">Update Cart</button>
+        <% } else { %>
+          <span>No items added to cart</span>
+        <% } %> 
 
         <!-- Cart Items -->
-        <table>
-          <caption>
-            Items in cart
-          </caption>
-
-          <thead>
-            <tr>
-              <th>Product</th>
-              <th>Price</th>
-              <th>Quantity</th>
-              <th>Total</th>
-              <th></th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <% items.forEach( item  => { %>
-              <!-- const variable containing total price -->
-              <% const total = item.product.price * item.quantity %>
-
-              <tr>
-                <td><%= item.product.name %></td>
-                <td>$<%= item.product.price %></td>
-                <td>
-                  <input type="number" min=<%= item.product.minimumOrder %> max=<%= item.product.countInStock %> value=<%= item.quantity %> />
-                </td>
-                <td>$<%= total %> </td>
-                <td>
-                  <span id="remove">Remove</span>
-                </td>
-              </tr>
-            <% }) %> 
-          </tbody>
-        </table>
-
-        <!-- Update cart button -->
-        <button id="update">Update Cart</button>
+      
       </section>
       
 <%- include('../partials/layout_bottom') -%>

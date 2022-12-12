@@ -19,6 +19,22 @@
             <p class="product-price">In Stock: <span class="value"><%= product.countInStock %></span></p>
 
             <% if(loggedIn) { %>
+
+               <!-- <%= String(items[0].product._id) === String(product._id) %>  -->
+
+               <% let itemsInCart = [] %> 
+
+               <% items.forEach( item => { %>
+
+                  <% itemsInCart.push(String(item.product._id)) %> 
+                  
+
+               <% }) %> 
+
+               <%= itemsInCart.includes(String(product._id)) %> 
+
+               
+
                <form method="POST" action="/cart">
                   <input type="text" name="product" value="<%= product._id %>" >
                   <input type="number" name="quantity" value="<%= product.minimumOrder %>" >
