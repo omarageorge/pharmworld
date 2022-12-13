@@ -20,31 +20,29 @@
 
             <% if(loggedIn) { %>
 
-               <!-- <%= String(items[0].product._id) === String(product._id) %>  -->
+               <% const inCart = false %> 
 
                <% let itemsInCart = [] %> 
 
                <% items.forEach( item => { %>
-
                   <% itemsInCart.push(String(item.product._id)) %> 
-                  
-
                <% }) %> 
 
-               <%= itemsInCart.includes(String(product._id)) %> 
+               
+               <% if(itemsInCart.includes(String(product._id))) { %>
+                  <form method="POST" action="/cart?_method=DELETE">
+                     <input type="text" name="product" value="<%= product._id %>" >
+                     <button type="submit" class="remove-from-cart">Remove from cart</button>
+                  </form>
+               <% } else { %>
+                  <form method="POST" action="/cart">
+                     <input type="text" name="product" value="<%= product._id %>" >
+                     <input type="number" name="quantity" value="<%= product.minimumOrder %>" >
+                     <button type="submit" class="product-button">Add to cart</button>
+                  </form>
+               <% } %> 
 
                
-
-               <form method="POST" action="/cart">
-                  <input type="text" name="product" value="<%= product._id %>" >
-                  <input type="number" name="quantity" value="<%= product.minimumOrder %>" >
-                  <button type="submit" class="product-button">Add to cart</button>
-               </form>
-               
-               <!-- <form method="POST" action="/cart?_method=DELETE">
-                  <input type="text" name="product" value="<%= product._id %>" >
-                  <button type="submit" class="remove-from-cart">Remove from cart</button>
-               </form> -->
             <% } %>
           </div>
        <% }) %> 

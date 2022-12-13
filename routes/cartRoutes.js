@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { ensureAuthenticated } from '../config/auth.js';
-import { addToCart } from '../controllers/cartController.js';
+import { addToCart, deleteCartItem } from '../controllers/cartController.js';
 
 const router = Router();
 
@@ -12,6 +12,11 @@ router
   // @route   POST /cart
   // @desc    Add to cart
   // @access  Private/Protected
-  .post(addToCart);
+  .post(addToCart)
+
+  // @route   DELETE /cart
+  // @desc    Delete cart item
+  // @access  Private/Protected
+  .delete(deleteCartItem);
 
 export default router;

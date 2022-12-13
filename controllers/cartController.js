@@ -82,5 +82,5 @@ export const deleteCartItem = asyncHandler(async (req, res) => {
     { new: true }
   );
 
-  res.status(200).json({ message: 'Item removed from cart' });
+  res.redirect('/');
 });
