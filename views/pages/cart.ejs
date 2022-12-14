@@ -3,13 +3,19 @@
 
       <section id="cart">
         <% if (items.length > 0 ) { %>
-          <!-- Checkout instructions -->
+
+          <% let totalPrice = 0  %> 
+
+          <% items.forEach((item) => { %>
+            <% totalPrice += item.product.price * item.quantity %>
+          <% }) %>
+          
           <div id="checkout">
             <h1>
               Your total is
-              <span style="color: #008000"> $199.99 </span>
+              <span style="color: #008000"> $<%= totalPrice %>  </span>
             </h1>
-            <button>Check Out</button>
+            <button>Place Order</button>
             <a href="/">Continue shopping</a>
           </div>
 
@@ -24,7 +30,7 @@
                 <th>Price</th>
                 <th>Quantity</th>
                 <th>Total</th>
-                <th></th>
+                <th>Actions</th>
               </tr>
             </thead>
           
@@ -37,19 +43,28 @@
                   <td><%= item.product.name %></td>
                   <td>$<%= item.product.price %></td>
                   <td>
-                    <input type="number" min=<%= item.product.minimumOrder %> max=<%= item.product.countInStock %> value=<%= item.quantity %> />
-                  </td>
+                    <form method="POST" action="/cart?_method=PUT">
+                      <input type="number" name="quantity" value=<%= item.quantity %> min=<%= item.product.minimumOrder %> max=<%= item.product.countInStock %> />
+
+                      <input type="hidden" name="product" value="<%= item.product._id %>" >
+
+                      <button id="save" type="submit">Save change</button>
+                    </form>
+                    </td>
                   <td>$<%= total %> </td>
                   <td>
-                    <span id="remove">Remove</span>
+                    <form method="POST" action="/cart?_method=DELETE">
+                      <input type="hidden" name="product" value="<%= item.product._id %>" >
+                      <input type="hidden" name="url" value="/cart" >
+                      <button id="remove" type="submit">Remove from cart</button>
+                    </form>
                   </td>
                 </tr>
               <% }) %> 
             </tbody>
           </table>
 
-          <!-- Update cart button -->
-          <button id="update">Update Cart</button>
+         
         <% } else { %>
           <span>No items added to cart</span>
         <% } %> 

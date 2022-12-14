@@ -52,9 +52,10 @@ export const addToCart = asyncHandler(async (req, res) => {
 // @desc    Update cart item
 // @access  Private/Protected
 export const updateCartItem = asyncHandler(async (req, res) => {
-  const { product, quantity } = req.body;
+  const product = req.body.product;
+  const quantity = parseInt(req.body.quantity);
 
-  const cart = await Cart.findOneAndUpdate(
+  await Cart.findOneAndUpdate(
     { user: req.user._id, 'products.product': product },
     {
       $set: { 'products.$.quantity': quantity },
@@ -65,14 +66,14 @@ export const updateCartItem = asyncHandler(async (req, res) => {
     .populate('products.product', 'name image price')
     .exec();
 
-  res.status(200).json(cart);
+  res.redirect('/cart');
 });
 
 // @route   DELETE /cart
 // @desc    Delete cart item
 // @access  Private/Protected
 export const deleteCartItem = asyncHandler(async (req, res) => {
-  const { product } = req.body;
+  const { product, url } = req.body;
 
   await Cart.findOneAndUpdate(
     { user: req.user._id },
@@ -82,5 +83,5 @@ export const deleteCartItem = asyncHandler(async (req, res) => {
     { new: true }
   );
 
-  res.redirect('/');
+  res.redirect(url);
 });

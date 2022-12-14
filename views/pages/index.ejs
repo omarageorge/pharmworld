@@ -32,6 +32,7 @@
                <% if(itemsInCart.includes(String(product._id))) { %>
                   <form method="POST" action="/cart?_method=DELETE">
                      <input type="text" name="product" value="<%= product._id %>" >
+                     <input type="text" name="url" value="/" >
                      <button type="submit" class="remove-from-cart">Remove from cart</button>
                   </form>
                <% } else { %>

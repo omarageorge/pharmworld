@@ -64,16 +64,28 @@
   color: #000;
   outline: none;
 }
-#cart table tbody tr td #remove {
-  color: transparent;
+#cart table tbody tr td button {
+  visibility: hidden;
+  font-size: 14px;
+  border: none;
+  background-color: transparent;
   cursor: pointer;
-  transition: all 0.3s ease-in-out;
+}
+#cart table tbody tr td button#save {
+  color: blue;
+  margin-left: 8px;
+}
+#cart table tbody tr td button#remove {
+  color: red;
+}
+#cart table tbody tr td button:hover {
+  text-decoration: underline;
 }
 #cart table tbody tr:hover {
   background-color: #e5e5e5;
 }
-#cart table tbody tr:hover #remove {
-  color: red;
+#cart table tbody tr:hover button {
+  visibility: visible;
 }
 #cart #update {
   border: 1px solid #000;
