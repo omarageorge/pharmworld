@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { ensureAuthenticated, ensureAdmin } from '../config/auth.js';
+import { ordersPage, orderPage } from '../controllers/orderController.js';
 import {
   adminProductsPage,
   singleProductPage,
@@ -10,9 +11,7 @@ const router = Router();
 // Protect all routes
 router.use(ensureAuthenticated, ensureAdmin);
 
-router.get('/', (req, res) => {
-  res.render('admin/orders', { title: 'Orders', user: req.user });
-});
+router.get('/', ordersPage);
 
 // @route   GET /admin/products
 // @desc    Render Admin products page
@@ -23,9 +22,7 @@ router.get('/add', (req, res) => {
   res.render('admin/add', { title: 'Add', user: req.user });
 });
 
-router.get('/order/:id', (req, res) => {
-  res.render('admin/order', { title: 'Order', user: req.user });
-});
+router.get('/order/:id', orderPage);
 
 // @route   GET /admin/product/:id
 // @desc    Render a single product

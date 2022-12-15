@@ -15,8 +15,6 @@
               Your total is
               <span style="color: #008000"> $<%= totalPrice %>  </span>
             </h1>
-            <button>Place Order</button>
-            <a href="/">Continue shopping</a>
           </div>
 
           <table>
@@ -63,6 +61,53 @@
               <% }) %> 
             </tbody>
           </table>
+
+
+          <section id="place-order">
+            <form method="POST" action="/orders">
+              <div id="form-data">
+                <input type="hidden" name="totalPrice" value="<%= totalPrice %>">
+
+                <div class="form-group">
+                  <input type="text" name="name" placeholder="Name" />
+                </div>
+  
+                <div class="form-group">
+                  <input
+                    type="text"
+                    name="street"
+                    placeholder="Street + Number"
+                  />
+                </div>
+  
+                <div class="form-group">
+                  <input type="text" name="zipcode" placeholder="Zip Code" />
+                </div>
+  
+                <div class="form-group">
+                  <input type="text" name="city" placeholder="City" />
+                </div>
+  
+                <div class="form-group">
+                  <input type="text" name="state" placeholder="State/Region" />
+                </div>
+  
+                <div class="form-group">
+                  <input
+                    type="text"
+                    name="additional"
+                    placeholder="Additional information (optional)"
+                  />
+                </div>
+              </div>
+  
+              <div id="form-action">
+                <button type="submit">Place Order</button>
+  
+                <a href="/">Continue shopping</a>
+              </div>
+            </form>
+          </section>
 
          
         <% } else { %>

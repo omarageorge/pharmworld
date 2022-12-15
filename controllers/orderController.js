@@ -3,52 +3,61 @@ import Order from '../models/orderModel.js';
 import Cart from '../models/cartModel.js';
 import Product from '../models/productModel.js';
 
-// @route   GET /api/orders
-// @desc    Get all orders
+// @route   GET /orders
+// @desc    Render page with all orders
 // @access  Private/Admin
-export const getOrders = asyncHandler(async (req, res) => {
-  const orders = await Order.find({}).sort({createdAt: -1})
+export const ordersPage = asyncHandler(async (req, res) => {
+  const orders = await Order.find({})
+    .sort({ createdAt: -1 })
     .populate('user', 'name email')
     .populate('orderItems.product', 'name price image');
 
-  if (orders) {
-    res.status(200).json(orders);
-  } else {
-    res.status(404);
-    throw new Error('No orders found');
-  }
+  res.render('admin/orders', { title: 'Orders', user: req.user, orders });
 });
 
-// @route   GET /api/orders/:id
-// @desc    Get order by ID
+// @route   GET /orders/:id
+// @desc    Render order page by ID
 // @access  Private/Admin
-export const getOrderById = asyncHandler(async (req, res) => {
+export const orderPage = asyncHandler(async (req, res) => {
   const order = await Order.findById(req.params.id)
     .populate('user', 'name email')
     .populate('orderItems.product', 'name price image');
 
-  if (order) {
-    res.status(200).json(order);
-  } else {
-    res.status(404);
-    throw new Error('Order not found');
-  }
+  res.render('admin/order', { title: 'Order', user: req.user, order });
 });
 
-// @route   POST /api/orders
+// @route   POST /orders
 // @desc    Place new order
 // @access  Private/Admin
 export const placeOrder = asyncHandler(async (req, res) => {
-  const { orderItems, deliveryAddress, totalPrice } = req.body;
+  const totalPrice = parseInt(req.body.totalPrice);
+
+  const { products } = await Cart.findOne({ user: req.user._id })
+    .populate('user', 'name email')
+    .populate('products.product', '_id name price countInStock minimumOrder')
+    .exec();
+
+  const orderItems = products.map((item) => ({
+    product: item.product._id,
+    quantity: item.quantity,
+  }));
+
+  const deliveryAddress = {
+    name: req.body.name,
+    street: req.body.street,
+    zipcode: req.body.zipcode,
+    city: req.body.city,
+    state: req.body.state,
+    additional: req.body.additional,
+  };
 
   if (orderItems && orderItems.length === 0) {
-    res.status(400);
-    throw new Error('No order items');
+    res.redirect('/');
   } else {
     const order = new Order({
       user: req.user._id,
-      orderItems,
       totalPrice,
+      orderItems,
       deliveryAddress,
     });
 
@@ -57,7 +66,7 @@ export const placeOrder = asyncHandler(async (req, res) => {
     // reduce quantity of products in stock by the quantity ordered by user in products collection
     await Promise.all(
       orderItems.map(async (item) => {
-        const product = await Product.findById(item.product);
+        const product = await Product.findById(item.product._id);
         product.countInStock -= item.quantity;
         await product.save();
       })
@@ -66,11 +75,11 @@ export const placeOrder = asyncHandler(async (req, res) => {
     // clear cart after order is placed
     await Cart.findOneAndDelete({ user: req.user._id });
 
-    res.status(201).json({ message: 'Order placed successfully' });
+    res.redirect('/');
   }
 });
 
-// @route   PUT /api/orders/:id
+// @route   PUT /orders/:id
 // @desc    Update order to complete
 // @access  Private/Admin
 export const markOrderComplete = asyncHandler(async (req, res) => {
@@ -80,9 +89,8 @@ export const markOrderComplete = asyncHandler(async (req, res) => {
     order.isComplete = true;
     await order.save();
 
-    res.status(201).json({ message: 'Order completed' });
+    res.redirect(`/admin/order/${req.params.id}`);
   } else {
-    res.status(404);
-    throw new Error('Order not found');
+    res.redirect('/admin');
   }
 });

@@ -9,28 +9,6 @@
   color: #000;
   opacity: 0.8;
 }
-#cart #checkout button {
-  padding: 0.5rem 5rem;
-  border: 0px;
-  border-radius: 5px;
-  background-color: #000;
-  color: #fff;
-  cursor: pointer;
-  margin-top: 20px;
-}
-#cart #checkout button:hover {
-  background-color: #f1c40f;
-  color: #000;
-}
-#cart #checkout a {
-  color: #caa50f;
-  display: block;
-  margin-top: 10px;
-  cursor: pointer;
-}
-#cart #checkout a:hover {
-  text-decoration: underline;
-}
 #cart table {
   width: 100%;
   border-collapse: collapse;
@@ -99,4 +77,48 @@
 #cart #update:hover {
   background-color: #000;
   color: #fff;
+}
+
+#place-order {
+  width: 100%;
+  margin-top: 20px;
+}
+#place-order form #form-data {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  row-gap: 10px;
+  justify-items: center;
+}
+#place-order form #form-data input {
+  width: 250px;
+  padding: 0.5rem;
+  border: 1px solid #aaa;
+  border-radius: 5px;
+}
+#place-order form #form-action {
+  margin-top: 25px;
+  text-align: center;
+}
+#place-order form #form-action button {
+  width: 250px;
+  padding: 0.8rem 0.5rem;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  background-color: #000;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+#place-order form #form-action button:hover {
+  background-color: #f1c40f;
+  color: #000;
+}
+#place-order form #form-action a {
+  color: #caa50f;
+  display: block;
+  margin-top: 10px;
+  cursor: pointer;
+}
+#place-order form #form-action a:hover {
+  text-decoration: underline;
 }

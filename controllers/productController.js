@@ -27,6 +27,30 @@ export const indexPage = asyncHandler(async (req, res) => {
   });
 });
 
+// @route   GET /about
+// @desc    Render about products page
+// @access  Public/Authenticated
+export const aboutPage = asyncHandler(async (req, res) => {
+  const products = await Product.find({});
+
+  let cart;
+
+  if (req.isAuthenticated()) {
+    cart = await Cart.findOne({ user: req.user._id })
+      .populate('user', 'name email')
+      .populate('products.product', 'name price countInStock minimumOrder')
+      .exec();
+  }
+
+  res.render('pages/about', {
+    title: 'About',
+    user: req.isAuthenticated() ? req.user : '',
+    loggedIn: req.isAuthenticated(),
+    products,
+    items: req.isAuthenticated() && cart ? cart.products : [],
+  });
+});
+
 // @route   GET /admin/products
 // @desc    Render Admin products page
 // @access  Private/Admin

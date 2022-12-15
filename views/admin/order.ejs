@@ -1,15 +1,16 @@
 <%- include('../partials/admin_top') -%>
 <section id="order">
+  
   <!-- Order details -->
   <div id="order-details">
     <table>
       <tr>
         <td class="bold">Order ID:</td>
-                <td>123456</td>
+                <td><%= order._id %> </td>
               </tr>
               <tr>
                 <td class="bold">Order Date:</td>
-                <td>12/12/2021</td>
+                <td><%= order.createdAt.toDateString() %> </td>
               </tr>
             </table>
           </div>
@@ -19,11 +20,11 @@
             <table>
               <tr>
                 <td class="bold">Name:</td>
-                <td>John Doe</td>
+                <td><%= order.user.name %> </td>
               </tr>
               <tr>
                 <td class="bold">Email:</td>
-                <td>client@dnmx.org</td>
+                <td><%= order.user.email %> </td>
               </tr>
             </table>
           </div>
@@ -41,24 +42,14 @@
               </thead>
               
               <tbody>
-                <tr>
-                  <td class="left">Product 1</td>
-                  <td>2</td>
-                  <td>100</td>
-                  <td>200</td>
-                </tr>
-                <tr>
-                  <td class="left">Product 2</td>
-                  <td>1</td>
-                  <td>50</td>
-                  <td>50</td>
-                </tr>
-                <tr>
-                  <td class="left">Product 3</td>
-                  <td>3</td>
-                  <td>150</td>
-                  <td>450</td>
-                </tr>
+                <% order.orderItems.forEach(item => { %>
+                    <tr>
+                      <td class="left"><%= item.product.name %></td>
+                      <td><%= item.quantity %></td>
+                      <td>$<%= item.product.price %></td>
+                      <td>$<%= item.product.price * item.quantity %></td>
+                    </tr>
+                <% }) %>
               </tbody>
             </table>
           </div>
@@ -67,14 +58,21 @@
           <div id="total">
             <span>
               <strong>Total Price:</strong>
-              <span id="price">$700</span>
+              <span id="price">$<%= order.totalPrice %> </span>
             </span>
           </div>
           
-          <!-- Mark order as complete -->
           <div id="complete">
-            <button>Mark as Complete</button>
-            <!-- <button id="delivered" disabled>Delivered</button> -->
+            
+            <% if (order.isComplete === false) { %>
+              <!-- Mark order as complete -->
+              <form method="POST" action="/orders/<%= order._id %>?_method=PUT ">
+                <button>Mark as Complete</button>
+              </form>
+            <% } else { %>
+              <!-- Item has been delivered -->
+              <button id="delivered" disabled>Delivered</button>
+            <% } %> 
           </div>
         </section>
 

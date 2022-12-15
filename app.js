@@ -14,6 +14,7 @@ import adminRoutes from './routes/adminRoutes.js';
 import indexRoutes from './routes/indexRoutes.js';
 import productRoutes from './routes/productRoutes.js';
 import cartRoutes from './routes/cartRoutes.js';
+import orderRoutes from './routes/orderRoutes.js';
 
 import passportConfig from './config/passport.js';
 
@@ -59,6 +60,7 @@ app.use('/auth', authRoutes);
 app.use('/admin', adminRoutes);
 app.use('/products', productRoutes);
 app.use('/cart', cartRoutes);
+app.use('/orders', orderRoutes);
 
 app.listen(PORT, () =>
   console.log(`App is running in ${process.env.NODE_ENV} on port ${PORT}`)
