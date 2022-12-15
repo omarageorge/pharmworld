@@ -5,6 +5,10 @@ import { config } from 'dotenv';
 import passport from 'passport';
 import flash from 'connect-flash';
 import session from 'express-session';
+// import session from 'cookie-session';
+
+import MongoStore from 'connect-mongo';
+
 import methodOverride from 'method-override';
 
 import connectDB from './config/db.js';
@@ -19,7 +23,7 @@ import orderRoutes from './routes/orderRoutes.js';
 import passportConfig from './config/passport.js';
 
 const app = express();
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 5000;
 
 /* Configs */
 config();
@@ -50,6 +54,12 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
+    store: MongoStore.create({
+      mongoUrl:
+        process.env.NODE_ENV === 'production'
+          ? process.env.MONGO_URI_PRODUCTION
+          : process.env.MONGO_URI_DEVELOPMENT,
+    }),
   })
 );
 app.use(passport.authenticate('session'));
