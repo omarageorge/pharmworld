@@ -1,5 +1,4 @@
 import morgan from 'morgan';
-import helmet from 'helmet';
 import express from 'express';
 import { config } from 'dotenv';
 import passport from 'passport';
@@ -30,8 +29,7 @@ passportConfig(passport);
 app.set('view engine', 'ejs');
 
 /* Middleware */
-// app.use(flash());
-// app.use(helmet());
+app.use(flash());
 app.use(morgan('dev'));
 
 /* Bodyparser */
