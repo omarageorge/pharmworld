@@ -74,6 +74,6 @@ app.use('/orders', orderRoutes);
 const PORT = process.env.PORT || 8080;
 const HOST = process.env.HOST;
 
-app.listen(PORT, HOST, () =>
+app.listen(PORT, () =>
   console.log(`App is running in ${process.env.NODE_ENV} on port ${PORT}`)
 );
