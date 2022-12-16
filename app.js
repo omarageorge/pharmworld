@@ -30,13 +30,13 @@ passportConfig(passport);
 app.set('view engine', 'ejs');
 
 /* Middleware */
-app.use(flash());
-app.use(helmet());
+// app.use(flash());
+// app.use(helmet());
 app.use(morgan('dev'));
 
 /* Bodyparser */
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 
 /* Static Routes */
 app.use(express.static('public'));
