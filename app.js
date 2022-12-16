@@ -5,10 +5,7 @@ import { config } from 'dotenv';
 import passport from 'passport';
 import flash from 'connect-flash';
 import session from 'express-session';
-// import session from 'cookie-session';
-
 import MongoStore from 'connect-mongo';
-
 import methodOverride from 'method-override';
 
 import connectDB from './config/db.js';
@@ -71,8 +68,7 @@ app.use('/products', productRoutes);
 app.use('/cart', cartRoutes);
 app.use('/orders', orderRoutes);
 
-const PORT = process.env.PORT || 8080;
-const HOST = process.env.HOST;
+const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () =>
   console.log(`App is running in ${process.env.NODE_ENV} on port ${PORT}`)
