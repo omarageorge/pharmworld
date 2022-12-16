@@ -61,6 +61,42 @@
               <span id="price">$<%= order.totalPrice %> </span>
             </span>
           </div>
+
+          <!-- Shipping details -->
+
+          <div id="client-details">
+            <h4><u>Shipping information</u></h4>
+            <table>
+              <tr>
+                <td class="bold">Name:</td>
+                <td><%= order.deliveryAddress.name %></td>
+              </tr>
+              <tr>
+                <td class="bold">Street:</td>
+                <td><%= order.deliveryAddress.street %></td>
+              </tr>
+              <tr>
+                <td class="bold">Zip code:</td>
+                <td><%= order.deliveryAddress.zipcode %></td>
+              </tr>
+              <tr>
+                <td class="bold">City:</td>
+                <td><%= order.deliveryAddress.city %></td>
+              </tr>
+              <tr>
+                <td class="bold">state:</td>
+                <td><%= order.deliveryAddress.state %></td>
+              </tr>
+            </table>
+
+            <% if (order.deliveryAddress.additional) { %>
+              <br>
+              <tr>
+                <h4><u>Additional information</u></h4>
+                <p><%= order.deliveryAddress.additional %></>
+              </tr>
+            <% } %>
+          </div>
           
           <div id="complete">
             

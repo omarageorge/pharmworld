@@ -23,7 +23,6 @@ import orderRoutes from './routes/orderRoutes.js';
 import passportConfig from './config/passport.js';
 
 const app = express();
-const PORT = process.env.PORT || 5000;
 
 /* Configs */
 config();
@@ -72,6 +71,9 @@ app.use('/products', productRoutes);
 app.use('/cart', cartRoutes);
 app.use('/orders', orderRoutes);
 
-app.listen(PORT, () =>
+const PORT = process.env.PORT || 8080;
+const HOST = process.env.HOST;
+
+app.listen(PORT, HOST, () =>
   console.log(`App is running in ${process.env.NODE_ENV} on port ${PORT}`)
 );
