@@ -101,10 +101,18 @@
           <div id="complete">
             
             <% if (order.isComplete === false) { %>
-              <!-- Mark order as complete -->
-              <form method="POST" action="/orders/<%= order._id %>?_method=PUT ">
-                <button>Mark as Complete</button>
-              </form>
+              <div class="action-row">
+                <!-- Mark order as complete -->
+                <form method="POST" action="/orders/<%= order._id %>?_method=PUT ">
+                  <button>Mark as Complete</button>
+                </form>
+
+                <div id="space"></div>
+
+                <form method="POST" action="/orders/<%= order._id %>?_method=DELETE ">
+                  <button id="delete">Delete Order</button>
+                </form>
+              </div>
             <% } else { %>
 
               <div class="action-row">
