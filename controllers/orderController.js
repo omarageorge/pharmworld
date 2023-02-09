@@ -94,3 +94,17 @@ export const markOrderComplete = asyncHandler(async (req, res) => {
     res.redirect('/admin');
   }
 });
+
+// @route   DELETE /orders/:id
+// @desc    Delete an Order
+// @access  Private/Admin
+export const deleteOrder = asyncHandler(async (req, res) => {
+  const order = await Order.findById(req.params.id);
+
+  if (order) {
+    await order.remove();
+    res.redirect('/admin');
+  } else {
+    res.redirect('/admin');
+  }
+});

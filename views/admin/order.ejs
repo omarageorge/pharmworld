@@ -106,8 +106,18 @@
                 <button>Mark as Complete</button>
               </form>
             <% } else { %>
-              <!-- Item has been delivered -->
-              <button id="delivered" disabled>Delivered</button>
+
+              <div class="action-row">
+                <!-- Item has been delivered -->
+                <button id="delivered" disabled>Delivered</button>
+
+                <div id="space"></div>
+             
+                  <!-- Mark order as complete -->
+                  <form method="POST" action="/orders/<%= order._id %>?_method=DELETE ">
+                    <button id="delete">Delete Order</button>
+                  </form>
+              </div>
             <% } %> 
           </div>
         </section>

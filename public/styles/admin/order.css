@@ -58,7 +58,23 @@
   border-radius: 5px;
   cursor: pointer;
 }
+
+#order #complete .action-row {
+  display: inline-flex;
+  justify-content: space-between;
+}
+
+#order #complete .action-row #space {
+  display: block;
+  width: 10px;
+  background-color: transparent;
+}
+
 #order #complete button#delivered {
   background-color: gray;
   cursor: not-allowed;
+}
+
+#order #complete button#delete {
+  background-color: red;
 }

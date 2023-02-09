@@ -3,6 +3,7 @@ import { ensureAuthenticated, ensureAdmin } from '../config/auth.js';
 import {
   placeOrder,
   markOrderComplete,
+  deleteOrder,
 } from '../controllers/orderController.js';
 
 const router = Router();
@@ -19,5 +20,10 @@ router.post('/', placeOrder);
 // @desc    Update order to complete
 // @access  Private/Admin
 router.put('/:id', ensureAdmin, markOrderComplete);
+
+// @route   DELETE /orders/:id
+// @desc    Delete an Order
+// @access  Private/Admin
+router.delete('/:id', ensureAdmin, deleteOrder);
 
 export default router;
