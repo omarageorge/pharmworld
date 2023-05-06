@@ -49,10 +49,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({
-      mongoUrl:
-        process.env.NODE_ENV === 'production'
-          ? process.env.MONGO_URI_PRODUCTION
-          : process.env.MONGO_URI_DEVELOPMENT,
+      mongoUrl: process.env.MONGO_URI,
     }),
   })
 );
