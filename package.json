@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon app.js",
-    "start": "export NODE_ENV=production && node app.js"
+    "start": "node app.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
