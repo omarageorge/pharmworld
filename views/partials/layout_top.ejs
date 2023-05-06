@@ -18,11 +18,15 @@
     <nav>
 
       <span>
-        <h1 class="logo">Pharmworld <span><%= user.name %></span></h1>
+        <h1 class="logo">Pharmworld <span>@<%= user.name %></span></h1>
       </span>
 
       <ul>
+        
         <li><a href="/" <% if ( title === 'Welcome') { %> class="active" <% } %> >Products</a></li>
+        <% if (loggedIn) {%>
+          <li><a href="/orders" <% if ( title === 'My Orders') { %> class="active" <% } %> >Orders</a></li>
+        <% } %>
         <li><a href="/about" <% if ( title === 'About') { %> class="active" <% } %> >About</a></li>
         <li><a href="/faq" <% if ( title === 'FAQ') { %> class="active" <% } %> >FAQ</a></li>
 
