@@ -7,7 +7,7 @@ import { unlink } from 'fs/promises';
 // @desc    Render index products page
 // @access  Public/Authenticated
 export const indexPage = asyncHandler(async (req, res) => {
-  const products = await Product.find({});
+  const products = await Product.find({ countInStock: { $gte: 1 } });
 
   let cart;
 
