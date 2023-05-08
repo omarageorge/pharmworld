@@ -1,0 +1,47 @@
+#pay {
+  width: 90%;
+  margin: auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#pay #info {
+  display: flex;
+  flex-direction: column;
+}
+
+#pay #info #address {
+  color: orange;
+  margin-left: 1rem;
+  margin-right: 0.2rem;
+}
+
+#pay #info #amount {
+  color: green;
+  margin-left: 1rem;
+  margin-right: 0.2rem;
+}
+
+#pay form button {
+  padding: 0.6rem 3rem;
+  border: none;
+  border-radius: 5px;
+  color: #f4f4f4;
+  color: black;
+  /* font-weight: bold; */
+  font-size: 1rem;
+  background-color: orange;
+  cursor: pointer;
+  margin-top: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+#pay p {
+  color: blue;
+}
+
+#pay form button:hover {
+  color: #fafafa;
+}

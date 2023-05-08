@@ -1,0 +1,20 @@
+<%- include('../partials/layout_top') -%>
+
+<section id="pay">
+    <div id="info">
+        <span><strong>Bitcoin address: </strong><span id="address"><%= data.address %></span></span>
+        <span><strong>Bitcoin Amount: </strong><span id="amount"><%= data.amount %></span>BTC</span>
+    </div>
+
+    <img src="<%= data.qrCodeImg %>">
+
+
+    <p>Click the button below <strong>only after you have sent the funds</strong>.</p>
+
+    <form method="POST" action="/orders/paid/<%= data.order %>?_method=PUT">
+        <button>Confirm Payment</button>
+    </form>
+    
+</section>   
+
+<%- include('../partials/layout_bottom') -%>

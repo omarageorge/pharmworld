@@ -45,6 +45,14 @@
   cursor: pointer;
 }
 
+#order-wrapper .container table tbody tr.paid {
+  background-color: #99df99;
+}
+
+#order-wrapper .container table tbody tr.paid:hover {
+  background-color: #dfb599;
+}
+
 #order-wrapper .container table tbody tr td {
   padding: 10px 0px;
   text-align: center;

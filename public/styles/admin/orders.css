@@ -1,6 +1,7 @@
 #orders h1 {
   margin-bottom: 15px;
 }
+
 #orders table {
   width: 100%;
   border-spacing: 0;
@@ -10,43 +11,63 @@
   overflow: hidden;
   margin-bottom: 15px;
 }
+
 #orders table th {
   color: #fff;
   background-color: #333;
   padding: 8px;
   text-align: center;
 }
+
 #orders table th.p-15 {
   padding: 0px 15px;
 }
+
 #orders table th.left {
   text-align: left;
 }
+
 #orders table tr {
   background-color: #fcfcfc;
+  cursor: pointer;
 }
+
 #orders table tr td {
   border: 0px solid #ddd;
   padding: 8px;
   text-align: center;
 }
+
 #orders table tr td .view {
   visibility: hidden;
   display: block;
   color: green;
 }
+
 #orders table tr td.left {
   text-align: left;
 }
+
 #orders table tr.active {
   background-color: #e0e0e0;
 }
+
+#orders table tr.paid {
+  background-color: #99df99;
+}
+
+#orders table tr.paid:hover {
+  background-color: #dfb599;
+}
+
 #orders table tr.active:hover {
   background-color: #e0e0e0;
 }
+
 #orders table tr:hover {
   background-color: #f4f4f4;
 }
+
 #orders table tr:hover .view {
   visibility: visible;
 }

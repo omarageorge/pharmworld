@@ -4,6 +4,7 @@ import {
   placeOrder,
   markOrderComplete,
   deleteOrder,
+  markOrderPaid,
 } from '../controllers/orderController.js';
 
 const router = Router();
@@ -20,6 +21,11 @@ router.post('/', placeOrder);
 // @desc    Update order to complete
 // @access  Private/Admin
 router.put('/:id', ensureAdmin, markOrderComplete);
+
+// @route   PUT /orders/paid/:id
+// @desc    Update order to paid
+// @access  Private/User
+router.put('/paid/:id', markOrderPaid);
 
 // @route   DELETE /orders/:id
 // @desc    Delete an Order

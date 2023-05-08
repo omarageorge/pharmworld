@@ -134,6 +134,22 @@ export const markOrderComplete = asyncHandler(async (req, res) => {
   }
 });
 
+// @route   PUT /orders/paid/:id
+// @desc    Update order to paid
+// @access  Private/User
+export const markOrderPaid = asyncHandler(async (req, res) => {
+  const order = await Order.findById(req.params.id);
+
+  if (order) {
+    order.paid = true;
+    await order.save();
+
+    res.redirect(`/orders`);
+  } else {
+    res.redirect('/orders');
+  }
+});
+
 // @route   DELETE /admin/orders/:id
 // @desc    Delete an Order
 // @access  Private/Admin

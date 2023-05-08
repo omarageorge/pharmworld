@@ -98,12 +98,13 @@
             <% } %>
           </div>
           
+          
           <div id="complete">
             
             <% if (order.isComplete === false) { %>
               <div class="action-row">
                 <!-- Mark order as complete -->
-                <form method="POST" action="/orders/<%= order._id %>?_method=PUT ">
+                <form method="POST" action="/orders/<%= order._id %>?_method=PUT">
                   <button>Mark as Complete</button>
                 </form>
 

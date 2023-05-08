@@ -19,22 +19,26 @@
   
         <tbody>
           <% orders.forEach((order) => { %>
-            <tr>
+            <tr class="<% if (order.paid === true) { %>paid<% } %>">
               <td><%= order._id %></td>
               <td><%= order.createdAt.toDateString() %></td>
-              <td>$<%= order.totalPrice %> </td>
-              <td><% if (order.isComplete) { %>Shipped<% } else { %>Processing<% } %></td>
+              <td>$<%= order.totalPrice %></td>
+              <td><% if (order.isComplete) { %>Delivered<% } else { %>Processing<% } %></td>
               <td class="actions">
                 <!-- Payment url -->
-                <a href="#">Pay</a>
+                <% if (order.paid === false) { %>
+                  <a href="/pay/?order=<%= order._id %>&amount=<%= order.totalPrice %>">Pay</a>
+                <% } %>
                 
                 <!-- View order -->
                 <a href="/orders/<%= order._id %>">View</a>
                 
                 <!-- Cancel order button -->
-                <form method="POST" action="/orders/<%= order._id %>?_method=DELETE">
-                  <button>Cancel Order</button>
-                </form>
+                <% if (order.paid === false) { %>
+                  <form method="POST" action="/orders/<%= order._id %>?_method=DELETE">
+                    <button>Cancel Order</button>
+                  </form>
+                <% } %>
               </td>
             </tr>       
           <% }) %>

@@ -15,6 +15,7 @@ import indexRoutes from './routes/indexRoutes.js';
 import productRoutes from './routes/productRoutes.js';
 import cartRoutes from './routes/cartRoutes.js';
 import orderRoutes from './routes/orderRoutes.js';
+import payRoutes from './routes/payRoutes.js';
 
 import passportConfig from './config/passport.js';
 
@@ -62,6 +63,7 @@ app.use('/admin', adminRoutes);
 app.use('/products', productRoutes);
 app.use('/cart', cartRoutes);
 app.use('/orders', orderRoutes);
+app.use('/pay', payRoutes);
 
 const PORT = process.env.PORT || 8080;
 

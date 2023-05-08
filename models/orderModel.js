@@ -20,6 +20,7 @@ const orderSchema = mongoose.Schema(
     deliveryAddress: { type: Object, required: true },
     totalPrice: { type: Number, required: true },
     isComplete: { type: Boolean, required: true, default: false },
+    paid: { type: Boolean, required: true, default: false },
   },
   {
     timestamps: true,
