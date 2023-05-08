@@ -1,0 +1,110 @@
+#order-wrapper {
+  width: 100%;
+  background-color: #fff;
+}
+
+#order-wrapper .container {
+  width: 90%;
+  margin: auto;
+}
+
+#order-wrapper .container table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+#order-wrapper .container table caption {
+  display: none;
+}
+
+#order-wrapper .container table thead {
+  color: #fff;
+  background-color: #000;
+}
+
+#order-wrapper .container table thead th {
+  padding: 10px 0px;
+}
+
+#order-wrapper .container table thead th:nth-child(3) {
+  text-align: right;
+}
+
+#order-wrapper .container table thead th:nth-child(4) {
+  text-align: center;
+}
+
+#order-wrapper .container table tbody {
+  background-color: #f5f5f5;
+}
+
+#order-wrapper .container table tbody tr:hover {
+  cursor: pointer;
+}
+
+#order-wrapper .container table tbody tr td {
+  padding: 10px 0px;
+  text-align: center;
+}
+
+#order-wrapper .container table tbody tr td.actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+#order-wrapper .container table tbody tr td:nth-child(3) {
+  text-align: right;
+}
+
+#order-wrapper .container table tbody tr td a {
+  /* visibility: hidden; */
+  font-size: 14px;
+  font-weight: bold;
+  text-decoration: none;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+#order-wrapper .container table tbody tr td a:nth-child(1) {
+  color: green;
+}
+
+#order-wrapper .container table tbody tr td a:nth-child(2) {
+  color: blue;
+}
+
+#order-wrapper .container table tbody tr td button {
+  /* visibility: hidden; */
+  border: none;
+  font-size: 14px;
+  font-weight: bold;
+  color: red;
+  border: none;
+  text-decoration: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+#order-wrapper .container table tbody tr td a:hover {
+  text-decoration: underline;
+}
+
+#order-wrapper .container table tbody tr td button:hover {
+  text-decoration: underline;
+}
+
+#order-wrapper .container table tbody tr:hover {
+  background-color: #e5e5e5;
+}
+
+#order-wrapper .container table tbody tr:hover a {
+  visibility: visible;
+}
+#order-wrapper .container table tbody tr:hover button {
+  visibility: visible;
+}
