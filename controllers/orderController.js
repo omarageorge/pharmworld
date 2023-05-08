@@ -7,11 +7,7 @@ import Product from '../models/productModel.js';
 // @desc    Render user orders page
 // @access  Private/Authenticated
 export const userOrdersPage = asyncHandler(async (req, res) => {
-  const cart = await Cart.findOne({ user: req.user._id })
-    .populate('user', 'name email')
-    .populate('products.product', 'name price countInStock minimumOrder')
-    .exec();
-
+  const cart = await CartItems(req);
   const cartItems = cart && cart.products.length > 0 ? cart.products : [];
 
   const orders = await Order.find({ user: req.user._id })
@@ -26,6 +22,23 @@ export const userOrdersPage = asyncHandler(async (req, res) => {
     loggedIn: req.isAuthenticated(),
     items: cartItems,
     orders,
+  });
+});
+
+export const userOrderPage = asyncHandler(async (req, res) => {
+  const cart = await CartItems(req);
+  const cartItems = cart && cart.products.length > 0 ? cart.products : [];
+
+  const order = await Order.findById(req.params.id)
+    .populate('user', 'name email')
+    .populate('orderItems.product', 'name price image');
+
+  res.render('pages/order', {
+    title: `Order-${req.params.id}`,
+    user: req.isAuthenticated() ? req.user : '',
+    loggedIn: req.isAuthenticated(),
+    items: cartItems,
+    order,
   });
 });
 
@@ -136,3 +149,12 @@ export const deleteOrder = asyncHandler(async (req, res) => {
     res.redirect(redirectUrl);
   }
 });
+
+async function CartItems(req) {
+  const cart = await Cart.findOne({ user: req.user._id })
+    .populate('user', 'name email')
+    .populate('products.product', 'name price countInStock minimumOrder')
+    .exec();
+
+  return cart;
+}

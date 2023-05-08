@@ -3,7 +3,10 @@ import { ensureAuthenticated } from '../config/auth.js';
 import { cartPage } from '../controllers/cartController.js';
 import { indexPage, aboutPage } from '../controllers/productController.js';
 import cart from '../middleware/cartMiddleware.js';
-import { userOrdersPage } from '../controllers/orderController.js';
+import {
+  userOrderPage,
+  userOrdersPage,
+} from '../controllers/orderController.js';
 
 // TODO: Deal with ensure authenticated for all protected routes
 
@@ -18,6 +21,11 @@ router.get('/', indexPage);
 // @desc    Render orders page
 // @access  Private/Authenticated
 router.get('/orders', userOrdersPage);
+
+// @route   GET /order/:id
+// @desc    Render order page
+// @access  Private/Authenticated
+router.get('/orders/:id', userOrderPage);
 
 // @route   GET /about
 // @desc    Render about products page

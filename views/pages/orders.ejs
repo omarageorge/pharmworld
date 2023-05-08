@@ -29,7 +29,7 @@
                 <a href="#">Pay</a>
                 
                 <!-- View order -->
-                <a href="#">View</a>
+                <a href="/orders/<%= order._id %>">View</a>
                 
                 <!-- Cancel order button -->
                 <form method="POST" action="/orders/<%= order._id %>?_method=DELETE">
