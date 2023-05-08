@@ -1,0 +1,102 @@
+<%- include('../partials/layout_top') -%>
+
+<section id="order">
+    <!-- Order details -->
+    <div id="order-details">
+        <table>
+            <tr>
+                <td class="bold">Order ID:</td>
+                <td><%= order._id %></td>
+            </tr>
+            <tr>
+                <td class="bold">Order Date:</td>
+                <td><%= order.createdAt.toDateString() %></td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Client details -->
+    <div id="client-details">
+        <table>
+          <tr>
+            <td class="bold">Name:</td>
+            <td><%= order.user.name %> </td>
+          </tr>
+          <tr>
+            <td class="bold">Email:</td>
+            <td><%= order.user.email %> </td>
+          </tr>
+        </table>
+    </div>
+    
+    <!-- Order items -->
+    <div id="order-items">
+        <table>
+            <thead>
+                <tr>
+                  <th id="left">Product</th>
+                  <th>Qty</th>
+                  <th>Price</th>
+                  <th>Total</th>
+                </tr>
+            </thead>
+              
+            <tbody>
+                <% order.orderItems.forEach(item => { %>
+                    <tr>
+                      <td class="left"><%= item.product.name %></td>
+                      <td><%= item.quantity %></td>
+                      <td>$<%= item.product.price %></td>
+                      <td>$<%= item.product.price * item.quantity %></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Total -->
+    <div id="total">
+        <span>
+            <strong>Total Price:</strong>
+            <span id="price">$<%= order.totalPrice %> </span>
+        </span>
+    </div>
+    
+    <!-- Shipping details -->
+    <div id="client-details">
+        <h4><u>Shipping information</u></h4>
+        <table>
+            <tr>
+                <td class="bold">Name:</td>
+                <td><%= order.deliveryAddress.name %></td>
+            </tr>
+            <tr>
+                <td class="bold">Street:</td>
+                <td><%= order.deliveryAddress.street %></td>
+            </tr>
+            <tr>
+                <td class="bold">Zip code:</td>
+                <td><%= order.deliveryAddress.zipcode %></td>
+            </tr>
+            <tr>
+                <td class="bold">City:</td>
+                <td><%= order.deliveryAddress.city %></td>
+            </tr>
+            <tr>
+                <td class="bold">state:</td>
+                <td><%= order.deliveryAddress.state %></td>
+            </tr>
+        </table>
+
+        <% if (order.deliveryAddress.additional) { %>
+            <br />
+            <tr>
+                <h4><u>Additional information</u></h4>
+                <p><%= order.deliveryAddress.additional %></>
+            </tr>
+        <% } %>
+    </div>
+
+</section>
+      
+<%- include('../partials/layout_bottom') -%>
