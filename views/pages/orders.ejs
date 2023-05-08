@@ -17,150 +17,26 @@
       </thead>
 
       <tbody>
-        <tr>
-          <td>615c8f7f2f30507d731e56fb</td>
-          <td>2023-04-15</td>
-          <td>$49.99</td>
-          <td>Shipped</td>
-          <td class="actions">
-            <!-- Payment url -->
-            <a href="#">Pay</a>
-            
-            <!-- View order -->
-            <a href="#">View</a>
-            
-            <!-- Cancel order button -->
-            <form>
-              <button>Cancel Order</button>
-            </form>
-          </td>
-        </tr>
-        <tr>
-          <td>615c8f7f2f30507d731e56fc</td>
-          <td>2023-04-18</td>
-          <td>$29.99</td>
-          <td>Delivered</td>
-          <td class="actions">
-            <!-- Payment url -->
-            <a href="#">Pay</a>
-            
-            <!-- View order -->
-            <a href="#">View</a>
-            
-            <!-- Cancel order button -->
-            <form>
-              <button>Cancel Order</button>
-            </form>
-          </td>
-        </tr>
-        <tr>
-          <td>615c8f7f2f30507d731e56fd</td>
-          <td>2023-04-21</td>
-          <td>$9.99</td>
-          <td>Processing</td>
-          <td class="actions">
-            <!-- Payment url -->
-            <a href="#">Pay</a>
-            
-            <!-- View order -->
-            <a href="#">View</a>
-            
-            <!-- Cancel order button -->
-            <form>
-              <button>Cancel Order</button>
-            </form>
-          </td>
-        </tr>
-        <tr>
-          <td>615c8f7f2f30507d731e56fe</td>
-          <td>2023-04-25</td>
-          <td>$199.99</td>
-          <td>Cancelled</td>
-          <td class="actions">
-            <!-- Payment url -->
-            <a href="#">Pay</a>
-            
-            <!-- View order -->
-            <a href="#">View</a>
-            
-            <!-- Cancel order button -->
-            <form>
-              <button>Cancel Order</button>
-            </form>
-          </td>
-        </tr>
-        <tr>
-          <td>615c8f7f2f30507d731e56ff</td>
-          <td>2023-04-28</td>
-          <td>$149.99</td>
-          <td>Shipped</td>
-          <td class="actions">
-            <!-- Payment url -->
-            <a href="#">Pay</a>
-            
-            <!-- View order -->
-            <a href="#">View</a>
-            
-            <!-- Cancel order button -->
-            <form>
-              <button>Cancel Order</button>
-            </form>
-          </td>
-        </tr>
-        <tr>
-          <td>615c8f7f2f30507d731e5700</td>
-          <td>2023-05-02</td>
-          <td>$79.99</td>
-          <td>Delivered</td>
-          <td class="actions">
-            <!-- Payment url -->
-            <a href="#">Pay</a>
-            
-            <!-- View order -->
-            <a href="#">View</a>
-            
-            <!-- Cancel order button -->
-            <form>
-              <button>Cancel Order</button>
-            </form>
-          </td>
-        </tr>
-        <tr>
-          <td>615c8f7f2f30507d731e5701</td>
-          <td>2023-05-04</td>
-          <td>$39.99</td>
-          <td>Processing</td>
-          <td class="actions">
-            <!-- Payment url -->
-            <a href="#">Pay</a>
-            
-            <!-- View order -->
-            <a href="#">View</a>
-            
-            <!-- Cancel order button -->
-            <form>
-              <button>Cancel Order</button>
-            </form>
-          </td>
-        </tr>
-        <tr>
-          <td>615c8f7f2f30507d731e5702</td>
-          <td>2023-05-06</td>
-          <td>$299.99</td>
-          <td>Shipped</td>
-          <td class="actions">
-            <!-- Payment url -->
-            <a href="#">Pay</a>
-            
-            <!-- View order -->
-            <a href="#">View</a>
-            
-            <!-- Cancel order button -->
-            <form>
-              <button>Cancel Order</button>
-            </form>
-          </td>
-        </tr>        
+        <% orders.forEach((order) => { %>
+          <tr>
+            <td><%= order._id %></td>
+            <td><%= order.createdAt.toDateString() %></td>
+            <td>$<%= order.totalPrice %> </td>
+            <td><% if (order.isComplete) { %>Shipped<% } else { %>Processing<% } %></td>
+            <td class="actions">
+              <!-- Payment url -->
+              <a href="#">Pay</a>
+              
+              <!-- View order -->
+              <a href="#">View</a>
+              
+              <!-- Cancel order button -->
+              <form>
+                <button>Cancel Order</button>
+              </form>
+            </td>
+          </tr>       
+        <% }) %>
       </tbody>
     </table>
   </div>

@@ -14,7 +14,7 @@ export const userOrdersPage = asyncHandler(async (req, res) => {
 
   const cartItems = cart && cart.products.length > 0 ? cart.products : [];
 
-  const orders = await Order.find({})
+  const orders = await Order.find({ user: req.user._id })
     .sort({ createdAt: -1 })
     .populate('user', 'name email')
     .populate('orderItems.product', 'name price image');
@@ -101,7 +101,7 @@ export const placeOrder = asyncHandler(async (req, res) => {
     // clear cart after order is placed
     await Cart.findOneAndDelete({ user: req.user._id });
 
-    res.redirect('/');
+    res.redirect('/orders');
   }
 });
 
