@@ -127,10 +127,12 @@ export const markOrderComplete = asyncHandler(async (req, res) => {
 export const deleteOrder = asyncHandler(async (req, res) => {
   const order = await Order.findById(req.params.id);
 
+  const redirectUrl = req.user.isAdmin ? '/admin' : '/orders';
+
   if (order) {
     await order.remove();
-    res.redirect('/admin');
+    res.redirect(redirectUrl);
   } else {
-    res.redirect('/admin');
+    res.redirect(redirectUrl);
   }
 });

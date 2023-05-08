@@ -24,6 +24,6 @@ router.put('/:id', ensureAdmin, markOrderComplete);
 // @route   DELETE /orders/:id
 // @desc    Delete an Order
 // @access  Private/Admin
-router.delete('/:id', ensureAdmin, deleteOrder);
+router.delete('/:id', deleteOrder);
 
 export default router;

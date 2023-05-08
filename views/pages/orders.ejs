@@ -1,44 +1,48 @@
 <%- include('../partials/layout_top') -%>
 <section id="order-wrapper">
   <div class="container">
-  
-    <!-- Table -->
-    <table>
-      <caption>Orders</caption>
-      
-      <thead>
-        <tr>
-          <th>Order ID</th>
-          <th>Date</th>
-          <th>Price</th>
-          <th>Status</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
 
-      <tbody>
-        <% orders.forEach((order) => { %>
+    <!-- Table -->
+    <% if (orders.length > 0) { %>
+      <table>
+        <caption>Orders</caption>
+        
+        <thead>
           <tr>
-            <td><%= order._id %></td>
-            <td><%= order.createdAt.toDateString() %></td>
-            <td>$<%= order.totalPrice %> </td>
-            <td><% if (order.isComplete) { %>Shipped<% } else { %>Processing<% } %></td>
-            <td class="actions">
-              <!-- Payment url -->
-              <a href="#">Pay</a>
-              
-              <!-- View order -->
-              <a href="#">View</a>
-              
-              <!-- Cancel order button -->
-              <form>
-                <button>Cancel Order</button>
-              </form>
-            </td>
-          </tr>       
-        <% }) %>
-      </tbody>
-    </table>
+            <th>Order ID</th>
+            <th>Date</th>
+            <th>Price</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+  
+        <tbody>
+          <% orders.forEach((order) => { %>
+            <tr>
+              <td><%= order._id %></td>
+              <td><%= order.createdAt.toDateString() %></td>
+              <td>$<%= order.totalPrice %> </td>
+              <td><% if (order.isComplete) { %>Shipped<% } else { %>Processing<% } %></td>
+              <td class="actions">
+                <!-- Payment url -->
+                <a href="#">Pay</a>
+                
+                <!-- View order -->
+                <a href="#">View</a>
+                
+                <!-- Cancel order button -->
+                <form method="POST" action="/orders/<%= order._id %>?_method=DELETE">
+                  <button>Cancel Order</button>
+                </form>
+              </td>
+            </tr>       
+          <% }) %>
+        </tbody>
+      </table>
+    <% }  else { %>
+      <span style="display: block; text-align: center; color: red; font-weight: bold;">No orders available!</span>
+    <% } %>
   </div>
 </section>
       
