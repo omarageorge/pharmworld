@@ -4,6 +4,32 @@ import Cart from '../models/cartModel.js';
 import Product from '../models/productModel.js';
 
 // @route   GET /orders
+// @desc    Render user orders page
+// @access  Private/Authenticated
+export const userOrdersPage = asyncHandler(async (req, res) => {
+  const cart = await Cart.findOne({ user: req.user._id })
+    .populate('user', 'name email')
+    .populate('products.product', 'name price countInStock minimumOrder')
+    .exec();
+
+  const cartItems = cart && cart.products.length > 0 ? cart.products : [];
+
+  const orders = await Order.find({})
+    .sort({ createdAt: -1 })
+    .populate('user', 'name email')
+    .populate('orderItems.product', 'name price image');
+
+  /* Render Page */
+  res.render('pages/orders', {
+    title: 'My Orders',
+    user: req.isAuthenticated() ? req.user : '',
+    loggedIn: req.isAuthenticated(),
+    items: cartItems,
+    orders,
+  });
+});
+
+// @route   GET /admin/orders
 // @desc    Render page with all orders
 // @access  Private/Admin
 export const ordersPage = asyncHandler(async (req, res) => {
@@ -15,7 +41,7 @@ export const ordersPage = asyncHandler(async (req, res) => {
   res.render('admin/orders', { title: 'Orders', user: req.user, orders });
 });
 
-// @route   GET /orders/:id
+// @route   GET /admin/orders/:id
 // @desc    Render order page by ID
 // @access  Private/Admin
 export const orderPage = asyncHandler(async (req, res) => {
@@ -26,7 +52,7 @@ export const orderPage = asyncHandler(async (req, res) => {
   res.render('admin/order', { title: 'Order', user: req.user, order });
 });
 
-// @route   POST /orders
+// @route   POST /admin/orders
 // @desc    Place new order
 // @access  Private/Admin
 export const placeOrder = asyncHandler(async (req, res) => {
@@ -79,7 +105,7 @@ export const placeOrder = asyncHandler(async (req, res) => {
   }
 });
 
-// @route   PUT /orders/:id
+// @route   PUT /admin/orders/:id
 // @desc    Update order to complete
 // @access  Private/Admin
 export const markOrderComplete = asyncHandler(async (req, res) => {
@@ -95,7 +121,7 @@ export const markOrderComplete = asyncHandler(async (req, res) => {
   }
 });
 
-// @route   DELETE /orders/:id
+// @route   DELETE /admin/orders/:id
 // @desc    Delete an Order
 // @access  Private/Admin
 export const deleteOrder = asyncHandler(async (req, res) => {
