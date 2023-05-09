@@ -1,3 +1,11 @@
+.ml {
+  margin-left: 1rem;
+}
+
+.mr {
+  margin-right: 0.2rem;
+}
+
 #pay {
   width: 90%;
   margin: auto;
@@ -14,14 +22,10 @@
 
 #pay #info #address {
   color: orange;
-  margin-left: 1rem;
-  margin-right: 0.2rem;
 }
 
 #pay #info #amount {
   color: green;
-  margin-left: 1rem;
-  margin-right: 0.2rem;
 }
 
 #pay form button {
@@ -30,7 +34,6 @@
   border-radius: 5px;
   color: #f4f4f4;
   color: black;
-  /* font-weight: bold; */
   font-size: 1rem;
   background-color: orange;
   cursor: pointer;

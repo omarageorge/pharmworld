@@ -2,8 +2,9 @@
 
 <section id="pay">
     <div id="info">
-        <span><strong>Bitcoin address: </strong><span id="address"><%= data.address %></span></span>
-        <span><strong>Bitcoin Amount: </strong><span id="amount"><%= data.amount %></span>BTC</span>
+        <span><strong>Bitcoin address: </strong><span id="address" class="ml mr"><%= data.address %></span></span>
+        <span><strong>Bitcoin Amount: </strong><span id="amount" class="ml mr"><%= data.amount %></span>USD &#8776; <span id="amount" class="mr"><%= data.btcAmount %></span>BTC</span>
+        
     </div>
 
     <img src="<%= data.qrCodeImg %>">

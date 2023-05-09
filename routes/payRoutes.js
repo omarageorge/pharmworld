@@ -7,9 +7,9 @@ const router = Router();
 
 router.use(ensureAuthenticated);
 
-// @route   GET /pay/:id
+// @route   POST /pay
 // @desc    Render payment page
 // @access  Private/User
-router.get('/', paymentPage);
+router.post('/', paymentPage);
 
 export default router;

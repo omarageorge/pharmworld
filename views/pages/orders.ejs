@@ -27,7 +27,12 @@
               <td class="actions">
                 <!-- Payment url -->
                 <% if (order.paid === false) { %>
-                  <a href="/pay/?order=<%= order._id %>&amount=<%= order.totalPrice %>">Pay</a>
+                  <form method="POST" action="/pay">
+                    <input type="hidden" name="order" value="<%= order._id %>">
+                    <input type="hidden" name="amount" value="<%= order.totalPrice%>">
+                    <input type="hidden" name="message" value="Payment from <%= order.user.name %>">
+                    <button type="submit" class="pay">Pay</button>
+                  </form>
                 <% } %>
                 
                 <!-- View order -->
@@ -36,7 +41,7 @@
                 <!-- Cancel order button -->
                 <% if (order.paid === false) { %>
                   <form method="POST" action="/orders/<%= order._id %>?_method=DELETE">
-                    <button>Cancel Order</button>
+                    <button class="cancel">Cancel Order</button>
                   </form>
                 <% } %>
               </td>
