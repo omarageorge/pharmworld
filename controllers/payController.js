@@ -9,23 +9,27 @@ const coinGeckoClient = new CoinGecko();
 // @desc    Render payment page
 // @access  Private/User
 export const paymentPage = asyncHandler(async (req, res) => {
+  // Retrieve formData
   const { order, amount, message } = req.body;
 
+  // BTC address
   const BTC_ADDRESS = process.env.BTC_ADDRESS;
 
   // COnvert BTC TO USD
-  const btcAmount = await convertUSDToBTC(amount);
+  const btcAmount = await convertUSDToBTC(parseFloat(amount));
 
   // QRCodeData
   const qrCodeData = `bitcoin:${BTC_ADDRESS}?amount=${btcAmount}&message=${encodeURIComponent(
     message
   )}`;
 
+  // Width and Height of the QRCode image
   const options = {
     width: 250,
     height: 250,
   };
 
+  // Generate the QRCode image
   QRCode.toDataURL(qrCodeData, options, async (err, qrCodeImg) => {
     const data = {
       order,
@@ -35,8 +39,10 @@ export const paymentPage = asyncHandler(async (req, res) => {
       btcAmount,
     };
 
+    // Retrieve cart items
     const cart = await cartItems(req);
 
+    // Render page
     res.render('pages/pay', {
       title: 'Pay',
       user: req.isAuthenticated() ? req.user : '',
@@ -48,6 +54,7 @@ export const paymentPage = asyncHandler(async (req, res) => {
 });
 
 /* Helper Functions */
+// Retrieve cart items
 async function cartItems(req) {
   const cart = await Cart.findOne({ user: req.user._id })
     .populate('user', 'name email')
@@ -59,6 +66,7 @@ async function cartItems(req) {
   return cartItems;
 }
 
+// convert USD to BTC
 async function convertUSDToBTC(amount) {
   const response = await coinGeckoClient.coins.fetch('bitcoin', {});
   const btcPrice = response.data.market_data.current_price.usd;
