@@ -150,6 +150,7 @@ export const markOrderPaid = asyncHandler(async (req, res) => {
   }
 });
 
+//! BUG: When order is canceled, the number of items deducted are not restored to the countInStock for each item.
 // @route   DELETE /admin/orders/:id
 // @desc    Delete an Order
 // @access  Private/Admin
