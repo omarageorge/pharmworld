@@ -14,7 +14,7 @@ export const paymentPage = asyncHandler(async (req, res) => {
 
   // BTC address
   const BTC_ADDRESS = process.env.BTC_ADDRESS;
-
+  
   // COnvert BTC TO USD
   const btcAmount = await convertUSDToBTC(parseFloat(amount));
 
