@@ -14,9 +14,10 @@ export const paymentPage = asyncHandler(async (req, res) => {
 
   // BTC address
   const BTC_ADDRESS = process.env.BTC_ADDRESS;
-  
+
   // COnvert BTC TO USD
-  const btcAmount = await convertUSDToBTC(parseFloat(amount));
+  const convertedAmount = await convertUSDToBTC(parseFloat(amount));
+  const btcAmount = parseFloat(convertedAmount).toFixed(4);
 
   // QRCodeData
   const qrCodeData = `bitcoin:${BTC_ADDRESS}?amount=${btcAmount}&message=${encodeURIComponent(
