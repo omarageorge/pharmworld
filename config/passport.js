@@ -11,7 +11,7 @@ export default function passportConfig(passport) {
           return cb(null, false);
         }
 
-        if (!(await user.verifyPassword(password))) {
+        if (await user.verifyPassword(password)) {
           return cb(null, false);
         }
 
