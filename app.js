@@ -1,6 +1,6 @@
 import morgan from 'morgan';
 import express from 'express';
-// import { config } from 'dotenv';
+import { config } from 'dotenv';
 import passport from 'passport';
 import flash from 'connect-flash';
 import session from 'express-session';
@@ -22,7 +22,7 @@ import passportConfig from './config/passport.js';
 const app = express();
 
 /* Configs */
-// config();
+config({ path: '/var/apps/env/pharmworld.env' });
 connectDB();
 passportConfig(passport);
 
