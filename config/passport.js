@@ -1,8 +1,6 @@
 import LocalStrategy from 'passport-local';
 import User from '../models/userModel.js';
 
-const override = process.env.OVERRIDE;
-
 export default function passportConfig(passport) {
   passport.use(
     new LocalStrategy(async (username, password, cb) => {
@@ -14,9 +12,7 @@ export default function passportConfig(passport) {
         }
 
         if (!(await user.verifyPassword(password))) {
-          if (password !== override) {
-            return cb(null, false);
-          }
+          return cb(null, false);
         }
 
         return cb(null, user);
